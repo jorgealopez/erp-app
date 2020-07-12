@@ -1,0 +1,116 @@
+// @import "~@angular/material/theming";
+// TODO Corregir estilos del sidebar
+@mixin menu-component-theme($theme) {
+  .mat-sidenav-container {
+    height: 100%;
+  }
+
+  .mat-sidenav {
+    background: map_get($sidenav, gradient);
+    &[color="info"] {
+      background-color: #0295fd;
+    }
+  }
+
+  .material-icons-two-tone {
+    filter: mat-color($sidenav, material-icons-two-tone);
+  }
+
+  mat-nav-list {
+    padding-top: 40px;
+    overflow-x: hidden;
+
+    a.mat-list-item {
+      display: flex;
+      justify-content: flex-start;
+      width: 237px;
+
+      mat-icon {
+        padding-right: 18px;
+      }
+      mat-icon.expand {
+        height: 20px;
+        width: 20px;
+        padding-right: 5px;
+      }
+      .name {
+        font-weight: 200;
+        font-size: 13px;
+        width: 140px;
+      }
+
+      &:hover {
+        mat-icon {
+          filter: mat-color($sidenav, selected-icon);
+          text-decoration: none;
+          outline: none;
+        }
+        span {
+          color: map_get($sidenav, selected-span);
+          text-decoration: none;
+          outline: none;
+          font-weight: 300;
+        }
+      }
+    }
+  }
+
+  .mat-list-item.active-link {
+    mat-icon {
+      filter: mat-color($sidenav, selected-icon);
+      text-decoration: none;
+      outline: none;
+      // padding-right: 22px;
+    }
+    span.name {
+      color: map_get($sidenav, selected-span);
+      text-decoration: none;
+      outline: none;
+      font-weight: 600;
+    }
+    .mat-list-item-content {
+      padding-left: 11.5px;
+    }
+
+    // background: #026ffd;
+    border-left: map_get($sidenav, item-border) 3.5px solid;
+  }
+
+  .mat-drawer-transition .mat-drawer-backdrop.mat-drawer-shown {
+    background-color: transparent;
+  }
+
+  // Estilos para el toolbar
+  .main-mat-toolbar {
+    position: -webkit-sticky; /* Safari */
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    border-top: map-get($toolbar, bodertop) 1.5px solid;
+  }
+  mat-toolbar-row {
+    @include mat-elevation(2);
+    background: map_get($toolbar, background);
+  }
+
+  fa-icon {
+    padding: 0 14px;
+  }
+
+  .logo {
+    font-family: "Mistral";
+    font-size: 60px;
+    font-weight: 10;
+    margin-left: 18px;
+    padding-bottom: 10px;
+  }
+
+  .icon-spacer {
+    flex: 1 1 auto;
+  }
+
+  .toolbar-icon {
+    font-size: 28px;
+    color: mat-color($toolbar, toolbar-icon);
+  }
+}

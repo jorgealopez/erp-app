@@ -1,1 +1,141 @@
 /* You can add global styles to this file, and also import other style files */
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@import "../node_modules/@angular/material/theming";
+// @import "./theme.scss";
+@include mat-core();
+@import "./app/@themes/space-cadet-dark/space-cadet-dark-theme";
+@import "./app/@themes/theme2/theme2";
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  // overflow: hidden;
+  // max-width: 100%;
+  // max-height: 100%;
+}
+
+// // Fuentes
+// @font-face {
+//   font-family: "Mistral";
+//   src: url("assets/fonts/MISTRAL.woff") format("woff");
+//   font-style: normal;
+//   font-weight: normal;
+// }
+
+// @font-face {
+//   font-family: "BlackJack";
+//   src: url("assets/fonts/black_jack.woff") format("woff");
+//   font-style: normal;
+//   font-weight: normal;
+// }
+
+// html,
+// body {
+//   height: 100%;
+//   /* width */
+//   ::-webkit-scrollbar {
+//     width: 2.2px;
+//   }
+
+//   /* Track */
+//   ::-webkit-scrollbar-track {
+//     background: #1a2138;
+//     border-radius: 50px;
+//   }
+
+//   /* Handle */
+//   ::-webkit-scrollbar-thumb {
+//     background: #0e111c;
+//     border-radius: 50px;
+//   }
+
+//   /* Handle on hover */
+//   ::-webkit-scrollbar-thumb:hover {
+//     background: #3366ff;
+//   }
+// }
+// body {
+//   margin: 0;
+//   font-family: Roboto, "Helvetica Neue", sans-serif;
+// }
+
+// fa-icon {
+//   padding: 0 14px;
+// }
+
+// .material-icons-two-tone {
+//   filter: invert(61%) sepia(89%) saturate(825%) hue-rotate(109deg)
+//     brightness(91%) contrast(101%);
+// }
+
+// .gradient {
+//   background: rgb(2, 0, 36);
+//   background: linear-gradient(
+//     90deg,
+//     rgba(2, 0, 36, 1) 0%,
+//     rgba(9, 9, 121, 1) 35%,
+//     rgba(0, 212, 255, 1) 100%
+//   );
+// background: linear-gradient(
+//   to right,
+//   map_get($red-salsa),
+//   map_get($minion-yellow)
+// );
+// background: linear-gradient(to right, red, blue);
+// }
+
+// $custom-typography: mat-typography-config(
+//   $font-family: "Roboto, sans-serif",
+//   $headline: mat-typography-level(32px, 48px, 700),
+//   $body-1: mat-typography-level(16px, 24px, 500),
+// );
+
+// @include mat-core($custom-typography);
+
+// @import "./themes/custom-theme";
+// @import "./themes/custom-second-theme";
+// // @import "./themes/space-cadet/space-cadet-dark-theme";
+
+// .custom-theme {
+//   @include angular-material-theme($custom-theme);
+// }
+
+// .custom-second-theme {
+//   @include angular-material-theme($custom-second-theme);
+// }
+
+// .space-cadet-dark-theme {
+//   @include angular-material-theme($space-cadet-dark-theme);
+// }
+
+// $custom-primary1: #167544;
+
+// Plus imports for other components in your app.
+
+// Override typography CSS classes (e.g., mat-h1, mat-display-1, mat-typography, etc.).
+// @include mat-base-typography($custom-typography);
+
+// Override typography for a specific Angular Material components.
+// @include mat-checkbox-typography($custom-typography);
+
+// Override typography for all Angular Material, including mat-base-typography and all components.
+// @include angular-material-typography($custom-typography);
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+
+// Create the theme object (a Sass map containing all of the palettes).
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+// @include angular-material-theme($black-admin-theme);

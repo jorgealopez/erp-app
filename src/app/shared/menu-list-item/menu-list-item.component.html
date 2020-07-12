@@ -1,0 +1,45 @@
+<!-- TODO Corregir animaciones del botón de expandir -->
+<!-- TODO Agregar a la interfaz Page el ícono de expandir -->
+
+<a
+  mat-list-item
+  (click)="onItemSelected(item)"
+  [matTooltip]="item?.tooltip"
+  [matTooltipPosition]="'after'"
+  [routerLink]="item.routerlink"
+  [ngClass]="{
+    'active-link': isActive() || parentRoute == item.name
+  }"
+>
+  <mat-icon
+    [@animateIcon]="linktext ? 'show' : 'hide'"
+    [@animateIcon]="(isHandset$ | async) ? 'show' : 'show'"
+    class="material-icons-two-tone"
+    >{{ item.icon }}</mat-icon
+  >
+  <span
+    class="name"
+    [@animateText]="linktext ? 'show' : 'hide'"
+    [@animateText]="(isHandset$ | async) ? 'show' : 'show'"
+    >{{ item.name }}</span
+  >
+  <span *ngIf="item.children && item.children.length">
+    <mat-icon
+      class="expand"
+      [@indicatorRotate]="expanded ? 'expanded' : 'collapsed'"
+      [@animateText]="linktext ? 'show' : 'hide'"
+      [@animateText]="(isHandset$ | async) ? 'show' : 'show'"
+    >
+      {{ item.expandIcon }}
+    </mat-icon>
+  </span>
+</a>
+<div *ngIf="expanded">
+  <app-menu-list-item
+    *ngFor="let child of item.children"
+    [item]="child"
+    [@animateText]="linktext ? 'show' : 'hide'"
+    [@animateText]="(isHandset$ | async) ? 'show' : 'show'"
+  >
+  </app-menu-list-item>
+</div>

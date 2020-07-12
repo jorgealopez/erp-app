@@ -1,0 +1,6 @@
+@import "./menu/menu.component.scss-theme";
+
+// @mixin que incluye los estilos personalizados para angular material
+@mixin custom-components-theme($theme) {
+  @include menu-component-theme($theme);
+}

@@ -1,0 +1,216 @@
+// @import url("https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;1,300;1,400&display=swap");
+// @import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic&amp;subset=latin-ext");
+// @import url("https://fonts.googleapis.com/css2?family=MuseoModerno:wght@200;600&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Mallanna&display=swap");
+// @import url("https://fonts.googleapis.com/css2?family=Nunito&display=swap");
+
+// @import url("https://use.typekit.net/jnq3uxd.css");
+
+// @import "~@angular/material/theming";
+// @import "./themes/space-cadet/palette.scss";
+// // Plus imports for other components in your app.
+// // Include the common styles for Angular Material. We include this here so that you only
+// // have to load a single css file for Angular Material in your app.
+// // Be sure that you only ever include this mixin once!
+// // Define the palettes for your theme using the Material Design palettes available in palette.scss
+// // (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// // hue. Available color palettes: https://www.google.com/design/spec/style/color.html
+// $default-primary: mat-palette($mat-red, 50);
+// $default-accent: mat-palette($mat-amber, A200, A100, A400);
+// $default-warn: mat-palette($mat-deep-orange);
+
+// $default-theme: mat-light-theme(
+//   $default-primary,
+//   $default-accent,
+//   $default-warn
+// );
+
+// .default {
+//   @include angular-material-theme($default-theme);
+// }
+
+// html,
+// body {
+//   height: 100%;
+//   /* width */
+//   ::-webkit-scrollbar {
+//     width: 2.2px;
+//   }
+
+//   /* Track */
+//   ::-webkit-scrollbar-track {
+//     background: #1a2138;
+//     border-radius: 50px;
+//   }
+
+//   /* Handle */
+//   ::-webkit-scrollbar-thumb {
+//     background: #0e111c;
+//     border-radius: 50px;
+//   }
+
+//   /* Handle on hover */
+//   ::-webkit-scrollbar-thumb:hover {
+//     background: #3366ff;
+//   }
+// }
+// body {
+//   margin: 0;
+//   font-family: Roboto, "Helvetica Neue", sans-serif;
+// }
+
+// fa-icon {
+//   padding: 0 14px;
+// }
+
+// .material-icons-two-tone {
+//   filter: invert(61%) sepia(89%) saturate(825%) hue-rotate(109deg)
+//     brightness(91%) contrast(101%);
+// }
+
+// ////////////////////////////////////////////////////////////////////
+// // ZEUS (138 lines)
+// ////////////////////////////////////////////////////////////////////
+
+// // $theme-font-family: '"Rubik", sans-serif';
+// $theme-font-family: "Nunito";
+
+// $zeus-typography: mat-typography-config(
+//   $font-family: $theme-font-family,
+// );
+
+// @function space-cadet-dark-theme($primary, $accent, $warn) {
+//   @return (
+//     primary: $primary,
+//     accent: $accent,
+//     warn: $warn,
+//     is-dark: true,
+//     foreground: $space-cadet-dark-theme-foreground,
+//     background: $space-cadet-dark-theme-background
+//   );
+// }
+
+// // $zeus-theme: mat-dark-theme(
+// //   mat-palette($space-cadet-dark-theme-primary),
+// //   mat-palette($space-cadet-dark-theme-accent),
+// //   mat-palette($space-cadet-dark-theme-warn)
+// // );
+// $zeus-theme: space-cadet-dark-theme(
+//   mat-palette($primary-blue, 500),
+//   mat-palette($space-green, 400),
+//   mat-palette($danger, 500)
+// );
+
+// .space-cadet-dark-theme {
+//   @include angular-material-theme($zeus-theme);
+//   @include angular-material-typography($zeus-typography);
+
+//   $background: mat-color($dark-background-1, 300);
+//   $primary: mat-color($primary-blue, 300);
+//   // $accent: mat-color($mat-yellow, 500);
+//   // $warn: mat-color($mat-red, 500);
+
+//   a,
+//   a:hover,
+//   a:hover span {
+//     color: $primary;
+//     text-decoration: none;
+//     outline: none;
+//   }
+//   h1,
+//   h4,
+//   h3,
+//   h5,
+//   h6,
+//   h7 {
+//     color: $primary;
+//   }
+
+//   h2 {
+//     // color: $accent;
+//     font-family: $theme-font-family !important;
+//     color: map_get($primary-blue, 500);
+//   }
+//   // override native angular-material classes here:
+//   .mat-raised-button,
+//   .mat-button {
+//     border-radius: 0.25rem;
+//     border-style: solid;
+//     border-width: 0.5rem;
+//     border-color: $background;
+//     // border-top-left-radius: 1px;
+//     // border-bottom-right-radius: 1px;
+
+//     // &:hover {
+//     //   border-style: solid;
+//     //   border-color: red;
+//     //   // border-color: $primary;
+//     // }
+//   }
+//   .mat-raised-button {
+//     @include mat-elevation(5);
+//     border-width: 1.5px;
+//     // border-style: dotted;
+//     // border-color: red;
+//     &:hover {
+//       border-color: $primary;
+//     }
+//   }
+
+//   .mat-raised-button.back {
+//     color: $light-primary-text;
+//     background-color: mat-color($mat-grey, A700);
+//   }
+//   // .mat-checkbox.mat-checkbox-checked {
+//   //   color: $light-primary-text;
+//   //   // background-color: $accent;
+//   // }
+//   // .mat-checkbox .mat-checkbox-inner-container {
+//   //   display: none;
+//   // }
+//   // .mat-checkbox {
+//   //   color: $light-primary-text;
+//   //   // background-color: $primary;
+//   //   border-radius: 5px;
+//   //   box-sizing: border-box;
+//   //   position: relative;
+//   //   -webkit-user-select: none;
+//   //   -moz-user-select: none;
+//   //   -ms-user-select: none;
+//   //   user-select: none;
+//   //   cursor: pointer;
+//   //   outline: 0;
+//   //   border: none;
+//   //   -webkit-tap-highlight-color: transparent;
+//   //   display: inline-block;
+//   //   white-space: nowrap;
+//   //   text-decoration: none;
+//   //   vertical-align: baseline;
+//   //   text-align: center;
+//   //   margin: 0;
+//   //   margin-right: 0px;
+//   //   margin-bottom: 0px;
+//   //   min-width: 88px;
+//   //   line-height: 36px;
+//   //   padding: 0 1px;
+//   //   overflow: visible;
+//   // }
+//   .mat-card {
+//     margin: 15px 10px 15px 10px;
+//     border-radius: 3px 3px;
+//   }
+//   .mat-card.mat-card-accent {
+//     // background-color: $accent;
+//     color: $dark-primary-text;
+//   }
+//   .mat-card.mat-card-warn {
+//     // background-color: $warn;
+//     color: $light-primary-text;
+//   }
+//   .mat-toolbar {
+//     // @extend .mat-primary;
+//     @include mat-elevation(15);
+//   }
+// }
