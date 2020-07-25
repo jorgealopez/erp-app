@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "desarrollo-7ce3b": {
+      "hosting": {
+        "ficheros": [
+          "desarrollo-7ce3b"
+        ]
+      }
+    }
+  }
+}

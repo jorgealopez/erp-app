@@ -4,7 +4,11 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { HeaderComponent } from './navigation/header/header.component';
+
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { EffectsModule } from '@ngrx/effects';
+
 import { MenuComponent } from './menu/menu.component';
 import { HomeComponent } from './home/home.component';
 
@@ -41,12 +45,14 @@ import { SidenavService } from './services/sidenav.service';
 import { SharedModule } from './shared/shared.module';
 import { MaterialModule } from './material.module';
 import { environment } from '../environments/environment';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, MenuComponent, HomeComponent],
+  declarations: [AppComponent, MenuComponent, HomeComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    AuthModule,
     BrowserAnimationsModule,
     SharedModule,
     FontAwesomeModule,
@@ -56,6 +62,12 @@ import { environment } from '../environments/environment';
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    StoreModule.forRoot({}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25,
+      logOnly: environment.production,
+    }),
+    EffectsModule.forRoot([]),
   ],
   providers: [SidenavService],
   bootstrap: [AppComponent],

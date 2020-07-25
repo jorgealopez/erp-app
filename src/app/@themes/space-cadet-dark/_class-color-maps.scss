@@ -30,7 +30,7 @@ $theme-background: (
     // disabled-button-toggle: black,
     // unselected-chip: map_get($mat-grey, 700),
     // disabled-list-option: black,
-    // tooltip: map_get($mat-grey, 700),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+    // tooltip: map_get($mat-grey, 700),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 );
 
 // Foreground palette for dark themes.
@@ -64,7 +64,7 @@ $theme-foreground: (
     // text: white,
     // slider-min: white,
     // slider-off: rgba(white, 0.3),
-    // slider-off-active: rgba(white, 0.3),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+    // slider-off-active: rgba(white, 0.3),,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
 );
 
 // Clases extra a las de angular material,
@@ -83,5 +83,12 @@ $toolbar: (
   toolbar-icon: white,
   background: map_get($primary-background, 500),
   bodertop: map_get($primary, 500)
-    // header-toolbar-icon: $danger,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+    // header-toolbar-icon: $danger,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,
+);
+
+$signup-form: (
+  mat-icon: white,
+  button: map_get($accent, 600),
+  login-link: map_get($default, 500),
+  terms-label: map_get($primary, 500),
 );

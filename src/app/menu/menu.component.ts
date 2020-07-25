@@ -18,6 +18,11 @@ import { Page, ITEM_LIST } from '../@menu-item-list/item-list';
   animations: [onSideNavChange, onMainContentChange, animateLogo],
 })
 export class MenuComponent {
+  sideNavState = false;
+  linkText = false;
+  onSideNavChange: boolean;
+  pages: Page[] = ITEM_LIST;
+
   constructor(
     private breakpointObserver: BreakpointObserver,
     private sidenavService: SidenavService
@@ -28,18 +33,18 @@ export class MenuComponent {
     });
 
     breakpointObserver
-      .observe([Breakpoints.XLarge, Breakpoints.Large, Breakpoints.Medium])
+      .observe([
+        Breakpoints.XLarge,
+        Breakpoints.Large,
+        Breakpoints.Medium,
+        Breakpoints.TabletLandscape,
+      ])
       .subscribe((result) => {
         if (result.matches) {
-          this.activateHandsetLayout();
+          this.activateLargeLayout();
         }
       });
   }
-
-  public sideNavState = false;
-  public linkText = false;
-  public onSideNavChange: boolean;
-  public pages: Page[] = ITEM_LIST;
 
   isHandset$: Observable<boolean> = this.breakpointObserver
     .observe(Breakpoints.Handset)
@@ -57,7 +62,7 @@ export class MenuComponent {
     this.sidenavService.sideNavState$.next(this.sideNavState);
   }
 
-  activateHandsetLayout() {
+  activateLargeLayout() {
     console.log('large');
     this.sideNavState = this.sideNavState;
     this.sideNavState = !this.sideNavState;

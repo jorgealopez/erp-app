@@ -1,0 +1,88 @@
+@mixin signup-component-theme($theme) {
+  section {
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    padding-bottom: 30px;
+    background: url("~src/assets/images/signup14.jpg");
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    mat-card {
+      width: 400px;
+      height: 550px;
+
+      mat-card-header {
+        display: flex;
+        flex-direction: column;
+
+        mat-card-title {
+          text-align: center;
+        }
+      }
+
+      mat-card-actions {
+        button {
+          margin-left: 25px;
+          margin-bottom: 10px;
+          mat-icon {
+            color: mat-color($signup-form, mat-icon);
+          }
+        }
+      }
+
+      mat-card-content {
+        form {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+
+          mat-form-field {
+            width: 350px;
+            flex-grow: 1;
+            align-self: center;
+            padding-bottom: 18px;
+          }
+
+          mat-checkbox {
+            align-self: center;
+            margin-top: 15px;
+            font-size: 10.5px;
+            a {
+              color: mat-color($signup-form, terms-label);
+              font-weight: 600;
+            }
+          }
+
+          button {
+            width: 125px;
+            margin-top: 20px;
+            align-self: center;
+            background-color: mat-color($signup-form, button) !important;
+          }
+
+          p {
+            margin-top: 15px;
+            align-self: center;
+            font-size: 11px;
+
+            a {
+              color: mat-color($signup-form, login-link);
+              text-decoration: none;
+              padding-left: 5px;
+              font-size: 13px;
+              font-weight: 600;
+              &:hover {
+                color: white;
+              }
+              mat-icon {
+                padding-left: 2px;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
