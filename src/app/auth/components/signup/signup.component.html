@@ -1,4 +1,4 @@
-<section>
+<section class="signup">
   <mat-card>
     <mat-card-actions>
       <button mat-button [routerLink]="['/']">
@@ -45,7 +45,7 @@
           <mat-error>El password debe contener al menos 6 caracteres</mat-error>
         </mat-form-field>
         <mat-checkbox formControlName="checkbox"
-          >{{ checkboxLabel }}
+        >{{ checkboxLabel }}
           <a [routerLink]="['/']">{{ termsLabel }}</a></mat-checkbox
         >
         <button type="submit" mat-raised-button>
@@ -54,7 +54,9 @@
         <p>
           {{ alreadyAnAcountLabel }}
           <a [routerLink]="['/login']">
-            {{ logInLinkLabel }} <mat-icon>{{ loginIcon }}</mat-icon></a
+            {{ logInLinkLabel }}
+            <mat-icon>{{ loginIcon }}</mat-icon>
+          </a
           >
         </p>
       </form>

@@ -1,64 +1,68 @@
-import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { EffectsModule } from '@ngrx/effects';
-
-import { MenuComponent } from './menu/menu.component';
-import { HomeComponent } from './home/home.component';
-
 import { AngularFireModule } from '@angular/fire';
+import { AngularFireAuthModule } from '@angular/fire/auth';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
-import { AngularFireAuthModule } from '@angular/fire/auth';
+import { FormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import {
-  FontAwesomeModule,
-  FaIconLibrary,
   FaConfig,
+  FaIconLibrary,
+  FontAwesomeModule,
 } from '@fortawesome/angular-fontawesome';
+import { faGithub } from '@fortawesome/free-brands-svg-icons';
+import {
+  faAddressBook,
+  faBell,
+  faEnvelope,
+  faStar as farStar,
+  faUser,
+} from '@fortawesome/free-regular-svg-icons';
 
 import {
   faCoffee,
-  faSearch,
   faFillDrip,
+  faSearch,
+  faShoePrints,
+  faStar as fasStar,
   faUserAstronaut,
   faUserCog,
-  faShoePrints,
 } from '@fortawesome/free-solid-svg-icons';
-import { faBell } from '@fortawesome/free-regular-svg-icons';
-import {
-  faAddressBook,
-  faUser,
-  faEnvelope,
-} from '@fortawesome/free-regular-svg-icons';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import { faStar as farStar } from '@fortawesome/free-regular-svg-icons';
-import { faStar as fasStar } from '@fortawesome/free-solid-svg-icons';
-import { FormsModule } from '@angular/forms';
+import { EffectsModule } from '@ngrx/effects';
+
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { environment } from '../environments/environment';
+
+import { AppRoutingModule } from './app-routing.module';
+import { AppComponent } from './app.component';
+import { AuthModule } from './auth/auth.module';
+import { EmployeesModule } from './employees/employees.module';
+import { HomeComponent } from './home/home.component';
+import { MaterialModule } from './material.module';
+
+import { MenuComponent } from './menu/menu.component';
 import { SidenavService } from './services/sidenav.service';
 import { SharedModule } from './shared/shared.module';
-import { MaterialModule } from './material.module';
-import { environment } from '../environments/environment';
-import { AuthModule } from './auth/auth.module';
+import { IonicModule } from '@ionic/angular';
 
 @NgModule({
-  declarations: [AppComponent, MenuComponent, HomeComponent],
+  declarations: [ AppComponent, MenuComponent, HomeComponent ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     AuthModule,
+    EmployeesModule,
     BrowserAnimationsModule,
     SharedModule,
     FontAwesomeModule,
     FormsModule,
     MaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
@@ -68,9 +72,10 @@ import { AuthModule } from './auth/auth.module';
       logOnly: environment.production,
     }),
     EffectsModule.forRoot([]),
+    IonicModule.forRoot(),
   ],
-  providers: [SidenavService],
-  bootstrap: [AppComponent],
+  providers: [ SidenavService ],
+  bootstrap: [ AppComponent ],
 })
 export class AppModule {
   constructor(fasIconLibrary: FaIconLibrary, faConfig: FaConfig) {
@@ -89,7 +94,7 @@ export class AppModule {
       faFillDrip,
       faUserAstronaut,
       faUserCog,
-      faShoePrints
+      faShoePrints,
     );
     faConfig.defaultPrefix = 'fas';
   }

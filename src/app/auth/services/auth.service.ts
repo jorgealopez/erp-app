@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { from, Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { SignupRequestInterface } from '../types/signupRequest.interface';
+import { LoginRequestInterface } from '../types/loginRequest.interface';
 import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
 import { AuthResponseInterface } from '../types/authResponse.interface';
-import { of, from, Observable } from 'rxjs';
-
-import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AuthService {
@@ -14,12 +14,11 @@ export class AuthService {
 
   getUser(response: AuthResponseInterface): CurrentUserInterface {
     console.log(response.user);
-    const a: CurrentUserInterface = {
+    const userResponse: CurrentUserInterface = {
       email: response.user.email,
       uid: response.user.uid,
     };
-    // return response.user;
-    return a;
+    return userResponse;
   }
 
   signup(authData: SignupRequestInterface): Observable<CurrentUserInterface> {
@@ -31,32 +30,16 @@ export class AuthService {
     ).pipe(map(this.getUser));
   }
 
-  // .then((result) => {
-  //   return from(
-  //     (this.user = {
-  //       uid: result.user.uid,
-  //       email: result.user.email,
-  //     })
-  //   )
-  //     .pipe(map((a) => this.getUser))
-  //     .subscribe();
-  // });
+  login(authData: LoginRequestInterface): Observable<CurrentUserInterface> {
+    return from(
+      this.afAuth.signInWithEmailAndPassword(
+        authData.user.email,
+        authData.user.password
+      )
+    ).pipe(map(this.getUser));
+  }
 
-  // .then((result) => {
-  //   console.log(result.user);
-  // })
-  // .catch((error) => {
-  //   console.log(`error ${error}`);
-  // });
-  // registerWithEmail(
-  //   authData: SignupRequestInterface
-  // ): Promise<firebase.auth.UserCredential> {
-  //   console.log('signup called');
-  //   return this.afAuth
-  //     .createUserWithEmailAndPassword(
-  //       authData.user.email,
-  //       authData.user.password
-  //     )
-  //     .then((result) => {});
-  // }
+  logout(): Observable<void> {
+    return from(this.afAuth.signOut());
+  }
 }

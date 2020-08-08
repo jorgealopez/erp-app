@@ -3,9 +3,9 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { SignupRequestInterface } from '../../types/signupRequest.interface';
 import { Store } from '@ngrx/store';
 import { signupAction } from '../../store/actions/signup.actions';
-import { AngularFireAuth } from '@angular/fire/auth';
 
 @Component({
+
   selector: 'app-signup',
   templateUrl: './signup.component.html',
   styleUrls: ['./signup.component.scss'],
@@ -30,13 +30,10 @@ export class SignupComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor(
-    private fb: FormBuilder,
-    private store: Store,
-    private afAuth: AngularFireAuth
-  ) {}
+  constructor(private fb: FormBuilder, private store: Store) {}
 
   ngOnInit(): void {
+
     this.initializeForm();
     this.initializeLabelsandHints();
     // this.initializeValues();

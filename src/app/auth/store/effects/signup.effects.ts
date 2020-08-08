@@ -1,28 +1,21 @@
 import { Injectable } from '@angular/core';
 import { createEffect, Actions, ofType } from '@ngrx/effects';
-import {
-  map,
-  catchError,
-  switchMap,
-  tap,
-  mergeMap,
-  flatMap,
-} from 'rxjs/operators';
+import { map, catchError, switchMap, tap } from 'rxjs/operators';
 
 import {
   signupAction,
   signupSuccessAction,
   signupFailureAction,
+  logoutAction,
 } from '../actions/signup.actions';
 
 import { AuthService } from '../../services/auth.service';
 import { CurrentUserInterface } from '../../../shared/types/currentUser.interface';
-import { of, from, Observable } from 'rxjs';
+import { of } from 'rxjs';
 import { Router } from '@angular/router';
 
 @Injectable()
 export class SignupEffect {
-  public user: firebase.User;
   constructor(
     private actions$: Actions,
     private authService: AuthService,
@@ -57,6 +50,23 @@ export class SignupEffect {
         tap(() => {
           console.log('redirect');
           this.router.navigateByUrl('/');
+        })
+      ),
+    { dispatch: false }
+  );
+
+  // logActions$ = createEffect(
+  //   () => this.actions$.pipe(tap((action) => console.log(action))),
+  //   { dispatch: false }
+  // );
+
+  logout$ = createEffect(
+    () =>
+      this.actions$.pipe(
+        ofType(logoutAction),
+        tap(() => {
+          console.log('logout');
+          return this.authService.logout();
         })
       ),
     { dispatch: false }

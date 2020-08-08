@@ -9,6 +9,12 @@ import {
 } from '../animations/animations';
 import { SidenavService } from '../services/sidenav.service';
 import { Page, ITEM_LIST } from '../@menu-item-list/item-list';
+import { AuthService } from '../auth/services/auth.service';
+import { logoutAction } from '../auth/store/actions/signup.actions';
+
+import { Store, select } from '@ngrx/store';
+import { CurrentUserInterface } from '../shared/types/currentUser.interface';
+import { isLoggedInSelector } from '../auth/store/selectors';
 
 @Component({
   selector: 'app-menu',
@@ -22,15 +28,19 @@ export class MenuComponent {
   linkText = false;
   onSideNavChange: boolean;
   pages: Page[] = ITEM_LIST;
+  isLoggedIn$: Observable<boolean>;
 
   constructor(
     private breakpointObserver: BreakpointObserver,
-    private sidenavService: SidenavService
+    private sidenavService: SidenavService,
+    private store: Store
   ) {
     this.sidenavService.sideNavState$.subscribe((res) => {
       console.log(res);
       this.onSideNavChange = res;
     });
+
+    this.isLoggedIn$ = this.store.pipe(select(isLoggedInSelector));
 
     breakpointObserver
       .observe([
@@ -68,5 +78,14 @@ export class MenuComponent {
     this.sideNavState = !this.sideNavState;
     this.sidenavService.sideNavState$.next(this.sideNavState);
     this.linkText = this.sideNavState;
+  }
+
+  logout() {
+    const currentUser: CurrentUserInterface = {
+      email: null,
+      uid: null,
+    };
+    this.store.dispatch(logoutAction());
+    // this.authService.logout();
   }
 }

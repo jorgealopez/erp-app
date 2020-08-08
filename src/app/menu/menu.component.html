@@ -46,17 +46,44 @@
       >peritenis</span
     >
     <span class="icon-spacer"></span>
-    <!-- <mat-icon
-      fontSet="material-icons-two-tone"
-      aria-hidden="search"
-      aria-label="Example heart icon"
-      color="accent"
-      >account_circle</mat-icon
-    > -->
-    <!-- <mat-icon class="material-icons-outlined" color="accent"
-      >search</mat-icon
-    > -->
-    <fa-icon class="header-toolbar-icon" [icon]="['fas', 'search']"></fa-icon>
+    <!-- <mat-icon class="material-icons-outlined">search</mat-icon> -->
+
+    <button
+      *ngIf="isLoggedIn$ | async"
+      type="button"
+      aria-label="Logout"
+      mat-icon-button
+      (click)="logout()"
+    >
+      <a>
+        <mat-icon
+          class="toolbar-icon"
+          aria-hidden="search"
+          aria-label="Example heart icon"
+          >account_circle</mat-icon
+        >
+      </a>
+    </button>
+
+    <button
+      *ngIf="!(isLoggedIn$ | async)"
+      type="button"
+      aria-label="Logout"
+      mat-icon-button
+      (click)="logout()"
+    >
+      <a>
+        <mat-icon
+          class="toolbar-icon"
+          aria-hidden="search"
+          aria-label="Example heart icon"
+          >login</mat-icon
+        >
+      </a>
+    </button>
+
+    <!-- <mat-icon class="material-icons-outlined">settings</mat-icon> -->
+    <!-- <fa-icon class="header-toolbar-icon" [icon]="['fas', 'search']"></fa-icon>
     <fa-icon
       class="header-toolbar-icon"
       [icon]="['fas', 'shoe-prints']"
@@ -64,7 +91,7 @@
     <fa-icon
       class="header-toolbar-icon"
       [icon]="['fas', 'fill-drip']"
-    ></fa-icon>
+    ></fa-icon> -->
     <!-- <fa-icon [icon]="['far', 'envelope']"></fa-icon> -->
     <!-- <fa-icon [icon]="['fas', 'user-cog']"></fa-icon>
     <fa-icon [icon]="['far', 'bell']"></fa-icon> -->

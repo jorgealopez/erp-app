@@ -36,6 +36,7 @@ const ELEMENT_DATA: PeriodicElement[] = [
   animations: [onMainContentChange],
 })
 export class AppComponent implements OnInit {
+  title = 'ficheros';
   theme = 'space-cadet-dark-theme';
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = ELEMENT_DATA;
