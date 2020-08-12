@@ -10,22 +10,22 @@ export interface Page {
 
 export const ITEM_LIST: Page[] = [
   {
-    name: 'Inbox',
+    name: 'Auth',
     icon: 'contacts',
-    tooltip: 'Inbox',
+    tooltip: 'Auth',
     expandIcon: 'expand_more',
     parent: './',
     children: [
       {
-        name: '1.1 Inbox',
-        tooltip: 'tooltip',
-        routerlink: './materiales',
+        name: '1.1 Login',
+        tooltip: 'login',
+        routerlink: './login',
         parent: 'Inbox',
       },
       {
-        name: '1.2 Inbox',
-        tooltip: 'tooltip',
-        routerlink: './',
+        name: '1.2 Signup',
+        tooltip: 'signup',
+        routerlink: './signup',
       },
     ],
   },
@@ -59,8 +59,8 @@ export const ITEM_LIST: Page[] = [
     name: 'Contactos',
     parent: 'some-parent',
     icon: 'folder_shared',
-    tooltip: 'mensaje',
-    routerlink: './home',
+    tooltip: 'employees',
+    routerlink: './employees',
   },
   {
     name: 'Starred',

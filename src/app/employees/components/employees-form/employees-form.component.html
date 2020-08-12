@@ -1,0 +1,51 @@
+<section class="form">
+  <mat-card>
+    <mat-card-actions>
+      <button [routerLink]="['/']" mat-button>
+        <mat-icon>{{ icon }}</mat-icon>
+      </button>
+      <mat-divider></mat-divider>
+    </mat-card-actions>
+    <mat-card-header>
+      <mat-card-title>{{ titleLabel }}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="onSubmit()" [formGroup]="form">
+        <mat-form-field appearance="outline">
+          <mat-label>{{ usernameLabel }}</mat-label>
+          <input
+              formControlName="name"
+              matInput
+              placeholder="{{ usernameLabel }}"
+              type="text"
+          />
+          <mat-hint>{{ usernameHint }}</mat-hint>
+        </mat-form-field>
+<!--        <mat-form-field appearance="outline">-->
+<!--          <mat-label>{{ emailLabel }}</mat-label>-->
+<!--          <input-->
+<!--              formControlName="id"-->
+<!--              matInput-->
+<!--              placeholder="{{ emailLabel }}"-->
+<!--              type="text"-->
+<!--          />-->
+<!--          <mat-hint>{{ emailHint }}</mat-hint>-->
+<!--          <mat-error>El campo no debe estar vacío.</mat-error>-->
+<!--          <mat-error>El e-mail no es válido.</mat-error>-->
+<!--        </mat-form-field>-->
+        <button mat-raised-button type="submit">
+          {{ buttonLabel }}
+        </button>
+        <p>
+          {{ alreadyAnAcountLabel }}
+          <a [routerLink]="['/login']">
+            {{ logInLinkLabel }}
+            <mat-icon>{{ loginIcon }}</mat-icon>
+          </a
+          >
+        </p>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</section>
+

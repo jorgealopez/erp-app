@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { OverlayContainer } from '@angular/cdk/overlay';
+import { Component, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -29,11 +30,12 @@ export class MenuComponent {
   onSideNavChange: boolean;
   pages: Page[] = ITEM_LIST;
   isLoggedIn$: Observable<boolean>;
+  // theme = 'space-cadet-dark-theme';
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private sidenavService: SidenavService,
-    private store: Store
+    private store: Store,
   ) {
     this.sidenavService.sideNavState$.subscribe((res) => {
       console.log(res);
@@ -87,5 +89,25 @@ export class MenuComponent {
     };
     this.store.dispatch(logoutAction());
     // this.authService.logout();
+  }
+
+  changeTheme(): void {
+    // console.log(this.theme);
+    // this.theme = 'theme2';
+    // const overlayContainerClasses = this.overlayContainer.getContainerElement()
+    //   .classList;
+    // const themeClassesToRemove = Array.from(
+    //   overlayContainerClasses
+    // ).filter((item: string) => item.includes('-theme'));
+    //
+    // if (themeClassesToRemove.length) {
+    //   overlayContainerClasses.remove(...themeClassesToRemove);
+    // }
+    // overlayContainerClasses.add(this.theme);
+  }
+
+  ngOnInit() {
+    // this.overlayContainer.getContainerElement().classList.add(this.theme);
+    // console.log(this.theme);
   }
 }

@@ -1,131 +1,146 @@
-<mat-toolbar class="main-mat-toolbar">
-  <mat-toolbar-row>
-    <button
-      *ngIf="!(isHandset$ | async)"
-      type="button"
-      aria-label="Toggle sidenav"
-      mat-icon-button
-      (click)="onSidenavToggle()"
-    >
-      <mat-icon
-        *ngIf="!sideNavState"
-        class="toolbar-icon"
-        aria-label="Side nav toggle icon"
+  <mat-toolbar class="main-mat-toolbar">
+    <mat-toolbar-row>
+      <button
+          *ngIf="!(isHandset$ | async)"
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="onSidenavToggle()"
+      >
+        <mat-icon
+            *ngIf="!sideNavState"
+            class="toolbar-icon"
+            aria-label="Side nav toggle icon"
         >menu</mat-icon
-      >
-      <mat-icon
-        *ngIf="sideNavState"
-        class="toolbar-icon"
-        aria-label="Side nav toggle icon"
+        >
+        <mat-icon
+            *ngIf="sideNavState"
+            class="toolbar-icon"
+            aria-label="Side nav toggle icon"
         >menu_open</mat-icon
+        >
+      </button>
+      <button
+          *ngIf="isHandset$ | async"
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="sidenav.toggle()"
       >
-    </button>
-    <button
-      *ngIf="isHandset$ | async"
-      type="button"
-      aria-label="Toggle sidenav"
-      mat-icon-button
-      (click)="sidenav.toggle()"
-    >
-      <mat-icon
-        *ngIf="!sidenav.opened"
-        class="toolbar-icon"
-        aria-label="Side nav toggle icon"
+        <mat-icon
+            *ngIf="!sidenav.opened"
+            class="toolbar-icon"
+            aria-label="Side nav toggle icon"
         >menu</mat-icon
-      >
-      <mat-icon
-        *ngIf="sidenav.opened"
-        class="toolbar-icon"
-        aria-label="Side nav toggle icon"
+        >
+        <mat-icon
+            *ngIf="sidenav.opened"
+            class="toolbar-icon"
+            aria-label="Side nav toggle icon"
         >menu_open</mat-icon
-      >
-    </button>
-    <span
-      class="logo"
-      [@animateLogo]="(isHandset$ | async) ? 'handset' : 'large'"
+        >
+      </button>
+      <span
+          class="logo"
+          [@animateLogo]="(isHandset$ | async) ? 'handset' : 'large'"
       >peritenis</span
-    >
-    <span class="icon-spacer"></span>
-    <!-- <mat-icon class="material-icons-outlined">search</mat-icon> -->
+      >
+      <span class="icon-spacer"></span>
+      <!-- <mat-icon class="material-icons-outlined">search</mat-icon> -->
 
-    <button
-      *ngIf="isLoggedIn$ | async"
-      type="button"
-      aria-label="Logout"
-      mat-icon-button
-      (click)="logout()"
-    >
-      <a>
-        <mat-icon
-          class="toolbar-icon"
-          aria-hidden="search"
-          aria-label="Example heart icon"
+      <button
+          type="button"
+          aria-label="Logout"
+          mat-icon-button
+          (click)="changeTheme()"
+      >
+        <a>
+          <mat-icon
+              class="toolbar-icon"
+              aria-label="Settings"
+          >settings</mat-icon
+          >
+        </a>
+      </button>
+
+      <button
+          *ngIf="isLoggedIn$ | async"
+          type="button"
+          aria-label="Logout"
+          mat-icon-button
+          (click)="logout()"
+      >
+        <a>
+          <mat-icon
+              class="toolbar-icon"
+              aria-hidden="search"
+              aria-label="Example heart icon"
           >account_circle</mat-icon
-        >
-      </a>
-    </button>
+          >
+        </a>
+      </button>
 
-    <button
-      *ngIf="!(isLoggedIn$ | async)"
-      type="button"
-      aria-label="Logout"
-      mat-icon-button
-      (click)="logout()"
-    >
-      <a>
-        <mat-icon
-          class="toolbar-icon"
-          aria-hidden="search"
-          aria-label="Example heart icon"
+      <button
+          *ngIf="!(isLoggedIn$ | async)"
+          type="button"
+          aria-label="Logout"
+          mat-icon-button
+          (click)="logout()"
+      >
+        <a>
+          <mat-icon
+              class="toolbar-icon"
+              aria-hidden="search"
+              aria-label="Example heart icon"
           >login</mat-icon
-        >
-      </a>
-    </button>
+          >
+        </a>
+      </button>
 
-    <!-- <mat-icon class="material-icons-outlined">settings</mat-icon> -->
-    <!-- <fa-icon class="header-toolbar-icon" [icon]="['fas', 'search']"></fa-icon>
-    <fa-icon
-      class="header-toolbar-icon"
-      [icon]="['fas', 'shoe-prints']"
-    ></fa-icon>
-    <fa-icon
-      class="header-toolbar-icon"
-      [icon]="['fas', 'fill-drip']"
-    ></fa-icon> -->
-    <!-- <fa-icon [icon]="['far', 'envelope']"></fa-icon> -->
-    <!-- <fa-icon [icon]="['fas', 'user-cog']"></fa-icon>
-    <fa-icon [icon]="['far', 'bell']"></fa-icon> -->
-  </mat-toolbar-row>
-</mat-toolbar>
-<mat-sidenav-container>
-  <mat-sidenav
-    #sidenav
-    fixedInViewport="true"
-    fixedTopGap="53"
-    autoFocus="false"
-    [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
-    [mode]="(isHandset$ | async) ? 'over' : 'side'"
-    [@onSideNavChange]="sideNavState ? 'open' : 'close'"
-    [@onSideNavChange]="(isHandset$ | async) ? 'open' : 'open'"
-    [opened]="(isHandset$ | async) ? 'false' : 'true'"
-  >
-    <mat-nav-list>
-      <app-menu-list-item
-        *ngFor="let page of pages"
-        [item]="page"
-        [linktext]="linkText"
-        [isHandset$]="isHandset$"
-      ></app-menu-list-item>
-    </mat-nav-list>
-  </mat-sidenav>
-  <mat-sidenav-content
-    cdk-scrollable
-    [@onMainContentChange]="onSideNavChange ? 'open' : 'close'"
-    [@onMainContentChange]="(isHandset$ | async) ? 'collapsed' : 'open'"
-  >
-    <ng-content></ng-content>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+      <!-- <mat-icon class="material-icons-outlined">settings</mat-icon> -->
+      <!-- <fa-icon class="header-toolbar-icon" [icon]="['fas', 'search']"></fa-icon>
+      <fa-icon
+        class="header-toolbar-icon"
+        [icon]="['fas', 'shoe-prints']"
+      ></fa-icon>
+      <fa-icon
+        class="header-toolbar-icon"
+        [icon]="['fas', 'fill-drip']"
+      ></fa-icon> -->
+      <!-- <fa-icon [icon]="['far', 'envelope']"></fa-icon> -->
+      <!-- <fa-icon [icon]="['fas', 'user-cog']"></fa-icon>
+      <fa-icon [icon]="['far', 'bell']"></fa-icon> -->
+    </mat-toolbar-row>
+  </mat-toolbar>
+  <mat-sidenav-container>
+    <mat-sidenav
+        #sidenav
+        fixedInViewport="true"
+        fixedTopGap="53"
+        autoFocus="false"
+        [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+        [mode]="(isHandset$ | async) ? 'over' : 'side'"
+        [@onSideNavChange]="sideNavState ? 'open' : 'close'"
+        [@onSideNavChange]="(isHandset$ | async) ? 'open' : 'open'"
+        [opened]="(isHandset$ | async) ? 'false' : 'true'"
+    >
+      <mat-nav-list>
+        <app-menu-list-item
+            *ngFor="let page of pages"
+            [item]="page"
+            [linktext]="linkText"
+            [isHandset$]="isHandset$"
+        ></app-menu-list-item>
+      </mat-nav-list>
+    </mat-sidenav>
+    <mat-sidenav-content
+        cdk-scrollable
+        [@onMainContentChange]="onSideNavChange ? 'open' : 'close'"
+        [@onMainContentChange]="(isHandset$ | async) ? 'collapsed' : 'open'"
+    >
+      <ng-content></ng-content>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
 
 <!-- <div *ngFor="let page of pages; let i = index">
         <div *ngIf="page.children?.length > 0">

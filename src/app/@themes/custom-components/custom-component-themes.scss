@@ -1,8 +1,8 @@
-@import "./menu/menu.component.scss-theme";
-@import "./auth/components/signup/signup.component.scss-theme";
+@import 'menu.component.scss-theme';
+@import 'form.component.scss-theme';
 
 // @mixin que incluye los estilos personalizados para angular material
 @mixin custom-components-theme($theme) {
   @include menu-component-theme($theme);
-  @include signup-component-theme($theme);
+  @include form-component-theme($theme);
 }

@@ -1,0 +1,12 @@
+<!--<div *ngIf="loading$ | async">-->
+<!--  Loading...-->
+<!--</div>-->
+<!--<div *ngIf="noResults$ | async">-->
+<!--  No results-->
+<!--</div>-->
+<mat-card  style="max-width: 18rem;" *ngFor="let employee of employees$ | async">
+  <div class="card-body">
+    <h5 class="card-title">{{employee.name}}</h5>
+    <button (click)="delete(employee)" class="btn btn-danger">Delete</button>
+  </div>
+</mat-card>

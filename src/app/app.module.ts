@@ -47,7 +47,6 @@ import { MaterialModule } from './material.module';
 import { MenuComponent } from './menu/menu.component';
 import { SidenavService } from './services/sidenav.service';
 import { SharedModule } from './shared/shared.module';
-import { IonicModule } from '@ionic/angular';
 
 @NgModule({
   declarations: [ AppComponent, MenuComponent, HomeComponent ],
@@ -72,7 +71,6 @@ import { IonicModule } from '@ionic/angular';
       logOnly: environment.production,
     }),
     EffectsModule.forRoot([]),
-    IonicModule.forRoot(),
   ],
   providers: [ SidenavService ],
   bootstrap: [ AppComponent ],

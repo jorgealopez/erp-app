@@ -1,56 +1,55 @@
-@mixin signup-component-theme($theme) {
-  .signup {
+@mixin form-component-theme($theme) {
+  .form {
     height: 100%;
     display: flex;
     justify-content: center;
     padding-top: 30px;
     padding-bottom: 30px;
-    background: url("~src/assets/images/signup14.jpg");
-    background-repeat: no-repeat;
-    background-size: cover;
+    //background: url('../../../assets/images/signup14.jpg') no-repeat;
+    //background-size: cover;
 
-     mat-card {
+     .mat-card {
       width: 400px;
-      height: 550px;
+      height: 580px;
 
-      mat-card-header {
+      .mat-card-header {
         display: flex;
         flex-direction: column;
 
-        mat-card-title {
+        .mat-card-title {
           text-align: center;
         }
       }
 
-      mat-card-actions {
+      .mat-card-actions {
         button {
           margin-left: 25px;
           margin-bottom: 10px;
-          mat-icon {
-            color: mat-color($signup-form, mat-icon);
+          .mat-icon {
+            color: mat-color($general-form, mat-icon);
           }
         }
       }
 
-      mat-card-content {
+      .mat-card-content {
         form {
           display: flex;
           flex-direction: column;
           justify-content: center;
 
-          mat-form-field {
+          .mat-form-field {
             width: 350px;
             flex-grow: 1;
             align-self: center;
             padding-bottom: 18px;
           }
 
-          mat-checkbox {
+          .mat-checkbox {
             align-self: center;
             margin-top: 15px;
             font-size: 10.5px;
             a {
-              color: mat-color($signup-form, terms-label);
+              color: mat-color($general-form, terms-label);
               font-weight: 600;
             }
           }
@@ -59,7 +58,7 @@
             width: 125px;
             margin-top: 20px;
             align-self: center;
-            background-color: mat-color($signup-form, button) !important;
+            background-color: mat-color($general-form, button) !important;
           }
 
           p {
@@ -68,7 +67,7 @@
             font-size: 11px;
 
             a {
-              color: mat-color($signup-form, login-link);
+              color: mat-color($general-form, login-link);
               text-decoration: none;
               padding-left: 5px;
               font-size: 13px;
@@ -76,7 +75,7 @@
               &:hover {
                 color: white;
               }
-              mat-icon {
+              .mat-icon {
                 padding-left: 2px;
               }
             }
