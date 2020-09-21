@@ -1,6 +1,9 @@
 import {Injectable} from '@angular/core';
+import { AngularFirestore } from '@angular/fire/firestore';
 import {MatSidenav} from '@angular/material/sidenav';
-import {Subject} from 'rxjs';
+import { Observable, Subject } from 'rxjs';
+import { map, shareReplay, tap } from 'rxjs/operators';
+import { SidenavItemInterface } from '../types/ui/sidenav-item.interface';
 
 @Injectable()
 export class SidenavService {
@@ -9,8 +12,7 @@ export class SidenavService {
   public sideNavState$: Subject<boolean> = new Subject();
   private sidenav: MatSidenav;
 
-  constructor() {
-  }
+  constructor(private afs: AngularFirestore) {}
 
   public setSidenav(sidenav: MatSidenav) {
     this.sidenav = sidenav;
@@ -22,5 +24,19 @@ export class SidenavService {
 
   public toggle() {
     return this.sidenav.toggle();
+  }
+
+  getSidenavItems(): Observable<SidenavItemInterface[]> {
+    return this.afs.collection<SidenavItemInterface>(
+      'UI-configuration/sidenav/menu-items')
+      .valueChanges()
+      .pipe(
+        map(data =>
+          Object.keys(data).map(k => data[k])
+            .sort(( a, b ) => a.order - b.order),
+        ),
+        tap(console.log),
+        shareReplay(1),
+      );
   }
 }

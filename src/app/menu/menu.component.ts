@@ -1,43 +1,54 @@
-import { OverlayContainer } from '@angular/cdk/overlay';
-import { Component, Input } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+
+import { select, Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import {
-  onSideNavChange,
-  onMainContentChange,
   animateLogo,
+  onMainContentChange,
+  onSideNavChange,
 } from '../animations/animations';
-import { SidenavService } from '../services/sidenav.service';
-import { Page, ITEM_LIST } from '../@menu-item-list/item-list';
-import { AuthService } from '../auth/services/auth.service';
 import { logoutAction } from '../auth/store/actions/signup.actions';
-
-import { Store, select } from '@ngrx/store';
-import { CurrentUserInterface } from '../shared/types/currentUser.interface';
 import { isLoggedInSelector } from '../auth/store/selectors';
+import { SidenavService } from '../services/sidenav.service';
+import { CurrentUserInterface } from '../shared/types/currentUser.interface';
+import { SidenavItemInterface } from '../types/ui/sidenav-item.interface';
+import { ThemeInterface } from '../types/ui/theme.interface';
 
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss'],
+  styleUrls: [ './menu.component.scss' ],
 
-  animations: [onSideNavChange, onMainContentChange, animateLogo],
+  animations: [ onSideNavChange, onMainContentChange, animateLogo ],
 })
-export class MenuComponent {
+export class MenuComponent implements OnInit {
   sideNavState = false;
   linkText = false;
   onSideNavChange: boolean;
-  pages: Page[] = ITEM_LIST;
+  sidenavItems: Observable<SidenavItemInterface[]>;
   isLoggedIn$: Observable<boolean>;
-  // theme = 'space-cadet-dark-theme';
+  cTheme: string;
+  @Output() theme: EventEmitter<string> = new EventEmitter<string>();
+
+  themes: ThemeInterface[] = [
+    { name: 'theme2-theme' },
+    { name: 'space-cadet-dark-theme' },
+  ];
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(
+      map(( result ) => result.matches),
+      shareReplay(),
+    );
 
   constructor(
     private breakpointObserver: BreakpointObserver,
     private sidenavService: SidenavService,
     private store: Store,
   ) {
-    this.sidenavService.sideNavState$.subscribe((res) => {
+    this.sidenavService.sideNavState$.subscribe(( res ) => {
       console.log(res);
       this.onSideNavChange = res;
     });
@@ -51,19 +62,12 @@ export class MenuComponent {
         Breakpoints.Medium,
         Breakpoints.TabletLandscape,
       ])
-      .subscribe((result) => {
+      .subscribe(( result ) => {
         if (result.matches) {
           this.activateLargeLayout();
         }
       });
   }
-
-  isHandset$: Observable<boolean> = this.breakpointObserver
-    .observe(Breakpoints.Handset)
-    .pipe(
-      map((result) => result.matches),
-      shareReplay()
-    );
 
   onSidenavToggle() {
     this.sideNavState = !this.sideNavState;
@@ -91,23 +95,12 @@ export class MenuComponent {
     // this.authService.logout();
   }
 
-  changeTheme(): void {
-    // console.log(this.theme);
-    // this.theme = 'theme2';
-    // const overlayContainerClasses = this.overlayContainer.getContainerElement()
-    //   .classList;
-    // const themeClassesToRemove = Array.from(
-    //   overlayContainerClasses
-    // ).filter((item: string) => item.includes('-theme'));
-    //
-    // if (themeClassesToRemove.length) {
-    //   overlayContainerClasses.remove(...themeClassesToRemove);
-    // }
-    // overlayContainerClasses.add(this.theme);
+  changeTheme( value: string ): void {
+    this.cTheme = value;
+    this.theme.emit(this.cTheme);
   }
 
-  ngOnInit() {
-    // this.overlayContainer.getContainerElement().classList.add(this.theme);
-    // console.log(this.theme);
+  ngOnInit(): void {
+    this.sidenavItems = this.sidenavService.getSidenavItems();
   }
 }

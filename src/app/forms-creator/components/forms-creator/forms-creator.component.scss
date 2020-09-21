@@ -1,0 +1,71 @@
+:host {
+
+  .mat-card {
+    display: grid;
+    grid-template-columns: 40px 185px auto 50px 40px;
+    grid-template-rows: 100px auto;
+  }
+
+  .mat-card-actions {
+    grid-column-end: 6;
+    grid-column-start: 1;
+    grid-row-end: 2;
+    grid-row-start: 1;
+  }
+
+  .mat-card-header {
+    align-items: center;
+    grid-column-start: 2;
+    grid-column-end: 3;
+    grid-row-start: 3;
+    grid-row-end: 4;
+    justify-content: center;
+    writing-mode: sideways-lr;
+    justify-self: end;
+    align-self: start;
+    color: magenta;
+    //text-decoration-line: underline;
+  }
+
+  .mat-card-content {
+    display: grid;
+    grid-column-end: 6;
+    grid-column-start: 1;
+    grid-row-end: 4;
+    grid-row-start: 3;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+
+  form {
+    display: grid;
+    grid-column-end: 6;
+    grid-column-start: 1;
+    grid-gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+  }
+
+  .primero {
+    grid-column: 2 / 4;
+    grid-row: 1 / 2;
+  }
+
+  .id {
+    grid-column: 2 / 4;
+    grid-row: 2 / 3;
+  }
+
+  .template {
+    grid-column: 2 / 4;
+    grid-row: 3 / 4;
+  }
+
+  .button1 {
+    grid-column: 2 / 4;
+    grid-row: 4 / 5;
+    height: 40px;
+    justify-self: center;
+    width: 120px;
+  }
+}

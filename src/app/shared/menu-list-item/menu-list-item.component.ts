@@ -1,5 +1,4 @@
 import { Component, HostBinding, Input } from '@angular/core';
-import { Page } from 'src/app/@menu-item-list/item-list';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import {
@@ -7,6 +6,7 @@ import {
   animateIcon,
   indicatorRotate,
 } from 'src/app/animations/animations';
+import { SidenavItemInterface } from '../../types/ui/sidenav-item.interface';
 // TODO Incluir las animaciones faltantes
 @Component({
   selector: 'app-menu-list-item',
@@ -17,8 +17,8 @@ import {
 export class MenuListItemComponent {
   expanded: boolean;
   @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
-  @Input() item: Page;
-  @Input() linktext: boolean;
+  @Input() item: SidenavItemInterface;
+  @Input() linkText: boolean;
   @Input() isHandset$: Observable<boolean>;
   parentRoute: string;
   // @HostBinding('class.Active') Active: boolean;
@@ -27,7 +27,7 @@ export class MenuListItemComponent {
     this.parentRoute = this.item?.parent;
   }
 
-  onItemSelected(item: Page) {
+  onItemSelected(item: SidenavItemInterface) {
     if (item.children && item.children.length) {
       this.expanded = !this.expanded;
       this.parentRoute = item.parent;
@@ -43,7 +43,7 @@ export class MenuListItemComponent {
 
   isActive(): boolean {
     return this.router.isActive(
-      this.router.createUrlTree([this.item.routerlink]).toString(),
+      this.router.createUrlTree([this.item.routerLink]).toString(),
       true
     );
   }

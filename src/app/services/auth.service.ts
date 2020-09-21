@@ -3,10 +3,10 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { from, Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { SignupRequestInterface } from '../types/signupRequest.interface';
-import { LoginRequestInterface } from '../types/loginRequest.interface';
-import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
-import { AuthResponseInterface } from '../types/authResponse.interface';
+import { SignupRequestInterface } from '../auth/types/signupRequest.interface';
+import { LoginRequestInterface } from '../auth/types/loginRequest.interface';
+import { CurrentUserInterface } from '../shared/types/currentUser.interface';
+import { AuthResponseInterface } from '../auth/types/authResponse.interface';
 
 @Injectable()
 export class AuthService {

@@ -1,29 +1,41 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule, RouterLinkActive } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent },
+  { path: '', component: HomeComponent, pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  {
-    path: 'materiales',
-    loadChildren: () =>
-      import('./materiales/materiales.module').then((m) => m.MaterialesModule),
-  },
+  // { path: '**', component: NotFoundComponent, pathMatch: 'full'},
   {
     path: 'auth',
     loadChildren: () =>
-      import('./auth/auth.module').then((m) => m.AuthModule),
+      import('./auth/auth.module').then(( m ) => m.AuthModule),
+  },
+  {
+    path: 'forms-creator',
+    loadChildren: () =>
+      import('./forms-creator/forms-creator.module').then((m) => m.FormsCreatorModule),
+  },
+  {
+    path: 'dynamic-forms',
+    loadChildren: () =>
+      import('./dynamic-forms/dynamic-forms.module').then(( m ) => m.DynamicFormsModule),
+  },
+  {
+    path: 'creador',
+    loadChildren: () =>
+      import('./forms-creator/forms-creator.module').then(( m ) => m.FormsCreatorModule),
   },
   {
     path: 'employee',
     loadChildren: () =>
-      import('./employees/employees.module').then((m) => m.EmployeesModule),
+      import('./employees/employees.module').then(( m ) => m.EmployeesModule),
   },
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule],
+  imports: [ RouterModule.forRoot(routes) ],
+  exports: [ RouterModule ],
 })
 export class AppRoutingModule {}

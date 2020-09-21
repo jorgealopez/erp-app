@@ -1,0 +1,131 @@
+ <mat-card>
+    <mat-card-actions>
+      <button mat-button [routerLink]="['/']">
+        <mat-icon>description</mat-icon>
+      </button>
+      <mat-divider></mat-divider>
+    </mat-card-actions>
+    <mat-card-header>
+      <mat-card-title>Form Control</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="form" (ngSubmit)="onSubmit()" fireForm [path]="path">
+<!--        <formly-form [model]="model" [fields]="fields" [options]="options" [form]="form"></formly-form>-->
+        <mat-form-field appearance="outline">
+          <mat-label>firebase path</mat-label>
+          <input
+              type="text"
+              matInput
+              placeholder="path"
+              formControlName="firebasePath"
+          />
+          <mat-hint>firebase path</mat-hint>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Control Name</mat-label>
+          <input
+              type="text"
+              matInput
+              placeholder="key"
+              formControlName="controlName"
+          />
+          <mat-hint>control name</mat-hint>
+        </mat-form-field>
+        <mat-form-field class='primero' appearance="outline">
+          <mat-label>key</mat-label>
+          <input
+              type="text"
+              matInput
+              placeholder="key"
+              formControlName="key"
+          />
+          <mat-hint>key</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="id" appearance="outline">
+          <mat-label>type</mat-label>
+          <input
+              type="text"
+              matInput
+              placeholder="type"
+              formControlName="type"
+          />
+          <mat-hint>type</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="" appearance="outline">
+          <mat-label>class name</mat-label>
+          <input
+              type="text"
+              matInput
+              placeholder="class name"
+              formControlName="className"
+          />
+          <mat-hint>className</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="" appearance="outline">
+          <mat-label>grid column</mat-label>
+          <input
+              type="text"
+              matInput
+              placeholder="grid column"
+              formControlName="gridColumn"
+          />
+          <mat-hint>column</mat-hint>
+        </mat-form-field>
+        <mat-form-field class="" appearance="outline">
+          <mat-label>grid row</mat-label>
+          <input
+              type="text"
+              matInput
+              placeholder="grid row"
+              formControlName="gridRow"
+          />
+          <mat-hint>row</mat-hint>
+        </mat-form-field>
+<!--        <mat-form-field appearance="fill">-->
+<!--          <mat-label>Template Options</mat-label>-->
+<!--          <mat-select formControlName="templateOptions" multiple>-->
+<!--            <mat-option *ngFor="let topping of toppingList" [value]="topping">{{topping}}</mat-option>-->
+<!--          </mat-select>-->
+<!--        </mat-form-field>-->
+<!--        <mat-form-field appearance="fill">-->
+<!--          <mat-label>Pokemon</mat-label>-->
+<!--          <mat-select formControlName="pokemon" multiple>-->
+<!--            <mat-option>&#45;&#45; None &#45;&#45;</mat-option>-->
+<!--            <mat-optgroup *ngFor="let group of pokemonGroups" [label]="group.name"-->
+<!--                          >-->
+<!--              <mat-option *ngFor="let pokemon of group.pokemon" [value]="pokemon.value">-->
+<!--                {{pokemon.viewValue}}-->
+<!--              </mat-option>-->
+<!--            </mat-optgroup>-->
+<!--          </mat-select>-->
+<!--        </mat-form-field>-->
+
+          <mat-form-field class="template" formGroupName="templateOptions">
+            <mat-label>label</mat-label>
+            <input
+                type="text"
+                matInput
+                placeholder="label"
+                formControlName="label"
+            />
+          </mat-form-field>
+        <mat-form-field  formGroupName="templateOptions">
+          <mat-label>placeholder2</mat-label>
+          <input
+              type="text"
+              matInput
+              placeholder="placeholder"
+              formControlName="placeholder"
+          />
+        </mat-form-field>
+
+
+        <button [disabled]="!form.valid" class="button1" color="accent" mat-raised-button
+                type="submit">
+          Submit
+        </button>
+      </form>
+      <p>{{form.status}}</p>
+    </mat-card-content>
+  </mat-card>
+

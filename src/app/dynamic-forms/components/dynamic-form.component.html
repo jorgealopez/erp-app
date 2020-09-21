@@ -1,0 +1,15 @@
+<form #formlyForm (ngSubmit)="onSubmit()" [formGroup]="form" fireForm [path]="path">
+  <h1 #h1>Formas</h1>
+  <button id="but">Change styles</button>
+  <formly-form
+      [fields]="fields | async"
+      [form]="form"
+      [model]="model"
+      [options]="options"
+      #forma
+  >
+  </formly-form>
+  <button id="but2" [disabled]="!form.valid" class="btn btn-default" color="accent" mat-raised-button type="submit">
+    Submit
+  </button>
+</form>

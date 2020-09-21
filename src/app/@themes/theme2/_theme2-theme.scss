@@ -94,7 +94,7 @@ $custom-theme: custom-theme-palette(
   mat-palette($red-salsa, 700)
 );
 
-.theme2 {
+.theme2-theme {
   @include angular-material-theme($custom-theme);
   @include angular-material-typography($custom-theme-typography);
   @include custom-components-theme($custom-theme);

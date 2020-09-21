@@ -1,82 +1,67 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
-import { SignupRequestInterface } from '../../types/signupRequest.interface';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { Form } from '../../../@menu-item-list/signup-form';
+import { FormsService } from '../../../services/forms.firestore';
 import { signupAction } from '../../store/actions/signup.actions';
+import { SignupRequestInterface } from '../../types/signupRequest.interface';
 
 @Component({
-
   selector: 'app-signup',
   templateUrl: './signup.component.html',
-  styleUrls: ['./signup.component.scss'],
+  styleUrls: [ './signup.component.scss' ],
 })
 export class SignupComponent implements OnInit {
-  icon: string;
-  titleLabel: string;
-  usernameLabel: string;
-  emailLabel: string;
-  passwordLabel: string;
-  usernameHint: string;
-  emailHint: string;
-  passwordHint: string;
-  checkboxLabel: string;
-  termsLabel: string;
-  buttonLabel: string;
-  alreadyAnAcountLabel: string;
-  logInLinkLabel: string;
-  loginIcon: string;
-
-  // mat-error del formulario
-
   form: FormGroup;
+  items: Observable<Form>;
+  appearance: string = 'outline';
+  protected basePath: string = 'formsLabelsAndHints';
+  protected id: string = 'signupForm';
 
-  constructor(private fb: FormBuilder, private store: Store) {}
+  constructor(
+    private fb: FormBuilder,
+    private store: Store,
+    private ffs: FormsService<Form>,
+  ) {}
 
   ngOnInit(): void {
-
     this.initializeForm();
-    this.initializeLabelsandHints();
-    // this.initializeValues();
+    this.items = this.ffs.doc$(this.basePath, this.id);
   }
 
   initializeForm(): void {
-    this.form = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      checkbox: ['', Validators.required],
-    });
-  }
-
-  initializeLabelsandHints(): void {
-    this.icon = 'arrow_back';
-    this.titleLabel = 'Registro';
-    this.usernameLabel = 'Usuario';
-    this.usernameHint = 'Nombre(s) y apellidos';
-    this.emailLabel = 'Email';
-    this.emailHint = 'correo electrónico';
-    this.passwordLabel = 'Password';
-    this.passwordHint = `La contraseña debe contener al menos 6 caracteres.
-      Incluye al menos una letra mayúscula y un número`;
-    this.checkboxLabel = 'Acepto los';
-    this.termsLabel = 'términos y condiciones';
-    this.buttonLabel = 'Registrarse';
-    this.alreadyAnAcountLabel = 'Ya tienes una cuenta';
-    this.logInLinkLabel = 'Inicia Sesión';
-    this.loginIcon = 'login';
-  }
-
-  initializeValues() {
-    return;
+    // this.form = this.fb.group({
+    //   username: [ '', Validators.required ],
+    //   email: [ '', [Validators.required, Validators.email] ],
+    //   password: [ '', [Validators.required, Validators.minLength(6)]],
+    //   checkbox: [ '', Validators.required ],
+    // });
+    this.form = this.ffs.initializeForm();
   }
 
   onSubmit(): void {
-    // console.log('submit', this.form.value, this.form.valid);
-    // console.log(this.form.get('email').value);
     const request: SignupRequestInterface = {
       user: this.form.value,
     };
 
     this.store.dispatch(signupAction({ request }));
   }
+
+  get email()  {
+    return this.form.get('email');
+  }
+  get password() {
+    return this.form.get('password');
+  }
+  getErrorMessage() {
+    if (this.password.hasError('required')) {
+      return 'You must enter a value';
+    }
+
+    return typeof this.password.invalid ? 'Not a valid email' : '';
+  }
 }
+
+// console.log('submit', this.form.value, this.form.valid);
+// console.log(this.form.get('email').value);

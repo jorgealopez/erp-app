@@ -8,7 +8,7 @@ import { SignupComponent } from './components/signup/signup.component';
 import { MaterialModule } from '../material.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthService } from 'src/app/auth/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service';
 import { SignupEffect } from 'src/app/auth/store/effects/signup.effects';
 import { reducers } from 'src/app/auth/store/reducers';
 import { LoginEffect } from './store/effects/login.effects';

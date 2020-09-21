@@ -27,19 +27,6 @@ export class EmployeesFormComponent implements OnInit {
   // mat-error del formulario
 
   form: FormGroup;
-
-  // form: FormGroup = new FormGroup({
-  //   name: new FormControl('', Validators.required),
-  //   location: new FormControl('', Validators.required),
-  //   hasDriverLicense: new FormControl(false),
-  // });
-
-  // locations = [
-  //   'Rosario',
-  //   'Buenos Aires',
-  //   'Bariloche',
-  // ];
-
   status$: Observable<string>;
 
   constructor(
