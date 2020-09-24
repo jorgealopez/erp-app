@@ -1,15 +1,22 @@
-<form #formlyForm (ngSubmit)="onSubmit()" [formGroup]="form" fireForm [path]="path">
-  <h1 #h1>Formas</h1>
-  <button id="but">Change styles</button>
-  <formly-form
-      [fields]="fields | async"
-      [form]="form"
-      [model]="model"
-      [options]="options"
-      #forma
-  >
-  </formly-form>
-  <button id="but2" [disabled]="!form.valid" class="btn btn-default" color="accent" mat-raised-button type="submit">
-    Submit
-  </button>
-</form>
+<mat-card>
+  <mat-card-actions>
+    <h1>{{this.help}}</h1>
+  </mat-card-actions>
+  <mat-card-header>
+    <h1>Producto</h1>
+  </mat-card-header>
+  <mat-card-content>
+    <form (ngSubmit)="onSubmit()" [formGroup]="form" [path]="path" fireForm>
+      <formly-form
+          [fields]="fields | async"
+          [form]="form"
+          [model]="model"
+          [options]="options"
+      >
+      </formly-form>
+      <button [disabled]="!form.valid" class="btn btn-default" color="accent" id="but2" mat-raised-button type="submit">
+        Guardar
+      </button>
+    </form>
+  </mat-card-content>
+</mat-card>

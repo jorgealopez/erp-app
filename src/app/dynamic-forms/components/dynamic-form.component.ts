@@ -23,9 +23,36 @@ interface cssPosition {
   gridRowEnd: number;
 }
 
-interface data2 extends FormlyFieldConfig{
+interface data2 extends FormlyFieldConfig, cssPosition {
   controlName: string;
   position: cssPosition;
+  fieldConfig: FormlyFieldConfig;
+}
+
+interface style {
+  style: string;
+  value: string | number;
+}
+
+interface cssGrid extends style{
+  display?: style;
+  gridTemplateRows?: style;
+  gridTemplateColumns?: style;
+  gridTemplateAreas?: style;
+  gridTemplate?: style;
+  gridColumnGap?: style;
+  gridRowGap?: style;
+  gridGap?: style;
+  justifyItems?: style;
+  alignItems?: style;
+  placeItems?: style;
+  justifyContent?: style;
+  alignContent?: style;
+  placeContent?: style;
+  gridAutoColumns?: style;
+  gridAutoRows?: style;
+  gridAutoFlow?: style;
+  grid?: style;
 }
 
 @Component({
@@ -40,9 +67,13 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   model = {};
   options: FormlyFormOptions = {};
   fields: Observable<FormlyFieldConfig[]>;
-  path: string = 'datos/doc1/doc2/doc3';
+  dbFieldsConfig: Observable<data2[]>;
+  path: string;
   path2: string;
-  data: Observable<data2[]>;
+  path3: string;
+  path4: string;
+  grid: Observable<cssGrid[]>;
+  help: string;
 
   constructor(
     private afs: AngularFirestore,
@@ -51,63 +82,98 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
   ngOnInit() {
     this.getFormPath();
-    this.getData();
+    this.getFieldsConfig();
     this.getFields();
+    this.getCssGridConfig();
+    this.setInvoiceNumber();
+    this.getHelp();
   }
 
   ngAfterViewInit() {
+    this.defineCssGrid();
     this.getCssPosition();
   }
 
-  // Obtiene el path de firestore en donde está alojada la configuración de
-  // campos de la forma
+  setInvoiceNumber() {
+    this.path = this.path3;
+  }
+
   getFormPath() {
     this.route.paramMap.subscribe(params => {
       let id = params.get('id');
       let a = params.get('a');
-      let b = params.get('b');
-      this.path2 = `${ id }/${ a }/${ b }`;
+      // let b = params.get('b');
+      this.path2 = `${ id }/${ a }/producto`;
+      this.path3 = `${ id }/${ a }/invoice`;
+      this.path4 = `${ id }/${ a }/css`;
       console.log(this.path2);
+      console.log(this.path4);
     });
   }
 
-  getData() {
-    this.data = this.afs.collection(`${ this.path2 }`)
+  getCssGridConfig() {
+    this.grid = this.afs.collection(`${ this.path4 }`)
       .snapshotChanges()
       .pipe(
         map(actions => actions.map(a => {
-          const data = a.payload.doc.data() as Observable<data2[]>;
+          const data = a.payload.doc.data() as cssGrid;
           const id = a.payload.doc.id;
           return { id, ...data };
         })),
-        tap(console.log),
+        // tap(console.log),
+      );
+  }
+
+  getFieldsConfig() {
+    this.dbFieldsConfig = this.afs.collection(`${ this.path2 }`)
+      .snapshotChanges()
+      .pipe(
+        map(actions => actions.map(a => {
+          const data = a.payload.doc.data() as any;
+          const id = a.payload.doc.id;
+          return { id, ...data.fieldConfig, ...data.position };
+        })),
+        // tap(console.log),
       );
   }
 
   getFields() {
-    this.fields = this.data;
+    this.fields = this.dbFieldsConfig;
   }
 
   getCssPosition() {
-    const px = '25px';
-    const r = 10;
-    const formlyForm = this.renderer.selectRootElement('formly-form', true);
-    this.renderer.setStyle(formlyForm, 'grid-template-columns',
-      `repeat(${ r }, ${ px })`);
-
-    this.data.subscribe(a => {
+    this.dbFieldsConfig.subscribe(a => {
       a.forEach(element => {
-        const css = element.position;
-        console.log(css?.gridColumnStart);
         const el: FormlyField = this.renderer.selectRootElement(
           `formly-field.${ element.className }`, true);
-        console.log(el);
-        this.renderer.setStyle(el, 'grid-column-start', `${ css?.gridColumnStart }`);
-        this.renderer.setStyle(el, 'grid-column-end', `${ css?.gridColumnEnd }`);
-        this.renderer.setStyle(el, 'grid-row-start', `${ css?.gridRowStart }`);
-        this.renderer.setStyle(el, 'grid-row-end', `${ css?.gridRowEnd }`);
+        // console.log(el);
+        this.renderer.setAttribute(el, 'style',
+          `grid-column-start: ${ element?.gridColumnStart }; 
+                 grid-column-end: ${ element?.gridColumnEnd }; 
+                 grid-row-start: ${ element?.gridRowStart }; 
+                 grid-row-end: ${ element?.gridRowEnd } `);
       });
     });
+  }
+
+  defineCssGrid() {
+    this.grid.subscribe(styles => {
+      const formlyForm = this.renderer.selectRootElement('formly-form', true);
+      console.log(styles);
+      styles.forEach(b => {
+        console.log(b);
+        const s = Object.keys(b).map(k =>b[k]);
+        s.forEach(c => {
+          console.log(c?.value);
+          this.renderer.setStyle(formlyForm, `${c?.style}`, `${c?.value}`);
+        })
+      });
+    });
+  }
+
+  getHelp() {
+    this.help = 'Esta es la información de ayuda para la forma, aquí te dirá' +
+      ' como llenarla';
   }
 
   onSubmit() {
