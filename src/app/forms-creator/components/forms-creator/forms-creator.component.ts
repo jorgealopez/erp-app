@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Renderer2 } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
+import { FormBuilder, FormGroup, FormArray, Validators, ReactiveFormsModule  } from '@angular/forms';
 
 @Component({
   selector: 'app-forms-creator',
@@ -9,104 +8,294 @@ import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
   styleUrls: [ './forms-creator.component.scss' ],
 })
 export class FormsCreatorComponent implements OnInit {
-  model = {};
-  options: FormlyFormOptions = {};
-  fields: FormlyFieldConfig[] = [
-    {
-      key: 'email',
-      type: 'input',
-      templateOptions: {
-        label: 'Email address',
-        placeholder: 'Enter email',
-        required: true,
-      },
-    },
-    {
-      key: 'firstName',
-      type: 'input',
-      templateOptions: {
-        required: true,
-        type: 'text',
-        label: 'First Name',
-      },
-    },
-    {
-      key: 'address',
-
-      templateOptions: { label: 'Address' },
-      fieldGroup: [ {
-        key: 'town',
-        type: 'input',
-        templateOptions: {
-          required: true,
-          type: 'text',
-          label: 'Town',
-        },
-      } ],
-    },
-  ];
-  // key:	string;	// The key that relates to the model. This will link the
-  // // field value to the model.
-  // id:	string;	// This allows you to specify the id of your field. Note,
-  // the
-  // // id is generated if not set.
-  // name:	string; //	If you wish, you can specify a specific name for your
-  // // field. This is useful if you're posting the form to a server using
-  // techniques of yester-year. type:	string;	// The type of field to be
-  // rendered. More information over at // Custom templates. component:	any;
-  // //	Can be set to replace the component that is defined in // type.
-  // className:	string;	// You can specify your own class that will be
-  // applied // to the formly-field directive. templateOptions:	object;
-  // //	This is reserved for the templates. Any // template-specific options
-  // go in here. Look at your specific template implementation to know the
-  // options required for this. template:	string; //	Can be set instead of
-  // type to render custom html // content. defaultValue: any; //	If this is
-  // provided and the value of the model at // compile-time is undefined, then
-  // the value of the model will be assigned the defaultValue. hide:	boolean;
-  // //	Whether to hide the field. Defaults to false. If you // wish this to
-  // be conditional use hideExpression. hideExpression:	boolean | string |
-  // function; //	Conditionally hide the // field based on values from other
-  // fields. expressionProperties:	boolean| string | function; //	An object
-  // where the // key is a property to be set on the main field config and the
-  // value is an expression used to assign that property. focus:	boolean; //
-  // Whether to focus or blur the element field. Defaults to // false. If you
-  // wish this to be conditional use expressionProperties wrappers:	string[];
-  // //	It is expected to be the name of the wrappers. The // formly field template will be wrapped by the first wrapper, then the second, then the third, etc. You can also specify these as part of a type (which is the recommended approach). parsers:	function[];	// Array of functions to execute, as a pipeline, // whenever the model updates, usually via user input. fieldGroup:	FormlyFieldConfig[]; //	A field group is a way to group fields // together, making advanced layout very simple. It can also be used to group fields that are associated with the same model (useful if it's different than the model for the rest of the fields). fieldArray:	FormlyFieldConfig; // fieldGroupClassName:	string; //	Specify your own class that will be // applied to the formly-group component. validation:	object; //	An object with a few useful properties: messages, show validators:	any; //	Used to set validation rules for a particular field. // Should be an object of key - value pairs. The value can either be an expression to evaluate or a function to run. Each should return a boolean value, returning true when the field is valid. See Validation for more information. asyncValidators:	any; //	Use this one for anything that needs to validate // asynchronously. Pretty much exactly the same as the validators api, except it must be a function that returns a promise. formControl:	AbstractControl; //	This is the FormControl for the field. // It provides you more control like running validators, calculating status, and resetting state. modelOptions:	object; //	An object with a few useful properties to // control the model changes: debounce, updateOn
-
   form: FormGroup;
   path: string = 'datos';
   controlName: string;
   firebasePath: string;
+  validatorsKey: string;
 
-  constructor( private fb: FormBuilder, private afs: AngularFirestore ) { }
+  constructor(
+    private fb: FormBuilder,
+    private afs: AngularFirestore,
+    private renderer: Renderer2) { }
 
   ngOnInit(): void {
     this.initializeForm();
     // this.firebasePath = this.form.get('firebasePath').value;
   }
 
+  // FIXME: Definir campos obligatorios y expresiones regulares
   initializeForm(): void {
     this.form = this.fb.group({
-      firebasePath: [''],
-      controlName: [ 'default' ],
+      firebasePath: [],
+      controlName: [],
       key: [ '', Validators.required ],
-      type: [ '' ],
-      className: [ '' ],
-      gridColumn: [ '' ],
-      gridRow: [ '' ],
-      templateOptions: this.fb.group({
-        label: [ '' ],
-        placeholder: [ '' ],
-        disabled: [ '' ],
-        required: [ '' ],
+      type: [],
+      defaultValue: [],
+      id: [],
+      name: [],
+      template: [],
+      hide: [],
+      hideExpression: [],
+      className: [],
+      fieldGroupClassName: [],
+      focus: [],
+
+      validation: this.validation(),
+      validators: this.validators(),
+      asyncValidators: this.asyncValidators(),
+      wrappers: this.wrappers(),
+      expressionProperties: this.expressionProperties(),
+      parsers: this.parsers(),
+      fieldArray: this.fieldArray(),
+      fieldGroup: this.fieldGroup(),
+      templateOptions: this.templateOptions(),
+      hooks: this.hooks(),
+      modelOptions: this.modelOptions(),
+
+      // TODO: VALIDATION
+  //     validation?: {
+  //       messages?: {
+  //         [messageProperties: string]: ValidationMessageOption['message'];
+  // };
+  //   show?: boolean;
+  //   [additionalProperties: string]: any;
+  // };
+
+  });
+  }
+
+  public validation() {
+
+  }
+// TODO: Añadir método para añadir al Array el grupo de campos
+  private validators() {
+   return this.fb.array([
+      this.fb.group({
+            key: [],
+            expression: [],
+            message: []
+      })
+    ])
+  }
+
+// TODO: Añadir método para añadir al Array el grupo de campos
+  private asyncValidators() {
+    return this.fb.array([
+      this.fb.group({
+        key: [],
+        expression: [],
+        message: []
+      })
+    ])
+  }
+
+  private templateOptions() {
+    return this.fb.group({
+      type: [],
+      label: [],
+      placeholder: [],
+      disabled: [],
+      options: [],
+      rows: [],
+      cols: [],
+      description: [],
+      hidden: [],
+      max: [],
+      min: [],
+      minLength: [],
+      maxLength: [],
+      pattern: [],
+      required: [],
+      tabindex: [],
+      readonly: [],
+      attributes: [],
+      step: [],
+      focus: [],
+      blur: [],
+      keyup: [],
+      keydown: [],
+      click: [],
+      change: [],
+      keypress: [],
+    })
+  }
+
+  private fieldGroup() {
+    return this.fb.array([
+      this.fg()
+    ])
+  }
+
+  private fg() {
+    return this.fb.group({
+      key: [],
+      type: [],
+      defaultValue: [],
+      id: [],
+      name: [],
+      validators: this.validators(),
+      asyncValidators: this.asyncValidators(),
+      template: [],
+      wrappers: this.wrappers(),
+      hide: [],
+      hideExpression: [],
+      expressionProperties: this.expressionProperties(),
+      className: [],
+      fieldGroupClassName: [],
+      focus: [],
+      parsers: this.parsers(),
+      // fieldArray: this.fieldArray(),
+      templateOptions: this.templateOptions(),
+      hooks: this.hooks(),
+      modelOptions: this.modelOptions()
+      // fieldGroup: this.fg()
+    })
+  }
+
+  private fieldArray() {
+      return this.form
+  }
+
+  private expressionProperties() {
+    return this.fb.group({
+      property: [],
+      string: []
+    })
+  }
+
+  private modelOptions() {
+    return this.fb.group({
+      debounce: this.fb.group({
+        default: [],
       }),
+      updateOn: [],
+    })
+  }
+
+  private hooks() {
+    return this.fb.group({
+      onInit: [],
+      onChanges: [],
+      afterContentInit: [],
+      afterViewInit: [],
+      onDestroy: [],
     });
   }
 
+  private wrappers() {
+    return this.fb.array([
+        this.fb.control(
+          ''
+        )
+      ]
+    )
+  }
+
+  private parsers() {
+    return this.fb.array([
+      this.fb.control('')
+    ])
+  }
+
+  get fieldGroups() {
+    return this.form.get('fieldGroup') as FormArray;
+  }
+
+  get wrapper() {
+    return this.form.get('wrappers') as FormArray;
+  }
+
+  get validator() {
+    return this.form.get('validators') as FormArray;
+  }
+
+  get asyncValidator() {
+    return this.form.get('validators') as FormArray;
+  }
+
+  get parser() {
+    return this.form.get('parsers') as FormArray;
+  }
+
+  addFieldGroups() {
+    this.fieldGroups.push(this.fg());
+  }
+
+  addWrappers() {
+    this.wrapper.push(this.fb.control(''));
+  }
+
+  addParsers() {
+    this.parser.push(this.fb.control(''));
+  }
+
+  removeEmpty( field ) {
+    Object.keys(field).forEach(key => {
+      if (field[key] && typeof field[key] === 'object') {
+        this.removeEmpty(
+          field[key]);
+      } else if (field[key] === null) {
+        delete field[key];
+      }
+    });
+    return field;
+  };
+
+  express(expr) {
+    const b: Array<any> = Object.values(expr);
+    const b0 = b[0];
+    const b1 = b[1];
+    let obj = {};
+    obj[b0] = b1;
+    this.removeEmpty(obj);
+
+    // console.log({expressionProperties:{...obj}});
+    return {...obj};
+  }
+
+  val(val) {
+    const b: Array<any> = Object.values(val);
+    console.log(b);
+    const b0 = b[0];
+    console.log(b0.key);
+      const name = b0.key;
+      delete b0.key;
+      console.log(b0);
+      let obj = {};
+      obj[name] = b0;
+      // delete obj.key;
+      console.log(obj);
+      return obj;
+  }
+
+  // TODO: Simplificar
   onSubmit() {
     this.controlName = this.form.get('controlName').value;
     this.firebasePath = this.form.get('firebasePath').value;
-    this.afs.collection(`${this.firebasePath}`).doc(this.controlName).set(this.form.value);
+    let w = this.form.get('wrappers').value;
+    console.log(w);
+    // console.log(Object.values(w));
+    let b = this.form.get('fieldGroup').value;
+    let field = {};
+    let expr = this.form.get('expressionProperties').value;
+    let val = this.form.get('validators').value;
+    let asyncVal = this.form.get('asyncValidators').value;
+
+
+
+    this.form.value.expressionProperties = this.express(expr);
+    this.form.value.validators = this.val(val);
+    this.form.value.asyncValidators = this.val(asyncVal);
+
+    field = { fieldConfig: { ...this.form.value } };
+    this.removeEmpty(field);
+    console.log(field);
+
+    // TODO: Controlar los errores al guardar en firestore
+    // this.afs.collection(`${ this.firebasePath }`).doc(this.controlName)
+    //   .set(field);
   }
+
 
 }
