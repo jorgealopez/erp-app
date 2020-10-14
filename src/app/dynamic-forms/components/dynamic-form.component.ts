@@ -14,7 +14,7 @@ import {
   FormlyFormOptions,
 } from '@ngx-formly/core';
 import { Observable } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 interface cssPosition {
   gridColumnStart: number;

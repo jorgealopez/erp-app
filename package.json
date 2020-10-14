@@ -30,13 +30,14 @@
     "@ngrx/effects": "^9.2.0",
     "@ngrx/store": "^9.2.0",
     "@ngrx/store-devtools": "^9.2.0",
+    "@ngx-formly/core": "^5.0.0",
+    "@ngx-formly/material": "^5.0.0",
     "@ngx-formly/schematics": "^5.9.3",
-    "firebase": "^7.13.1",
+    "clean-deep": "^3.4.0",
+    "firebase": "^7.23.0",
     "rxjs": "~6.5.4",
     "tslib": "^2.0.0",
-    "zone.js": "~0.10.2",
-    "@ngx-formly/core": "^5.0.0",
-    "@ngx-formly/material": "^5.0.0"
+    "zone.js": "~0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/architect": ">= 0.900 < 0.1100",

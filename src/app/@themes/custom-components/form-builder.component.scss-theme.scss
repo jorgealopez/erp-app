@@ -1,0 +1,108 @@
+@mixin form-component-theme($theme) {
+  .form-builder {
+    //height: 2500px;
+    //width: 250px;
+
+    mat-form-field, h3, mat-checkbox {
+      font-size: smaller;
+    }
+
+    input.turn-off-number-input-spinners::-webkit-outer-spin-button,
+    input.turn-off-number-input-spinners::-webkit-inner-spin-button {
+      display: none;
+    }
+
+    input.turn-off-number-input-spinners {
+      -moz-appearance: textfield;
+    }
+
+    .parser {
+      display: flex;
+      flex-direction: row;
+      grid-row: span 1;
+      justify-content: space-between;
+    }
+
+    mat-card-actions {
+      display: flex;
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    .submit-button {
+      height: 35px;
+      width: 120px;
+      margin-right: 20px;
+      justify-content: space-between;
+    }
+
+    .mat-tab-grid {
+      display: grid;
+      grid-auto-flow: dense;
+      grid-auto-rows: 75px;
+      grid-column-gap: 22px;
+      grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+      align-items: center;
+    }
+
+    .control-group-col {
+      display: grid;
+      grid-auto-flow: row;
+      grid-auto-rows: 75px;
+      grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    }
+
+    .control-group-row {
+      align-items: flex-start;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+    }
+
+    .control-1 {
+      grid-row: span 1;
+    }
+
+    .control-2 {
+      grid-row: span 2;
+    }
+
+    .control-3 {
+      grid-row: span 3;
+    }
+
+    .control-4 {
+      grid-row: span 4;
+    }
+
+    .control-5 {
+      grid-row: span 5;
+    }
+
+    .control-6 {
+      grid-row: span 6;
+    }
+
+    .control-7 {
+      grid-row: span 7
+    }
+
+    .control-8 {
+      grid-row: span 8
+    }
+
+    .subtitle {
+      align-self: center;
+      color: mat-color($general-form, button);
+      //border-bottom-style: solid;
+      font-size: medium;
+      margin-bottom: 0;
+    }
+
+    .add-button {
+      align-self: center;
+      margin-bottom: 0;
+      color: mat-color($general-form, button);
+    }
+  }
+}

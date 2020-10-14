@@ -1,235 +1,266 @@
-<form (ngSubmit)="onSubmit()" [formGroup]="form">
-  <mat-card class="forms">
+<!--suppress ALL -->
+<form (ngSubmit)="onSubmit()" [formGroup]="form" class="form-builder">
+  <mat-card>
     <mat-card-actions>
       <button [routerLink]="['/']" mat-button>
         <mat-icon>description</mat-icon>
         Formly Field Configuration
       </button>
-      <mat-divider></mat-divider>
+      <button
+          [disabled]="!form.valid"
+          class="submit-button"
+          color="accent" mat-raised-button
+          type="submit">
+        <mat-icon class="material-icons-two-tone">cloud_upload</mat-icon>
+        Submit
+      </button>
     </mat-card-actions>
+    <mat-divider></mat-divider>
     <mat-tab-group color="accent">
       <mat-tab label="General">
-        <div class="matTabGrid">
-          <h3>Firebase reference</h3>
-          <mat-form-field appearance="legacy" id="firebasePath">
-            <mat-label>firebase path</mat-label>
-            <input
-                formControlName="firebasePath"
-                matInput
-                placeholder="path"
-                type="text"
-                required
-            />
-            <mat-hint>firebase path</mat-hint>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" id="controlName">
-            <mat-label>Control Name</mat-label>
-            <input
-                formControlName="controlName"
-                matInput
-                placeholder="key"
-                type="text"
-            />
-            <mat-hint>control name</mat-hint>
-          </mat-form-field>
-          <h3 id="general">General</h3>
-          <mat-form-field appearance="legacy" class='primero' id="key">
-            <mat-label>key</mat-label>
-            <input
-                formControlName="key"
-                matInput
-                placeholder="key"
-                type="text"
-                required
-            />
-            <mat-hint>key</mat-hint>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="id" id="type">
-            <mat-label>type</mat-label>
-            <mat-select formControlName="type">
-              <mat-option value="input">Input</mat-option>
-              <mat-option value="select">Select</mat-option>
-              <mat-option value="checkbox">Checkbox</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-          <mat-form-field appearance="legacy" class="" id="defaultValue">
-            <mat-label>default value</mat-label>
-            <input
-                formControlName="defaultValue"
-                matInput
-                placeholder="default value"
-                type="text"
-            />
-            <mat-hint>defaultValue</mat-hint>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="" id="id">
-            <mat-label>id</mat-label>
-            <input
-                formControlName="id"
-                matInput
-                placeholder="id"
-                type="text"
-            />
-            <mat-hint>id</mat-hint>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" class="" id="name">
-            <mat-label>name</mat-label>
-            <input
-                formControlName="name"
-                matInput
-                placeholder="name"
-                type="text"
-            />
-            <mat-hint>name</mat-hint>
-          </mat-form-field>
-          <h3 id="cssClass">CSS Class</h3>
-          <mat-form-field appearance="legacy" id="className">
-            <mat-label>className</mat-label>
-            <input
-                formControlName="className"
-                matInput
-                placeholder="className"
-                type="text"
-                required
-            />
-            <mat-hint>className</mat-hint>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" id="groupClassName">
-            <mat-label>fieldGroupClassName</mat-label>
-            <input
-                formControlName="fieldGroupClassName"
-                matInput
-                placeholder="fieldGroupClassName"
-                type="text"
-            />
-            <mat-hint>fieldGroupClassName</mat-hint>
-          </mat-form-field>
-          <ng-container formGroupName="modelOptions">
-            <h3 id="modelOptions">Model Options</h3>
-            <mat-form-field appearance="legacy" formGroupName="debounce" id="default">
-              <mat-label>default</mat-label>
+        <div class="mat-tab-grid">
+          <div class="control-group-col control-3">
+            <h3 class="subtitle">Firebase reference</h3>
+            <mat-form-field appearance="legacy">
+              <mat-label>firebase path</mat-label>
               <input
-                  formControlName="default"
+                  formControlName="firebasePath"
                   matInput
-                  placeholder="default"
-                  type="number"
-                  class="example-right-align"/>
-              <mat-hint>default</mat-hint>
+                  placeholder="path"
+                  required
+                  type="text"
+              />
+              <mat-hint>firebase path</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="debounce">
-              <mat-label>debounce</mat-label>
+            <mat-form-field appearance="legacy">
+              <mat-label>Control Name</mat-label>
               <input
-                  formControlName="updateOn"
+                  formControlName="controlName"
                   matInput
-                  placeholder="updateOn"
-                  type="text"/>
-              <mat-hint>debounce</mat-hint>
+                  placeholder="key"
+                  required
+                  type="text"
+              />
+              <mat-hint>control name</mat-hint>
             </mat-form-field>
-          </ng-container>
-          <h3 class="templates">Template</h3>
-          <mat-form-field appearance="legacy" id="template">
-            <mat-label>template</mat-label>
-            <textarea formControlName="template"
-                      matInput
-                      placeholder="template"
-                      type="text"></textarea>
-            <mat-hint>template</mat-hint>
-          </mat-form-field>
-          <ng-container formArrayName="wrappers">
-            <h3 id="wrapper">Wrappers</h3>
-            <button
-                (click)="addWrappers()"
-                id="addWrappersButton"
-                mat-button
-                type="button">
-              <mat-icon>add_circle_outline</mat-icon>
-              Add wrappers
-            </button>
+          </div>
+          <div class="control-group-col control-7">
+            <h3 class="subtitle">General</h3>
+            <mat-form-field appearance="legacy">
+              <mat-label>key</mat-label>
+              <input
+                  formControlName="key"
+                  matInput
+                  placeholder="key"
+                  required
+                  type="text"
+              />
+              <mat-hint>key</mat-hint>
+              <!--            <mat-error *ngIf="key.errors?.required">asdf</mat-error>-->
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>type</mat-label>
+              <mat-select formControlName="type">
+                <mat-option value="input">Input</mat-option>
+                <mat-option value="select">Select</mat-option>
+                <mat-option value="checkbox">Checkbox</mat-option>
+              </mat-select>
+              <mat-hint>hint</mat-hint>
+            </mat-form-field>
 
-            <ng-container *ngFor="let wrapper of wrapper.controls; let i=index">
-              <!-- The repeated alias template -->
-              <mat-form-field appearance="legacy" class="wrapper">
-                <mat-label>wrappers</mat-label>
-                <input
-                    [formControlName]="i"
-                    matInput
-                    placeholder="wrapper"
-                    type="text">
-                <mat-hint>wrappers</mat-hint>
-              </mat-form-field>
-            </ng-container>
-          </ng-container>
-          <ng-container formArrayName="parsers">
-            <div class="parser">
-              <h3 id="parser">Parsers</h3>
-              <button
-                  (click)="addParsers()"
-                  id="addParserButton"
-                  mat-button
-                  type="button">
-                <mat-icon>add_circle_outline</mat-icon>
-                Add parsers
-              </button>
+            <mat-form-field appearance="legacy">
+              <mat-label>default value</mat-label>
+              <input
+                  formControlName="defaultValue"
+                  matInput
+                  placeholder="default value"
+                  type="text"
+              />
+              <mat-hint>defaultValue</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>id</mat-label>
+              <input
+                  formControlName="id"
+                  matInput
+                  placeholder="id"
+                  type="text"
+              />
+              <mat-hint>id</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>name</mat-label>
+              <input
+                  formControlName="name"
+                  matInput
+                  placeholder="name"
+                  type="text"
+              />
+              <mat-hint>name</mat-hint>
+            </mat-form-field>
+            <div class="control-group-row">
+              <mat-checkbox formControlName="focus">Focus</mat-checkbox>
+              <mat-checkbox formControlName="hide">Hide</mat-checkbox>
             </div>
-
-            <ng-container *ngFor="let w of this.parser.controls; let i=index">
-              <mat-form-field appearance="legacy" id="parsers">
-                <mat-label>parsers</mat-label>
+          </div>
+          <div class="control-group-col control-3">
+            <h3 class="subtitle">CSS Class</h3>
+            <mat-form-field appearance="legacy">
+              <mat-label>className</mat-label>
+              <input
+                  formControlName="className"
+                  matInput
+                  placeholder="className"
+                  required
+                  type="text"
+              />
+              <mat-hint>className</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>fieldGroupClassName</mat-label>
+              <input
+                  formControlName="fieldGroupClassName"
+                  matInput
+                  placeholder="fieldGroupClassName"
+                  type="text"
+              />
+              <mat-hint>fieldGroupClassName</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="control-group-col control-3">
+            <h3 class="subtitle">Model Options</h3>
+            <ng-container formGroupName="modelOptions">
+              <mat-form-field appearance="legacy" formGroupName="debounce">
+                <mat-label>default</mat-label>
                 <input
-                    [formControlName]="i"
+                    class="turn-off-number-input-spinners"
+                    formControlName="default"
                     matInput
-                    placeholder="parsers"
-                    type="text"
-                />
-                <mat-hint>parsers</mat-hint>
+                    placeholder="default"
+                    type="number"/>
+                <mat-hint>default</mat-hint>
+                <mat-error *ngIf="default.errors?.min">Debe ser un número entero</mat-error>
+                <mat-error *ngIf="default.errors?.forbiddenName">Debe ser un número entero</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="legacy">
+                <mat-label>Update on</mat-label>
+                <mat-select formControlName="updateOn">
+                  <mat-option value="change">Change</mat-option>
+                  <mat-option value="blur">Blur</mat-option>
+                  <mat-option value="submit">Submit</mat-option>
+                </mat-select>
               </mat-form-field>
             </ng-container>
-          </ng-container>
-<!--          <mat-form-field appearance="legacy" id="focus">-->
-            <mat-checkbox formControlName="focus" id="focus">Focus</mat-checkbox>
-            <mat-checkbox formControlName="hide" id="hide">Hide</mat-checkbox>
-          <h3 id="expressions">Expressions</h3>
-          <mat-form-field appearance="legacy" id="hideExpression">
-            <mat-label>hideExpression</mat-label>
-            <input
-                formControlName="hideExpression"
-                matInput
-                placeholder="hideExpression"
-                type="text"
-            />
-            <mat-hint>hideExpression</mat-hint>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" formGroupName="expressionProperties" id="expressionProperty">
-            <mat-label>expressionProperties property</mat-label>
-            <input
-                formControlName="property"
-                matInput
-                placeholder="property"
-                type="text"
-            />
-            <mat-hint>expressionProperties</mat-hint>
-          </mat-form-field>
-          <mat-form-field appearance="legacy" formGroupName="expressionProperties" id="expressionString">
-            <mat-label>expressionProperties string</mat-label>
-            <input
-                formControlName="string"
-                matInput
-                placeholder="string"
-                type="text"
-            />
-            <mat-hint>expressionProperties</mat-hint>
-          </mat-form-field>
+          </div>
+          <div class="control-group-col control-2">
+            <h3 class="subtitle">Template</h3>
+            <mat-form-field appearance="legacy">
+              <mat-label>template</mat-label>
+              <textarea formControlName="template"
+                        matInput
+                        placeholder="template"
+                        type="text"></textarea>
+              <mat-hint>template</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="control-group-col control-4">
+            <h3 class="subtitle">Expressions</h3>
+            <mat-form-field appearance="legacy">
+              <mat-label>hideExpression</mat-label>
+              <input
+                  formControlName="hideExpression"
+                  matInput
+                  placeholder="hideExpression"
+                  type="text"
+              />
+              <mat-hint>hideExpression</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="legacy" formGroupName="expressionProperties">
+              <mat-label>expressionProperties property</mat-label>
+              <input
+                  formControlName="property"
+                  matInput
+                  placeholder="property"
+                  type="text"
+              />
+              <mat-hint>expressionProperties</mat-hint>
+            </mat-form-field>
+            <mat-form-field appearance="legacy" formGroupName="expressionProperties">
+              <mat-label>expressionProperties string</mat-label>
+              <input
+                  formControlName="string"
+                  matInput
+                  placeholder="string"
+                  type="text"
+              />
+              <mat-hint>expressionProperties</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="control-group-col control-3">
+            <ng-container formArrayName="wrappers">
+              <div class="parser">
+                <!--            <h3 class="subtitle">Wrappers</h3>-->
+                <button
+                    (click)="addWrappers()"
+                    class="add-button"
+                    mat-raised-button
+                    type="button">
+                  <mat-icon>add_circle_outline</mat-icon>
+                  Add wrappers
+                </button>
+              </div>
+              <ng-container *ngFor="let wrapper of wrapper.controls; let i=index">
+                <!-- The repeated alias template -->
+                <mat-form-field appearance="legacy">
+                  <mat-label>wrappers</mat-label>
+                  <input
+                      [formControlName]="i"
+                      matInput
+                      placeholder="wrapper"
+                      type="text">
+                  <mat-hint>wrappers</mat-hint>
+                </mat-form-field>
+              </ng-container>
+            </ng-container>
+          </div>
+          <div class="control-group-col control-4">
+            <ng-container formArrayName="parsers">
+              <div class="parser">
+                <!--                <h3 class="subtitle">Parsers</h3>-->
+                <button
+                    (click)="addParsers()"
+                    class="add-button"
+                    mat-raised-button
+                    type="button">
+                  <mat-icon>add_circle_outline</mat-icon>
+                  Add parsers
+                </button>
+              </div>
+              <ng-container *ngFor="let w of this.parser.controls; let i=index">
+                <mat-form-field appearance="legacy">
+                  <mat-label>parsers</mat-label>
+                  <input
+                      [formControlName]="i"
+                      matInput
+                      placeholder="parsers"
+                      type="text"
+                  />
+                  <mat-hint>parsers</mat-hint>
+                </mat-form-field>
+              </ng-container>
+
+            </ng-container>
+          </div>
         </div>
 
       </mat-tab>
       <mat-tab label="Template Options">
-        <mat-card id="templateOptions">
+        <mat-card class="mat-tab-grid">
           <!--          <h2>Template Options</h2>-->
           <!--            <h2 id="tOptions">Template Options</h2>-->
 
           <ng-container formGroupName="templateOptions">
-            <mat-form-field appearance="legacy" id="toType">
+            <mat-form-field appearance="legacy">
               <mat-label>type</mat-label>
               <input
                   formControlName="type"
@@ -239,7 +270,7 @@
               />
               <mat-hint>type</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toLabel">
+            <mat-form-field appearance="legacy">
               <mat-label>label</mat-label>
               <input
                   formControlName="label"
@@ -249,7 +280,7 @@
               />
               <mat-hint>label</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toPlaceholder">
+            <mat-form-field appearance="legacy">
               <mat-label>placeholder</mat-label>
               <input
                   formControlName="placeholder"
@@ -259,7 +290,7 @@
               />
               <mat-hint>placeholder</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toOptions">
+            <mat-form-field appearance="legacy">
               <mat-label>options</mat-label>
               <input
                   formControlName="options"
@@ -269,27 +300,107 @@
               />
               <mat-hint>options</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toRows">
+            <mat-checkbox formControlName="disabled">Disabled</mat-checkbox>
+            <mat-checkbox formControlName="hidden">Hidden</mat-checkbox>
+            <mat-checkbox formControlName="readonly">Readonly</mat-checkbox>
+            <mat-checkbox formControlName="required">Required</mat-checkbox>
+            <mat-form-field appearance="legacy">
               <mat-label>rows</mat-label>
               <input
+                  class="turn-off-number-input-spinners"
                   formControlName="rows"
                   matInput
                   placeholder="rows"
-                  type="text"
+                  type="number"
               />
               <mat-hint>rows</mat-hint>
+              <mat-error *ngIf="rows.invalid">número</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toCols">
+            <mat-form-field appearance="legacy">
               <mat-label>cols</mat-label>
               <input
+                  class="turn-off-number-input-spinners"
                   formControlName="cols"
                   matInput
                   placeholder="cols"
-                  type="text"
+                  type="number"
               />
               <mat-hint>cols</mat-hint>
+              <mat-error *ngIf="cols.invalid">número</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toDescription">
+            <mat-form-field appearance="legacy">
+              <mat-label>min</mat-label>
+              <input
+                  class="turn-off-number-input-spinners"
+                  formControlName="min"
+                  matInput
+                  placeholder="min"
+                  type="number"
+              />
+              <mat-hint>min</mat-hint>
+              <mat-error *ngIf="min.invalid">número</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>max</mat-label>
+              <input
+                  class="turn-off-number-input-spinners"
+                  formControlName="max"
+                  matInput
+                  placeholder="max"
+                  type="number"
+              />
+              <mat-hint>max</mat-hint>
+              <mat-error *ngIf="max.errors">número</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>minLength</mat-label>
+              <input
+                  class="turn-off-number-input-spinners"
+                  formControlName="minLength"
+                  matInput
+                  placeholder="minLength"
+                  type="number"
+              />
+              <mat-hint>minLength</mat-hint>
+              <mat-error *ngIf="minLength.invalid">número</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>maxLength</mat-label>
+              <input
+                  class="turn-off-number-input-spinners"
+                  formControlName="maxLength"
+                  matInput
+                  placeholder="maxLength"
+                  type="number"
+              />
+              <mat-hint>maxLength</mat-hint>
+              <mat-error *ngIf="maxLength.invalid">número</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>tabindex</mat-label>
+              <input
+                  class="turn-off-number-input-spinners"
+                  formControlName="tabindex"
+                  matInput
+                  placeholder="tabindex"
+                  type="number"
+              />
+              <mat-hint>tabindex</mat-hint>
+              <mat-error *ngIf="tabindex.invalid">número</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>step</mat-label>
+              <input
+                  class="turn-off-number-input-spinners"
+                  formControlName="step"
+                  matInput
+                  placeholder="step"
+                  type="number"
+              />
+              <mat-hint>step</mat-hint>
+              <mat-error *ngIf="step.invalid">número</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="legacy">
               <mat-label>description</mat-label>
               <input
                   formControlName="description"
@@ -299,51 +410,7 @@
               />
               <mat-hint>description</mat-hint>
             </mat-form-field>
-            <mat-checkbox formControlName="disabled" id="toDisabled">Disabled</mat-checkbox>
-            <mat-checkbox formControlName="hidden" id="toHidden">Hidden</mat-checkbox>
-            <mat-checkbox formControlName="readonly" id="toReadonly">Readonly</mat-checkbox>
-            <mat-checkbox formControlName="required" id="toRequired">Required</mat-checkbox>
-            <mat-form-field appearance="legacy" id="toMax">
-              <mat-label>max</mat-label>
-              <input
-                  formControlName="max"
-                  matInput
-                  placeholder="max"
-                  type="text"
-              />
-              <mat-hint>max</mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="legacy" id="toMin">
-              <mat-label>min</mat-label>
-              <input
-                  formControlName="min"
-                  matInput
-                  placeholder="min"
-                  type="text"
-              />
-              <mat-hint>min</mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="legacy" id="toMinLength">
-              <mat-label>minLength</mat-label>
-              <input
-                  formControlName="minLength"
-                  matInput
-                  placeholder="minLength"
-                  type="text"
-              />
-              <mat-hint>minLength</mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="legacy" id="toMaxLength">
-              <mat-label>maxLength</mat-label>
-              <input
-                  formControlName="maxLength"
-                  matInput
-                  placeholder="maxLength"
-                  type="text"
-              />
-              <mat-hint>maxLength</mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="legacy" id="toPattern">
+            <mat-form-field appearance="legacy">
               <mat-label>pattern</mat-label>
               <textarea
                   formControlName="pattern"
@@ -353,17 +420,7 @@
                 </textarea>
               <mat-hint>pattern</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toTabIndex">
-              <mat-label>tabindex</mat-label>
-              <input
-                  formControlName="tabindex"
-                  matInput
-                  placeholder="tabindex"
-                  type="text"
-              />
-              <mat-hint>tabindex</mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="legacy" id="toAttributes">
+            <mat-form-field appearance="legacy">
               <mat-label>attributes</mat-label>
               <textarea
                   formControlName="attributes"
@@ -373,17 +430,7 @@
                 </textarea>
               <mat-hint>attributes</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toStep">
-              <mat-label>step</mat-label>
-              <input
-                  formControlName="step"
-                  matInput
-                  placeholder="step"
-                  type="text"
-              />
-              <mat-hint>step</mat-hint>
-            </mat-form-field>
-            <mat-form-field appearance="legacy" id="toFocus">
+            <mat-form-field appearance="legacy">
               <mat-label>focus</mat-label>
               <textarea
                   formControlName="focus"
@@ -393,7 +440,7 @@
                 </textarea>
               <mat-hint>focus</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toBlur">
+            <mat-form-field appearance="legacy">
               <mat-label>blur</mat-label>
               <textarea
                   formControlName="blur"
@@ -403,7 +450,7 @@
                 </textarea>
               <mat-hint>blur</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toKeyup">
+            <mat-form-field appearance="legacy">
               <mat-label>keyup</mat-label>
               <textarea
                   formControlName="keyup"
@@ -413,7 +460,7 @@
                 </textarea>
               <mat-hint>keyup</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toKeydown">
+            <mat-form-field appearance="legacy">
               <mat-label>keydown</mat-label>
               <textarea
                   formControlName="keydown"
@@ -423,7 +470,7 @@
                 </textarea>
               <mat-hint>keydown</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toClick">
+            <mat-form-field appearance="legacy">
               <mat-label>click</mat-label>
               <textarea
                   formControlName="click"
@@ -433,7 +480,7 @@
                 </textarea>
               <mat-hint>click</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toChange">
+            <mat-form-field appearance="legacy">
               <mat-label>change</mat-label>
               <textarea
                   formControlName="change"
@@ -443,7 +490,7 @@
                 </textarea>
               <mat-hint>change</mat-hint>
             </mat-form-field>
-            <mat-form-field appearance="legacy" id="toKeypress">
+            <mat-form-field appearance="legacy">
               <mat-label>keypress</mat-label>
               <textarea
                   formControlName="keypress"
@@ -454,16 +501,15 @@
               <mat-hint>keypress</mat-hint>
             </mat-form-field>
           </ng-container>
-          <!--              <mat-divider [vertical]="true" id="divvert"></mat-divider>-->
         </mat-card>
       </mat-tab>
       <mat-tab label="Validators">
-        <mat-card>
+        <mat-card class="mat-tab-grid">
           <ng-container formArrayName="validators">
             <ng-container *ngFor="let w of this.validator.controls; let i=index"
                           [formGroupName]="i">
-              <ng-container id="content">
-                <mat-form-field id="key2">
+              <ng-container>
+                <mat-form-field appearance="legacy">
                   <mat-label>key</mat-label>
                   <input
                       formControlName="key"
@@ -473,7 +519,7 @@
                   />
                   <mat-hint>key</mat-hint>
                 </mat-form-field>
-                <mat-form-field id="expression">
+                <mat-form-field appearance="legacy">
                   <mat-label>expression</mat-label>
                   <input
                       formControlName="expression"
@@ -483,7 +529,7 @@
                   />
                   <mat-hint>expression</mat-hint>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field appearance="legacy">
                   <mat-label>message</mat-label>
                   <input
                       formControlName="message"
@@ -493,9 +539,7 @@
                   />
                   <mat-hint>message</mat-hint>
                 </mat-form-field>
-
               </ng-container>
-
             </ng-container>
           </ng-container>
 
@@ -504,7 +548,7 @@
                           [formGroupName]="i">
               <ng-container>
                 <p>Async validators</p>
-                <mat-form-field>
+                <mat-form-field appearance="legacy">
                   <mat-label>key</mat-label>
                   <input
                       formControlName="key"
@@ -514,7 +558,7 @@
                   />
                   <mat-hint>key</mat-hint>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field appearance="legacy">
                   <mat-label>expression</mat-label>
                   <input
                       formControlName="expression"
@@ -524,7 +568,7 @@
                   />
                   <mat-hint>expression</mat-hint>
                 </mat-form-field>
-                <mat-form-field>
+                <mat-form-field appearance="legacy">
                   <mat-label>message</mat-label>
                   <input
                       formControlName="message"
@@ -542,9 +586,9 @@
         </mat-card>
       </mat-tab>
       <mat-tab label="Hooks">
-        <div class="matTabGrid">
-          <h3 id="hooks">Hooks</h3>
-          <mat-form-field appearance="legacy" formGroupName="hooks" id="onInit">
+        <div class="mat-tab-grid">
+          <h3 class="subtitle">Hooks</h3>
+          <mat-form-field appearance="legacy" formGroupName="hooks">
             <mat-label>onInit</mat-label>
             <textarea
                 formControlName="onInit"
@@ -555,7 +599,7 @@
           </textarea>
             <mat-hint>onInit</mat-hint>
           </mat-form-field>
-          <mat-form-field appearance="legacy" formGroupName="hooks" id="onChanges">
+          <mat-form-field appearance="legacy" formGroupName="hooks">
             <mat-label>onChanges</mat-label>
             <textarea
                 formControlName="onChanges"
@@ -566,7 +610,7 @@
           </textarea>
             <mat-hint>onChanges</mat-hint>
           </mat-form-field>
-          <mat-form-field appearance="legacy" formGroupName="hooks" id="afterContentInit">
+          <mat-form-field appearance="legacy" formGroupName="hooks">
             <mat-label>afterContentInit</mat-label>
             <textarea
                 formControlName="afterContentInit"
@@ -577,7 +621,7 @@
           </textarea>
             <mat-hint>afterContentInit</mat-hint>
           </mat-form-field>
-          <mat-form-field appearance="legacy" formGroupName="hooks" id="afterViewInit">
+          <mat-form-field appearance="legacy" formGroupName="hooks">
             <mat-label>afterViewInit</mat-label>
             <textarea
                 formControlName="afterViewInit"
@@ -588,7 +632,7 @@
           </textarea>
             <mat-hint>afterViewInit</mat-hint>
           </mat-form-field>
-          <mat-form-field appearance="legacy" formGroupName="hooks" id="onDestroy">
+          <mat-form-field appearance="legacy" formGroupName="hooks">
             <mat-label>onDestroy</mat-label>
             <textarea
                 formControlName="onDestroy"
@@ -603,7 +647,7 @@
       </mat-tab>
       <mat-tab label="Field Group">
         <div formArrayName="fieldGroup">
-          <h3>Field Group</h3>
+          <h3 class="subtitle">Field Group</h3>
           <button (click)="addFieldGroups()" type="button">Add Field Group</button>
           <div *ngFor="let field of this.fieldGroups.controls; let i=index"
                [formGroupName]="i">
@@ -641,22 +685,22 @@
                     formControlName="cols"
                     matInput
                     placeholder="field group key"
-                    type="text"
+                    type="number"
                 />
               </mat-form-field>
             </div>
           </div>
         </div>
       </mat-tab>
+      <mat-tab label="Position">
+
+
+      </mat-tab>
     </mat-tab-group>
-    <button [disabled]="!form.valid" class="button1" color="accent" mat-raised-button
-            type="submit">
-      Submit
-    </button>
   </mat-card>
 </form>
 
-<!--      <mat-form-field>-->
+<!--      <mat-form-fielcontrol>-->
 <!--        <mat-label>fieldArray</mat-label>-->
 <!--        <input-->
 <!--            formControlName="fieldArray"-->
