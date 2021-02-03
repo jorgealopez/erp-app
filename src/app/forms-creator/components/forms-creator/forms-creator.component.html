@@ -14,12 +14,19 @@
         <mat-icon class="material-icons-two-tone">cloud_upload</mat-icon>
         Submit
       </button>
+      <button
+          color="accent" mat-raised-button
+          type="button">
+
+        <mat-icon class="material-icons-two-tone" (click)="close()">close</mat-icon>
+        Close
+      </button>
     </mat-card-actions>
     <mat-divider></mat-divider>
     <mat-tab-group color="accent">
       <mat-tab label="General">
         <div class="mat-tab-grid">
-          <div class="control-group-col control-3">
+          <div class="control-group-col control-4">
             <h3 class="subtitle">Firebase reference</h3>
             <mat-form-field appearance="legacy">
               <mat-label>firebase path</mat-label>
@@ -43,6 +50,18 @@
               />
               <mat-hint>control name</mat-hint>
             </mat-form-field>
+            <mat-form-field appearance="legacy">
+              <mat-label>Order</mat-label>
+              <input
+                  class="turn-off-number-input-spinners"
+                  formControlName="order"
+                  matInput
+                  placeholder="order"
+                  required
+                  type="number"
+              />
+              <mat-hint>order</mat-hint>
+            </mat-form-field>
           </div>
           <div class="control-group-col control-7">
             <h3 class="subtitle">General</h3>
@@ -63,7 +82,14 @@
               <mat-select formControlName="type">
                 <mat-option value="input">Input</mat-option>
                 <mat-option value="select">Select</mat-option>
+                <mat-option value="native-select">Native Select</mat-option>
                 <mat-option value="checkbox">Checkbox</mat-option>
+                <mat-option value="textarea">Textarea</mat-option>
+                <mat-option value="radio">Radio</mat-option>
+                <mat-option value="datepicker">Datepicker</mat-option>
+                <mat-option value="toggle">Toggle</mat-option>
+                <mat-option value="slider">Slider</mat-option>
+                <mat-option value="autocomplete">Autocomplete</mat-option>
               </mat-select>
               <mat-hint>hint</mat-hint>
             </mat-form-field>

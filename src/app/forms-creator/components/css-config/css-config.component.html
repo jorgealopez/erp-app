@@ -1,0 +1,84 @@
+<p>css-config works!</p>
+
+<div>
+  <form [formGroup]="formDialog">
+    <div formGroupName="display">
+      <mat-form-field>
+        <mat-label>style</mat-label>
+        <input
+            formControlName="style"
+            matInput
+            placeholder="style"
+            type="text">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>value</mat-label>
+        <input
+            formControlName="value"
+            matInput
+            placeholder="value"
+            type="text">
+      </mat-form-field>
+    </div>
+    <div formGroupName="gridTemplateRows">
+      <mat-form-field>
+        <mat-label>style</mat-label>
+        <input
+            formControlName="style"
+            matInput
+            placeholder="style"
+            type="text">
+      </mat-form-field>
+      <mat-form-field>
+        <mat-label>value</mat-label>
+        <input
+            formControlName="value"
+            matInput
+            placeholder="value"
+            type="text">
+      </mat-form-field>
+    </div>
+
+    <!--    <ng-container formArrayName="cssGrid">-->
+    <!--      <div>-->
+    <!--        <button-->
+    <!--            (click)="addCssGridProperty()"-->
+    <!--            mat-raised-button-->
+    <!--            type="button">-->
+    <!--          <mat-icon>add_circle_outline</mat-icon>-->
+    <!--          Add a Css Grid property-->
+    <!--        </button>-->
+    <!--      </div>-->
+    <!--      <mat-form-field appearance="fill">-->
+    <!--        <mat-label>Favorite food</mat-label>-->
+    <!--        <mat-select>-->
+    <!--          <mat-option *ngFor="let css of cssProps; let i =index" [value]="css.key">-->
+    <!--            {{css.style}}-->
+    <!--          </mat-option>-->
+    <!--        </mat-select>-->
+    <!--      </mat-form-field>-->
+    <!--      <ng-container *ngFor="let css of cssGridProperties.controls; let i=index">-->
+    <!--        <mat-form-field appearance="legacy" formGroupName="{{i}}">-->
+    <!--          <mat-label>style</mat-label>-->
+    <!--          <input-->
+    <!--              formControlName="style"-->
+    <!--              matInput-->
+    <!--              placeholder="style"-->
+    <!--              type="text">-->
+    <!--          <mat-hint>property</mat-hint>-->
+    <!--        </mat-form-field>-->
+    <!--        <mat-form-field appearance="legacy" formGroupName="{{i}}">-->
+    <!--          <mat-label>value</mat-label>-->
+    <!--          <input-->
+    <!--              formControlName="value"-->
+    <!--              matInput-->
+    <!--              placeholder="value"-->
+    <!--              type="text">-->
+    <!--          <mat-hint>value</mat-hint>-->
+    <!--        </mat-form-field>-->
+    <!--      </ng-container>-->
+    <!--    </ng-container>-->
+  </form>
+</div>
+<button (click)="cssConfig()" color="accent" mat-raised-button>Nuevo</button>
+

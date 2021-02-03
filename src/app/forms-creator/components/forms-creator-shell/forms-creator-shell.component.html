@@ -1,0 +1,3 @@
+<p>forms-creator-shell works!</p>
+<!--<app-new-form></app-new-form>-->
+<app-forms-list (formEdited)="loadForms()" [forms]="forms$ | async"></app-forms-list>

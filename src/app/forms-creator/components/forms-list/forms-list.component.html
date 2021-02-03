@@ -1,0 +1,87 @@
+<p>forms-list works!</p>
+<h3>Forms</h3>
+<button mat-raised-button color="accent" (click)="newForm()">Nuevo</button>
+
+<mat-card *ngFor="let form of forms">
+  <mat-card-actions>
+    <button mat-icon-button>
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+  </mat-card-actions>
+  <mat-card-header>
+    <mat-card-title>
+      {{form.formName}}
+    </mat-card-title>
+  </mat-card-header>
+  <mat-card-content>
+    <p>{{form?.title | uppercase}}</p>
+    <p>{{form.description}}</p>
+    <p>{{form.menuItemOption}}</p>
+<!--    <p>Version: {{form.documentedInformationControl?.version}}</p>-->
+    <p>Number of Fields in the Formulary: {{form.numberOfFields}}</p>
+    <br>
+    <p>Control de cambios:</p>
+    <p>Elaboró: {{form.documentedInformationControl?.elaboratedBy}}</p>
+    <p>Aprobó: {{form.documentedInformationControl?.approvedBy}}</p>
+    <p>Autorizó: {{form.documentedInformationControl?.modifiedBy}} </p>
+    <p>Versión: {{form.documentedInformationControl?.version}} </p>
+<!--    <p *ngIf="form.documentedInformationControl?.creationDate">Fecha de creación:-->
+<!--      {{form.documentedInformationControl?.creationDate.seconds * 1000 | date: 'full'}}</p>-->
+<!--    <p *ngIf="form.documentedInformationControl?.creationDate">Fecha de modificación:-->
+<!--      {{form.documentedInformationControl?.creationDate.seconds * 1000 | date: 'short'}}</p>-->
+<!--    <p>Fecha de autorización:-->
+<!--      {{form.documentedInformationControl?.creationDate.seconds * 1000 | date: 'yyyy/MM/dd'}}</p>-->
+<!--    <p>Fecha de implementación: {{form.documentedInformationControl?.creationDate * 1000 | date: 'medium'}}</p>-->
+
+  </mat-card-content>
+  <mat-card-footer>
+    <button (click)="editForm(form)" color="primary" mat-raised-button>
+      <mat-icon>create</mat-icon>
+      Editar
+    </button>
+    <button [routerLink]="['/app-field-list', form.url]" color="accent" mat-raised-button>
+      <mat-icon>post_add
+      </mat-icon>
+      Field
+    </button>
+    <button (click)="editCss()" color="warn" mat-raised-button>
+      <mat-icon>style
+      </mat-icon>
+      Css
+    </button>
+    <button (click)="sidenavCofig()" color="warn" mat-raised-button>
+      <mat-icon>menu
+      </mat-icon>
+      Sidenav Config
+    </button>
+  </mat-card-footer>
+</mat-card>
+<br>
+<mat-card>
+  <mat-card-actions>
+    <button mat-icon-button>
+      <mat-icon>delete_forever</mat-icon>
+    </button>
+  </mat-card-actions>
+  <mat-card-header>
+    <h3>Formulario: Empleados</h3>
+  </mat-card-header>
+  <mat-card-content>
+    <p>Fecha de creación</p>
+    <p>Estatus de implementación</p>
+    <p>número de campos</p>
+    <p>Fecha de modificación</p>
+    <p>Flujo de proceso del formulario</p>
+    <p>Propiedades de css</p>
+  </mat-card-content>
+  <mat-card-footer>
+    <button color="primary" mat-raised-button>
+      <mat-icon>create</mat-icon>
+      Editar
+    </button>
+    <button color="accent" mat-raised-button>
+      <mat-icon>post_add</mat-icon>
+      Fields
+    </button>
+  </mat-card-footer>
+</mat-card>

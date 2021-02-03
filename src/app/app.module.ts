@@ -63,7 +63,7 @@ import { SharedModule } from './shared/shared.module';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 const appearance: MatFormFieldDefaultOptions = {
-  appearance: 'outline',
+  appearance: 'legacy',
 };
 
 @NgModule({

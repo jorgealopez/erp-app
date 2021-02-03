@@ -6,4 +6,5 @@
 @mixin custom-components-theme($theme) {
   @include menu-component-theme($theme);
   @include form-component-theme($theme);
+  @include form-builder-component-theme($theme);
 }

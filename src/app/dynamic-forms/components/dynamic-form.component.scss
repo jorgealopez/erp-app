@@ -1,22 +1,25 @@
-mat-card {
-  width: 800px;
+//mat-card {
+//  width: 800px;
+//}
+//
+//  form {
+//    display: grid;
+//    grid-template-rows: 300px;
+//    grid-template-columns: 700px;
+//  }
+//
+//  button#but2 {
+//    width: 150px;
+//    grid-column: 1 / 2;
+//    grid-row: 2 / 3;
+//    align-self: center;
+//    justify-self: center;
+//  }
+
+.control-3 {
+  grid-row: span 3;
 }
 
-  form {
-    display: grid;
-    grid-template-rows: 300px;
-    grid-template-columns: 700px;
-  }
-
-  button#but2 {
-    width: 150px;
-    grid-column: 1 / 2;
-    grid-row: 2 / 3;
-    align-self: center;
-    justify-self: center;
-  }
-
-
-
-
-
+.font {
+  font-size: xx-small;
+}

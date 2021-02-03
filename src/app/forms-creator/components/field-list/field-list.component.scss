@@ -1,0 +1,29 @@
+mat-table {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+mat-header-cell, mat-cell {
+  justify-content: center;
+}
+
+span {
+  flex: 1 1 auto;
+}
+
+mat-card-actions {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+
+  mat-form-field {
+    padding-left: 20px;
+    width: 300px;
+  }
+
+  button {
+    height: 35px;
+    font-size: smaller;
+  }
+}

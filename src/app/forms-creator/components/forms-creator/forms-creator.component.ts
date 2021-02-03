@@ -8,6 +8,7 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import 'clean-deep';
 import cleanDeep from 'clean-deep';
 
@@ -22,7 +23,10 @@ export class FormsCreatorComponent implements OnInit {
   controlName: string;
   firebasePath: string;
 
-  constructor( private fb: FormBuilder, private afs: AngularFirestore ) { }
+  constructor(
+    private fb: FormBuilder,
+    private afs: AngularFirestore,
+    private dialogRef: MatDialogRef<FormsCreatorComponent> ) { }
 
   get key() {
     return this.form.get('key');
@@ -91,17 +95,20 @@ export class FormsCreatorComponent implements OnInit {
   // FIXME: Definir campos obligatorios y expresiones regulares
   initializeForm(): void {
     this.form = this.fb.group({
-      firebasePath: ['', Validators.required ],
-      controlName: ['', Validators.required ],
+      firebasePath: [ '', Validators.required ],
+      controlName: [ '', Validators.required ],
+      order: [ '', [ Validators.required,
+                     Validators.min(0), this.forbiddenNameValidator(
+          /^[0-9]*$/) ] ],
       key: [ '', Validators.required ],
-      type: [],
+      type: [ '', Validators.required ],
       defaultValue: [],
       id: [],
       name: [],
       template: [],
       hide: [],
       hideExpression: [],
-      className: ['', Validators.required ],
+      className: [ '', Validators.required ],
       fieldGroupClassName: [],
       focus: [],
 
@@ -195,7 +202,7 @@ export class FormsCreatorComponent implements OnInit {
     // TODO: Controlar los errores al guardar en firestore y mostrar en la
     //  pantalla ALERTA
     this.afs.collection(`${ this.firebasePath }`).doc(this.controlName)
-      .update(cleanField)
+      .set(cleanField)
       .then(function() {
         console.log('Document successfully written!');
       })
@@ -210,6 +217,24 @@ export class FormsCreatorComponent implements OnInit {
       const forbidden = nameRe.test(control.value);
       return forbidden ? null : { forbiddenName: { value: control.value } };
     };
+  }
+
+  removeEmpty( field ) {
+    Object.keys(field).forEach(key => {
+      if (field[key] && typeof field[key] === 'object') {
+        this.removeEmpty(
+          field[key]);
+      } else if (field[key] === null) {
+        // delete field[key];
+
+      }
+    });
+    // console.log(field);
+    return field;
+  };
+
+  close() {
+    this.dialogRef.close();
   }
 
   // TODO: Añadir método para añadir al Array el grupo de campos
@@ -242,8 +267,8 @@ export class FormsCreatorComponent implements OnInit {
     ];
 
     return this.fb.group({
-      label: [''],
-      placeholder: [''],
+      label: [ '' ],
+      placeholder: [ '' ],
       type: [],
       description: [],
       options: [],
@@ -349,20 +374,6 @@ export class FormsCreatorComponent implements OnInit {
       this.fb.control(''),
     ]);
   }
-
-  removeEmpty( field ) {
-    Object.keys(field).forEach(key => {
-      if (field[key] && typeof field[key] === 'object') {
-        this.removeEmpty(
-          field[key]);
-      } else if (field[key] === null) {
-        // delete field[key];
-
-      }
-    });
-    // console.log(field);
-    return field;
-  };
 
 
 }

@@ -1,0 +1,30 @@
+<p>new-form works!</p>
+<div [formGroup]="formDialog">
+  <mat-form-field>
+    <input formControlName="routerLink"
+           matInput
+           placeholder="routerLink">
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="icon"
+           matInput
+           placeholder="icon">
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="name"
+           matInput
+           placeholder="name">
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="order"
+           matInput
+           placeholder="order">
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="tooltip"
+           matInput
+           placeholder="tooltip">
+  </mat-form-field>
+
+</div>
+<button (click)="newSidenavItem()" color="accent" mat-raised-button>Nuevo</button>

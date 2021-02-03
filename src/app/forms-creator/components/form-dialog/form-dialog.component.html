@@ -1,0 +1,96 @@
+<p>form-dialog works!</p>
+<h2 mat-dialog-title>{{description}}</h2>
+
+<mat-dialog-content [formGroup]="formDialog">
+  <mat-form-field>
+    <input formControlName="title"
+           matInput
+           placeholder="Title">
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="formName"
+           matInput
+           placeholder="Form name">
+  </mat-form-field>
+  <mat-form-field>
+      <textarea formControlName="description" matInput
+                placeholder="Descripción">
+
+    </textarea>
+  </mat-form-field>
+  <mat-form-field>
+    <input formControlName="numberOfFields"
+           matInput
+           placeholder="Número de campos del formulario">
+
+  </mat-form-field>
+  <mat-form-field formGroupName="documentedInformationControl">
+    <input formControlName="approvedBy"
+           matInput
+           placeholder="Aprobó">
+
+  </mat-form-field>
+  <mat-form-field formGroupName="documentedInformationControl">
+    <input formControlName="elaboratedBy"
+           matInput
+           placeholder="Elaboró">
+  </mat-form-field>
+  <mat-form-field formGroupName="documentedInformationControl">
+    <input formControlName="modifiedBy"
+           matInput
+           placeholder="Modificó">
+  </mat-form-field>
+<mat-form-field formGroupName="documentedInformationControl">
+    <input formControlName="version"
+           matInput
+           placeholder="Versión">
+  </mat-form-field>
+
+  <!--  <mat-form-field>-->
+
+  <!--        <textarea matInput placeholder="Version"-->
+  <!--                  formControlName="version">-->
+
+  <!--        </textarea>-->
+
+  <!--  </mat-form-field>-->
+
+  <!--  <div class="course-image-upload">-->
+
+  <!--    <span>Course:</span>-->
+
+  <!--    <input type="file" (change)="uploadFile($event)">-->
+
+  <!--    <div class="upload-progress" *ngIf="(uploadPercent$ | async) as percentage">-->
+
+  <!--      Upload Progress:-->
+
+  <!--      <mat-progress-bar class="progress-bar" mode="determinate" [value]="percentage">-->
+
+  <!--      </mat-progress-bar>-->
+
+  <!--      <span>{{percentage / 100 | percent}}</span>-->
+
+  <!--    </div>-->
+
+  <!--  </div>-->
+
+</mat-dialog-content>
+
+<mat-dialog-actions>
+
+  <button (click)="close()"
+          class="mat-raised-button">
+    Close
+  </button>
+
+  <button *ngIf="form?.description" (click)="save()"
+          class="mat-raised-button mat-primary">
+    Save
+  </button>
+<button (click)="newForm()"
+          class="mat-raised-button mat-primary">
+    New
+  </button>
+
+</mat-dialog-actions>

@@ -1,0 +1,73 @@
+<!--<div *ngFor="let field of fields | async">-->
+<!--  {{field.fieldConfig.className}}-->
+<!--  {{field.fieldConfig.controlName}}-->
+<!--  {{field.fieldConfig.key}}-->
+<!--</div>-->
+
+<mat-card>
+  <mat-card-header>Campos del formulario</mat-card-header>
+  <mat-card-actions>
+    <!--    <mat-form-field appearance="legacy">-->
+    <!--      <mat-label>Selecciona un Formulario</mat-label>-->
+    <!--      <mat-select [(ngModel)]="selectedValue" name="form" (selectionChange)="selectForm($event.value)">-->
+    <!--        <mat-option *ngFor="let form of forms | async" [value]="form.formName">-->
+    <!--          {{form.formName}}-->
+    <!--        </mat-option>-->
+    <!--      </mat-select>-->
+    <!--    </mat-form-field>-->
+    <!--    <p>Selected form: {{selectedValue}}</p>-->
+    <span></span>
+    <button color="accent" mat-raised-button>
+      <mat-icon class="material-icons-outlined">delete_forever</mat-icon>
+      <span>Delete Selected</span>
+    </button>
+    <button (click)="new()" color="primary" mat-raised-button>
+      <mat-icon class="material-icons-outlined">add</mat-icon>
+      <span>Add Field</span>
+    </button>
+  </mat-card-actions>
+  <mat-card-content>
+
+    <mat-table [dataSource]="fields" class="mat-elevation-z8">
+      <ng-container matColumnDef="key">
+        <mat-header-cell *matHeaderCellDef>Key</mat-header-cell>
+        <mat-cell *matCellDef="let field">
+          {{field.fieldConfig.key}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="class name">
+        <mat-header-cell *matHeaderCellDef>Class Name</mat-header-cell>
+        <mat-cell *matCellDef="let field">
+          {{field.fieldConfig.className}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="control name">
+        <mat-header-cell *matHeaderCellDef>Control Name</mat-header-cell>
+        <mat-cell *matCellDef="let field">
+          {{field.fieldConfig.controlName}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="order">
+        <mat-header-cell *matHeaderCellDef>order</mat-header-cell>
+        <mat-cell *matCellDef="let field">
+          {{field.fieldConfig.order}}
+        </mat-cell>
+      </ng-container>
+      <ng-container matColumnDef="actions">
+        <mat-header-cell *matHeaderCellDef>Actions</mat-header-cell>
+        <mat-cell *matCellDef="let element">
+          <button (click)="edit()" color="primary" mat-icon-button>
+            <mat-icon class="material-icons-outlined">edit</mat-icon>
+          </button>
+          <button (click)="delete(element)" color="accent" mat-icon-button>
+            <mat-icon class="material-icons-outlined">delete</mat-icon>
+          </button>
+        </mat-cell>
+      </ng-container>
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"
+
+      ></mat-row>
+    </mat-table>
+  </mat-card-content>
+</mat-card>
