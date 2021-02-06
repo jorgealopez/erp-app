@@ -4,9 +4,8 @@ import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full' },
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  // { path: '**', component: NotFoundComponent, pathMatch: 'full'},
   {
     path: 'auth',
     loadChildren: () =>
@@ -23,19 +22,15 @@ const routes: Routes = [
       import('./dynamic-forms/dynamic-forms.module').then(( m ) => m.DynamicFormsModule),
   },
   {
-    path: 'creador',
-    loadChildren: () =>
-      import('./forms-creator/forms-creator.module').then(( m ) => m.FormsCreatorModule),
-  },
-  {
     path: 'employee',
     loadChildren: () =>
       import('./employees/employees.module').then(( m ) => m.EmployeesModule),
   },
+  { path: '**', component: NotFoundComponent },
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes) ],
+  imports: [ RouterModule.forRoot(routes, {enableTracing: false}) ],
   exports: [ RouterModule ],
 })
 export class AppRoutingModule {}

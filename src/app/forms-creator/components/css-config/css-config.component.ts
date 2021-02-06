@@ -2,32 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup } from '@angular/forms';
 import { FormsCreatorService } from '../../services/forms-creator.service';
 
-interface style {
-  style?: string;
-  value?: string | number;
-}
-
-interface cssGrid extends style {
-  display?: style;
-  gridTemplateRows?: style;
-  gridTemplateColumns?: style;
-  gridTemplateAreas?: style;
-  gridTemplate?: style;
-  gridColumnGap?: style;
-  gridRowGap?: style;
-  gridGap?: style;
-  justifyItems?: style;
-  alignItems?: style;
-  placeItems?: style;
-  justifyContent?: style;
-  alignContent?: style;
-  placeContent?: style;
-  gridAutoColumns?: style;
-  gridAutoRows?: style;
-  gridAutoFlow?: style;
-  grid?: style;
-}
-
 @Component({
   selector: 'app-css-config',
   templateUrl: './css-config.component.html',
@@ -41,11 +15,6 @@ export class CssConfigComponent implements OnInit {
     { key: 'gridTemplateRows', style: 'grid-template-rows', value: '' },
     { key: 'gridRowGap', style: 'grid-row-gap', value: '' },
   ];
-  // cssProps: cssGrid[] = [
-  //   { display: { style: 'display', value: '' } },
-  //   { gridTemplateRows: { style: 'grid-template-rows', value: '' } },
-  // ];
-
 
   constructor(
     private fb: FormBuilder,

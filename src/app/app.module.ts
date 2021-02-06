@@ -40,27 +40,19 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
-import { FormlyModule } from '@ngx-formly/core';
-import { FormlyMaterialModule } from '@ngx-formly/material';
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { AuthModule } from './auth/auth.module';
-import { FireFormDirective } from './directives/fire-form.directive';
-// import { DynamicFieldDirective } from './dynamic-form/components/dynamic-field/dynamic-field.directive';
-import { DynamicFormsModule } from './dynamic-forms/dynamic-forms.module';
-// import { DynamicFormComponent } from './dynamic-forms/components/dynamic-form.component';
-import { EmployeesModule } from './employees/employees.module';
-import { FormsCreatorModule } from './forms-creator/forms-creator.module';
 import { HomeComponent } from './home/home.component';
 
 import { MaterialModule } from './material.module';
 
 import { MenuComponent } from './menu/menu.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 import { SidenavService } from './services/sidenav.service';
 import { SharedModule } from './shared/shared.module';
-import { NotFoundComponent } from './not-found/not-found.component';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'legacy',
@@ -75,13 +67,9 @@ const appearance: MatFormFieldDefaultOptions = {
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
     AuthModule,
-    DynamicFormsModule,
-    FormsCreatorModule,
-    EmployeesModule,
     BrowserAnimationsModule,
     SharedModule,
     FontAwesomeModule,
@@ -97,6 +85,7 @@ const appearance: MatFormFieldDefaultOptions = {
       logOnly: environment.production,
     }),
     EffectsModule.forRoot([]),
+    AppRoutingModule,
   ],
   providers: [ SidenavService, {
     provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,

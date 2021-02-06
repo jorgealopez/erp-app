@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
-import { FormInterface } from '../../../types/form.interface';
+import { FormInterface } from '../../../types/forms/form.interface';
 import { CssConfigComponent } from '../css-config/css-config.component';
 import { FormDialogComponent } from '../form-dialog/form-dialog.component';
 import { NewFormComponent } from '../new-form/new-form.component';

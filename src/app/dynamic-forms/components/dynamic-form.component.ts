@@ -5,47 +5,27 @@ import {
   Renderer2,
   ViewEncapsulation,
 } from '@angular/core';
+
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
 import {
   FormlyField,
   FormlyFieldConfig,
   FormlyFormOptions,
 } from '@ngx-formly/core';
+
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { getUrlPathWithOutFirstSlash } from '../../helpers/getUrlPath';
+import { cssGrid } from '../../types/css/css-grid';
+import { style } from '../../types/css/style';
 
 interface data2 extends FormlyFieldConfig, style {
   controlName: string;
   css: style[];
   fieldConfig: FormlyFieldConfig;
-}
-
-interface style {
-  style: string;
-  value: string | number;
-}
-
-interface cssGrid extends style {
-  display?: style;
-  gridTemplateRows?: style;
-  gridTemplateColumns?: style;
-  gridTemplateAreas?: style;
-  gridTemplate?: style;
-  gridColumnGap?: style;
-  gridRowGap?: style;
-  gridGap?: style;
-  justifyItems?: style;
-  alignItems?: style;
-  placeItems?: style;
-  justifyContent?: style;
-  alignContent?: style;
-  placeContent?: style;
-  gridAutoColumns?: style;
-  gridAutoRows?: style;
-  gridAutoFlow?: style;
-  grid?: style;
 }
 
 @Component({
@@ -57,24 +37,28 @@ interface cssGrid extends style {
 
 export class DynamicFormComponent implements OnInit, AfterViewInit {
   form = new FormGroup({});
+  path: string;
+
   model = {};
   options: FormlyFormOptions = {};
   fields: Observable<FormlyFieldConfig[]>;
+
   dbFieldsConfig: Observable<data2[]>;
-  path: string;
-  dbFieldsPath: string;
+  dbFormFieldsPath: string;
   dbInvoicePath: string;
   dbCssPath: string;
+
   grid: Observable<cssGrid[]>;
   help: string;
 
   constructor(
     private afs: AngularFirestore,
     private renderer: Renderer2,
-    private route: ActivatedRoute ) {}
+    private route: ActivatedRoute,
+    private router: Router ) {}
 
   ngOnInit() {
-    this.getFormPath();
+    this.getDbFormPaths();
     this.getFieldsConfig();
     this.getFields();
     this.getCssGridConfig();
@@ -87,29 +71,22 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     this.getCssPosition();
   }
 
-  getFormPath() {
-    this.route.paramMap.subscribe(params => {
-      let id = params.get('id');
-      let a = params.get('a');
-      // let b = params.get('b');
-      this.dbFieldsPath = `${ id }/${ a }/fields`; // FIXME: Modificar
-      // la url
-      this.dbInvoicePath = `${ id }/${ a }/invoice`;
-      this.dbCssPath = `${ id }/${ a }/css`;
-      console.log(this.dbFieldsPath);
-      console.log(this.dbCssPath);
-    });
+  getDbFormPaths() {
+    const collectionPath = getUrlPathWithOutFirstSlash(this.router);
+    this.dbFormFieldsPath = `${ collectionPath }/fields`;
+    this.dbInvoicePath = `${ collectionPath }/invoice`;
+    this.dbCssPath = `${ collectionPath }/css`;
   }
 
   getFieldsConfig() {
-    this.dbFieldsConfig = this.afs.collection(`${ this.dbFieldsPath }`,
+    this.dbFieldsConfig = this.afs.collection(`${ this.dbFormFieldsPath }`,
       ref => ref.orderBy('fieldConfig.order'))
       .snapshotChanges()
       .pipe(
         map(actions => actions.map(a => {
           const data = a.payload.doc.data() as any;
           const id = a.payload.doc.id;
-          return { id, ...data.fieldConfig, css: {...data.css }};
+          return { id, ...data.fieldConfig, css: { ...data.css } };
         })),
         // tap(console.log),
       );
@@ -170,9 +147,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
 
         css.forEach(style => {
           console.log(style?.value);
-        this.renderer.setStyle(el, `${ style?.style }`,
-          `${ style?.value }`);
-        })
+          this.renderer.setStyle(el, `${ style?.style }`,
+            `${ style?.value }`);
+        });
 
       });
     });

@@ -38,6 +38,7 @@ export class MenuListItemComponent {
       // this.Active = !this.Active;
       // console.log(item.parent);
       // console.log(this.parentRoute);
+      console.log('navegación realizada')
     }
   }
 

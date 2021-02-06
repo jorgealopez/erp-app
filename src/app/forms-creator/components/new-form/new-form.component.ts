@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { FormInterface } from '../../../types/form.interface';
+import { FormInterface } from '../../../types/forms/form.interface';
 import { FormsCreatorService } from '../../services/forms-creator.service';
 
 @Component({
@@ -28,14 +28,11 @@ export class NewFormComponent implements OnInit {
   createForm() {
     this.formDialog = this.fb.group({
       routerLink: [ '', Validators.required ],
-      icon: ['', Validators.required],
-      name: ['', Validators.required],
-      order: ['', Validators.required],
-      tooltip: ['', Validators.required],
+      icon: [ '', Validators.required ],
+      name: [ '', Validators.required ],
+      order: [ '', Validators.required ],
+      tooltip: [ '', Validators.required ],
     });
-  }
-
-  newForm() {
   }
 
   newSidenavItem() {

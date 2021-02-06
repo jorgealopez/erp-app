@@ -5,7 +5,7 @@ import {
   RouterStateSnapshot,
 } from '@angular/router';
 import { Observable } from 'rxjs';
-import { FormInterface } from '../../types/form.interface';
+import { FormInterface } from '../../types/forms/form.interface';
 import { FormsCreatorService } from './forms-creator.service';
 
 

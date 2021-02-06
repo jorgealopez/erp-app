@@ -6,7 +6,7 @@
   (click)="onItemSelected(item)"
   [matTooltip]="item?.tooltip"
   [matTooltipPosition]="'below'"
-  [routerLink]="item.routerLink"
+  [routerLink]="[item.routerLink]"
   [ngClass]="{'active-link': isActive() || parentRoute == item.name}"
 >
   <mat-icon

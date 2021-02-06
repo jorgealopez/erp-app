@@ -120,6 +120,13 @@
       fixedTopGap="53"
   >
     <mat-nav-list>
+<!--      <a-->
+<!--          mat-list-item-->
+<!--          routerLink="/login"-->
+<!--      >LOGin</a> <a-->
+<!--          mat-list-item-->
+<!--          routerLink="/signup"-->
+<!--      >Signup</a>-->
       <app-menu-list-item
           *ngFor="let sidenavItem of (sidenavItems | async)"
           [isHandset$]="isHandset$"

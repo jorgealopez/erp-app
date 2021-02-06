@@ -1,14 +1,13 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { DynamicFormComponent } from './components/dynamic-form.component';
 
 const routes: Routes = [
-  { path: '', component: DynamicFormComponent },
-  { path: ':id/:a/:b', component: DynamicFormComponent}
+  { path: ':id', component: DynamicFormComponent },
 ];
 
 @NgModule({
-  imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  imports: [ RouterModule.forChild(routes) ],
+  exports: [ RouterModule ],
 })
-export class DynamicFormsRoutingModule { }
+export class DynamicFormsRoutingModule {}

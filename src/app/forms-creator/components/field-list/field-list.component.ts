@@ -3,8 +3,8 @@ import { AngularFirestore } from '@angular/fire/firestore';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { ActivatedRoute } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { FieldInterface } from '../../../types/field.interface';
-import { FormInterface } from '../../../types/form.interface';
+import { FieldInterface } from '../../../types/forms/field.interface';
+import { FormInterface } from '../../../types/forms/form.interface';
 import { FormsCreatorService } from '../../services/forms-creator.service';
 import { FormsCreatorComponent } from '../forms-creator/forms-creator.component';
 

@@ -2,8 +2,8 @@ import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { from, Observable } from 'rxjs';
 import { first, map } from 'rxjs/operators';
-import { FieldInterface } from '../../types/field.interface';
-import { FormInterface } from '../../types/form.interface';
+import { FieldInterface } from '../../types/forms/field.interface';
+import { FormInterface } from '../../types/forms/form.interface';
 import { SidenavItemInterface } from '../../types/ui/sidenav-item.interface';
 import { convertSnaps } from './db-utils';
 

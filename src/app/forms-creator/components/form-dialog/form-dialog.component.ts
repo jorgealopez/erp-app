@@ -3,7 +3,7 @@ import { AngularFireStorage } from '@angular/fire/storage';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Observable } from 'rxjs';
-import { FormInterface } from '../../../types/form.interface';
+import { FormInterface } from '../../../types/forms/form.interface';
 import { FormsCreatorService } from '../../services/forms-creator.service';
 
 @Component({

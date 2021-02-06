@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
-import { FormInterface } from '../../../types/form.interface';
+import { FormInterface } from '../../../types/forms/form.interface';
 import { FormsCreatorService } from '../../services/forms-creator.service';
 
 @Component({
@@ -25,6 +25,4 @@ export class FormsCreatorShellComponent implements OnInit {
     this.forms$ = this.formsCreatorService.loadAllForms();
   }
 
-  newForm() {
-  }
 }
