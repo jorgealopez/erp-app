@@ -13,29 +13,29 @@ import {
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-import {
-  FaConfig,
-  FaIconLibrary,
-  FontAwesomeModule,
-} from '@fortawesome/angular-fontawesome';
-import { faGithub } from '@fortawesome/free-brands-svg-icons';
-import {
-  faAddressBook,
-  faBell,
-  faEnvelope,
-  faStar as farStar,
-  faUser,
-} from '@fortawesome/free-regular-svg-icons';
-
-import {
-  faCoffee,
-  faFillDrip,
-  faSearch,
-  faShoePrints,
-  faStar as fasStar,
-  faUserAstronaut,
-  faUserCog,
-} from '@fortawesome/free-solid-svg-icons';
+// import {
+//   FaConfig,
+//   FaIconLibrary,
+//   FontAwesomeModule,
+// } from '@fortawesome/angular-fontawesome';
+// import { faGithub } from '@fortawesome/free-brands-svg-icons';
+// import {
+//   faAddressBook,
+//   faBell,
+//   faEnvelope,
+//   faStar as farStar,
+//   faUser,
+// } from '@fortawesome/free-regular-svg-icons';
+//
+// import {
+//   faCoffee,
+//   faFillDrip,
+//   faSearch,
+//   faShoePrints,
+//   faStar as fasStar,
+//   faUserAstronaut,
+//   faUserCog,
+// } from '@fortawesome/free-solid-svg-icons';
 import { EffectsModule } from '@ngrx/effects';
 
 import { StoreModule } from '@ngrx/store';
@@ -72,7 +72,6 @@ const appearance: MatFormFieldDefaultOptions = {
     AuthModule,
     BrowserAnimationsModule,
     SharedModule,
-    FontAwesomeModule,
     MaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule.enablePersistence(),
@@ -94,24 +93,24 @@ const appearance: MatFormFieldDefaultOptions = {
   bootstrap: [ AppComponent ],
 })
 export class AppModule {
-  constructor( fasIconLibrary: FaIconLibrary, faConfig: FaConfig ) {
+  // constructor( fasIconLibrary: FaIconLibrary, faConfig: FaConfig ) {
     // Añade un icono a la lberería para que otros componentes
     // tengan acceso
-    fasIconLibrary.addIcons(
-      faCoffee,
-      faAddressBook,
-      faGithub,
-      faEnvelope,
-      fasStar,
-      farStar,
-      faBell,
-      faSearch,
-      faUser,
-      faFillDrip,
-      faUserAstronaut,
-      faUserCog,
-      faShoePrints,
-    );
-    faConfig.defaultPrefix = 'fas';
-  }
+  //   fasIconLibrary.addIcons(
+  //     faCoffee,
+  //     faAddressBook,
+  //     faGithub,
+  //     faEnvelope,
+  //     fasStar,
+  //     farStar,
+  //     faBell,
+  //     faSearch,
+  //     faUser,
+  //     faFillDrip,
+  //     faUserAstronaut,
+  //     faUserCog,
+  //     faShoePrints,
+  //   );
+  //   faConfig.defaultPrefix = 'fas';
+  // }
 }
