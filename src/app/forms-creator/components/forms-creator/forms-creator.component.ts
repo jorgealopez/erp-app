@@ -28,65 +28,35 @@ export class FormsCreatorComponent implements OnInit {
     private afs: AngularFirestore,
     private dialogRef: MatDialogRef<FormsCreatorComponent> ) { }
 
-  get key() {
-    return this.form.get('key');
-  }
+  get key() { return this.form.get('key'); }
 
-  get default() {
-    return this.form.get('modelOptions.debounce.default');
-  }
+  get default() { return this.form.get('modelOptions.debounce.default'); }
 
-  get min() {
-    return this.form.get('templateOptions.min');
-  }
+  get min() { return this.form.get('templateOptions.min'); }
 
-  get max() {
-    return this.form.get('templateOptions.max');
-  }
+  get max() { return this.form.get('templateOptions.max'); }
 
-  get minLength() {
-    return this.form.get('templateOptions.minLength');
-  }
+  get minLength() { return this.form.get('templateOptions.minLength'); }
 
-  get maxLength() {
-    return this.form.get('templateOptions.maxLength');
-  }
+  get maxLength() { return this.form.get('templateOptions.maxLength'); }
 
-  get cols() {
-    return this.form.get('templateOptions.cols');
-  }
+  get cols() { return this.form.get('templateOptions.cols'); }
 
-  get rows() {
-    return this.form.get('templateOptions.rows');
-  }
+  get rows() { return this.form.get('templateOptions.rows'); }
 
-  get step() {
-    return this.form.get('templateOptions.step');
-  }
+  get step() { return this.form.get('templateOptions.step'); }
 
-  get tabindex() {
-    return this.form.get('templateOptions.tabindex');
-  }
+  get tabindex() { return this.form.get('templateOptions.tabindex'); }
 
-  get fieldGroups() {
-    return this.form.get('fieldGroup') as FormArray;
-  }
+  get fieldGroups() { return this.form.get('fieldGroup') as FormArray; }
 
-  get wrapper() {
-    return this.form.get('wrappers') as FormArray;
-  }
+  get wrapper() { return this.form.get('wrappers') as FormArray; }
 
-  get validator() {
-    return this.form.get('validators') as FormArray;
-  }
+  get validator() { return this.form.get('validators') as FormArray; }
 
-  get asyncValidator() {
-    return this.form.get('validators') as FormArray;
-  }
+  get asyncValidator() { return this.form.get('validators') as FormArray; }
 
-  get parser() {
-    return this.form.get('parsers') as FormArray;
-  }
+  get parser() { return this.form.get('parsers') as FormArray; }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -150,6 +120,7 @@ export class FormsCreatorComponent implements OnInit {
     this.parser.push(this.fb.control(''));
   }
 
+  //TODO: MOVER A LA CARPETA DE HELPERS
   express( expr ) {
     const b: Array<any> = Object.values(expr);
     const b0 = b[0];
@@ -162,6 +133,7 @@ export class FormsCreatorComponent implements OnInit {
     return { ...obj };
   }
 
+  //TODO: MOVER A LA CARPETA DE HELPERS
   val( val ) {
     const b: Array<any> = Object.values(val);
     console.log(b);
