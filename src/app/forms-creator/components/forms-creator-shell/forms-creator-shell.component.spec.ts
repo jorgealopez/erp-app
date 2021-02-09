@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FormsCreatorShellComponent } from './forms-creator-shell.component';
 
@@ -6,7 +6,7 @@ describe('FormsCreatorShellComponent', () => {
   let component: FormsCreatorShellComponent;
   let fixture: ComponentFixture<FormsCreatorShellComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FormsCreatorShellComponent ]
     })
