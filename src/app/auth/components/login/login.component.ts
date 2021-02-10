@@ -1,8 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, Validators, FormGroup} from '@angular/forms'
-import {Store} from '@ngrx/store'
+import {Select, Store} from '@ngxs/store';
+import { Auth } from '../../../store/auth/auth.actions';
 import {LoginRequestInterface} from '../../types/loginRequest.interface'
 import {loginAction} from '../../store/actions/login.actions'
+import LoginWithEmailAndPassword = Auth.LoginWithEmailAndPassword;
 
 @Component({
   selector: 'app-login',
@@ -21,7 +23,7 @@ export class LoginComponent implements OnInit {
   checkboxLabel: string
   termsLabel: string
   buttonLabel: string
-  alreadyAnAcountLabel: string
+  alreadyAnAccountLabel: string
   logInLinkLabel: string
   loginIcon: string
 
@@ -32,7 +34,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.initializeForm()
-    this.initializeLabelsandHints()
+    this.initializeLabelsAndHints()
     // this.initializeValues();
   }
 
@@ -45,7 +47,7 @@ export class LoginComponent implements OnInit {
     })
   }
 
-  initializeLabelsandHints(): void {
+  initializeLabelsAndHints(): void {
     this.icon = 'arrow_back'
     this.titleLabel = 'Login'
     this.usernameLabel = 'Usuario'
@@ -57,7 +59,7 @@ export class LoginComponent implements OnInit {
     this.checkboxLabel = 'Acepto los'
     this.termsLabel = 'términos y condiciones'
     this.buttonLabel = 'Login'
-    this.alreadyAnAcountLabel = 'No tienes una cuenta'
+    this.alreadyAnAccountLabel = 'No tienes una cuenta'
     this.logInLinkLabel = 'Regístrate'
     this.loginIcon = 'login'
   }
@@ -67,6 +69,7 @@ export class LoginComponent implements OnInit {
       user: this.form.value,
     }
 
-    this.store.dispatch(loginAction({request}))
+    // this.store.dispatch(loginAction({request}))
+    this.store.dispatch(new LoginWithEmailAndPassword(request));
   }
 }

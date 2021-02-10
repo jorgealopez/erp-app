@@ -1,7 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-
-import { select, Store } from '@ngrx/store';
+import {Select, Store} from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
 import {
@@ -10,9 +9,9 @@ import {
   onSideNavChange,
 } from '../animations/animations';
 import { logoutAction } from '../auth/store/actions/signup.actions';
-import { isLoggedInSelector } from '../auth/store/selectors';
 import { SidenavService } from '../services/sidenav.service';
 import { CurrentUserInterface } from '../shared/types/currentUser.interface';
+import { AuthSelectors } from '../store/auth/auth.selectors';
 import { SidenavItemInterface } from '../types/ui/sidenav-item.interface';
 import { ThemeInterface } from '../types/ui/theme.interface';
 
@@ -28,7 +27,9 @@ export class MenuComponent implements OnInit {
   linkText = false;
   onSideNavChange: boolean;
   sidenavItems: Observable<SidenavItemInterface[]>;
-  isLoggedIn$: Observable<boolean>;
+  @Select(AuthSelectors.loggedInUser)
+  isLoggedIn$: Observable<CurrentUserInterface>;
+
   cTheme: string;
   @Output() theme: EventEmitter<string> = new EventEmitter<string>();
 
@@ -53,7 +54,8 @@ export class MenuComponent implements OnInit {
       this.onSideNavChange = res;
     });
 
-    this.isLoggedIn$ = this.store.pipe(select(isLoggedInSelector));
+    // this.isLoggedIn$ = this.store.pipe(select(isLoggedInSelector));
+
 
     breakpointObserver
       .observe([

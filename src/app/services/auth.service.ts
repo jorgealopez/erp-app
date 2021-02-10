@@ -17,6 +17,7 @@ export class AuthService {
     const userResponse: CurrentUserInterface = {
       email: response.user.email,
       uid: response.user.uid,
+      displayName: response.user.displayName
     };
     return userResponse;
   }

@@ -1,5 +1,5 @@
 export interface CurrentUserInterface {
-  // displayName?: string;
+  displayName?: string;
   email?: string;
   uid?: string;
   // user: firebase.User | null;

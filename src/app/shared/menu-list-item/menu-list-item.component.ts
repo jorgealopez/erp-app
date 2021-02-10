@@ -16,7 +16,7 @@ import { SidenavItemInterface } from '../../types/ui/sidenav-item.interface';
 })
 export class MenuListItemComponent {
   expanded: boolean;
-  @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
+  // @HostBinding('attr.aria-expanded') ariaExpanded = this.expanded;
   @Input() item: SidenavItemInterface;
   @Input() linkText: boolean;
   @Input() isHandset$: Observable<boolean>;

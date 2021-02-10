@@ -40,6 +40,10 @@ import { EffectsModule } from '@ngrx/effects';
 
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
+import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
+import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsModule } from '@ngxs/store';
 import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -53,6 +57,7 @@ import { MenuComponent } from './menu/menu.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { SidenavService } from './services/sidenav.service';
 import { SharedModule } from './shared/shared.module';
+import { AuthState } from './store/auth/auth.state';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'legacy',
@@ -78,6 +83,16 @@ const appearance: MatFormFieldDefaultOptions = {
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
+    NgxsModule.forRoot([AuthState],{
+      developmentMode: !environment.production,
+      selectorOptions: {
+        suppressErrors: false,
+        injectContainerState: false
+      }
+    }),
+    NgxsDispatchPluginModule.forRoot(),
+    NgxsLoggerPluginModule.forRoot(),
+    NgxsReduxDevtoolsPluginModule.forRoot(),
     StoreModule.forRoot({}),
     StoreDevtoolsModule.instrument({
       maxAge: 25,
