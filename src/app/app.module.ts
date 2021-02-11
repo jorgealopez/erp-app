@@ -41,6 +41,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
+import { NgxsEmitPluginModule } from '@ngxs-labs/emitter';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsModule } from '@ngxs/store';
@@ -91,6 +92,7 @@ const appearance: MatFormFieldDefaultOptions = {
       }
     }),
     NgxsDispatchPluginModule.forRoot(),
+    NgxsEmitPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     StoreModule.forRoot({}),

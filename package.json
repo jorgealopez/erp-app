@@ -34,6 +34,7 @@
     "@ngx-formly/material": "^5.0.0",
     "@ngx-formly/schematics": "^5.9.3",
     "@ngxs-labs/dispatch-decorator": "^2.1.0",
+    "@ngxs-labs/emitter": "^2.0.0",
     "@ngxs/logger-plugin": "^3.6.2-dev.master-eaa5d86",
     "@ngxs/store": "^3.6.2-dev.master-eaa5d86",
     "clean-deep": "^3.4.0",

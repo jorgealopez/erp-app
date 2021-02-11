@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { Form } from '../../../@menu-item-list/signup-form';
 import { FormsService } from '../../../services/forms.firestore';
+import { AuthFacade } from '../../../store/auth/auth.facade';
 import { signupAction } from '../../store/actions/signup.actions';
 import { SignupRequestInterface } from '../../types/signupRequest.interface';
 
@@ -23,6 +24,7 @@ export class SignupComponent implements OnInit {
     private fb: FormBuilder,
     private store: Store,
     private ffs: FormsService<Form>,
+    private authFacade: AuthFacade
   ) {}
 
   ngOnInit(): void {
@@ -45,7 +47,8 @@ export class SignupComponent implements OnInit {
       user: this.form.value,
     };
 
-    this.store.dispatch(signupAction({ request }));
+    this.authFacade.signup(request);
+    // this.store.dispatch(signupAction({ request }));
   }
 
   get email()  {

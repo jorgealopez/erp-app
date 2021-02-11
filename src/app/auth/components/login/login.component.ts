@@ -1,75 +1,74 @@
-import {Component, OnInit} from '@angular/core';
-import {FormBuilder, Validators, FormGroup} from '@angular/forms'
-import {Select, Store} from '@ngxs/store';
-import { Auth } from '../../../store/auth/auth.actions';
-import {LoginRequestInterface} from '../../types/loginRequest.interface'
-import {loginAction} from '../../store/actions/login.actions'
-import LoginWithEmailAndPassword = Auth.LoginWithEmailAndPassword;
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AuthFacade } from '../../../store/auth/auth.facade';
+import { LoginRequestInterface } from '../../types/loginRequest.interface';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  styleUrls: [ './login.component.scss' ],
 })
 export class LoginComponent implements OnInit {
-  icon: string
-  titleLabel: string
-  usernameLabel: string
-  emailLabel: string
-  passwordLabel: string
-  usernameHint: string
-  emailHint: string
-  passwordHint: string
-  checkboxLabel: string
-  termsLabel: string
-  buttonLabel: string
-  alreadyAnAccountLabel: string
-  logInLinkLabel: string
-  loginIcon: string
+  icon: string;
+  titleLabel: string;
+  usernameLabel: string;
+  emailLabel: string;
+  passwordLabel: string;
+  usernameHint: string;
+  emailHint: string;
+  passwordHint: string;
+  checkboxLabel: string;
+  termsLabel: string;
+  buttonLabel: string;
+  alreadyAnAccountLabel: string;
+  logInLinkLabel: string;
+  loginIcon: string;
 
-  form: FormGroup
+  form: FormGroup;
 
-  constructor(private fb: FormBuilder, private store: Store) {
+  constructor( private fb: FormBuilder, private authFacade: AuthFacade ) {
   }
 
   ngOnInit(): void {
-    this.initializeForm()
-    this.initializeLabelsAndHints()
+    this.initializeForm();
+    this.initializeLabelsAndHints();
     // this.initializeValues();
   }
 
   initializeForm(): void {
     this.form = this.fb.group({
-      username: ['', Validators.required],
-      email: ['', Validators.required],
-      password: ['', Validators.required],
-      checkbox: ['', Validators.required],
-    })
+      username: [ '', Validators.required ],
+      email: [ '', Validators.required ],
+      password: [ '', Validators.required ],
+      checkbox: [ '', Validators.required ],
+    });
   }
 
   initializeLabelsAndHints(): void {
-    this.icon = 'arrow_back'
-    this.titleLabel = 'Login'
-    this.usernameLabel = 'Usuario'
-    this.usernameHint = 'Nombre(s) y apellidos'
-    this.emailLabel = 'Email'
-    this.emailHint = 'correo electrónico'
-    this.passwordLabel = 'Password'
+    this.icon = 'arrow_back';
+    this.titleLabel = 'Login';
+    this.usernameLabel = 'Usuario';
+    this.usernameHint = 'Nombre(s) y apellidos';
+    this.emailLabel = 'Email';
+    this.emailHint = 'correo electrónico';
+    this.passwordLabel = 'Password';
 
-    this.checkboxLabel = 'Acepto los'
-    this.termsLabel = 'términos y condiciones'
-    this.buttonLabel = 'Login'
-    this.alreadyAnAccountLabel = 'No tienes una cuenta'
-    this.logInLinkLabel = 'Regístrate'
-    this.loginIcon = 'login'
+    this.checkboxLabel = 'Acepto los';
+    this.termsLabel = 'términos y condiciones';
+    this.buttonLabel = 'Login';
+    this.alreadyAnAccountLabel = 'No tienes una cuenta';
+    this.logInLinkLabel = 'Regístrate';
+    this.loginIcon = 'login';
   }
 
   onSubmit(): void {
     const request: LoginRequestInterface = {
       user: this.form.value,
-    }
+    };
 
+    this.authFacade.logInWithEmailAndPassword(request);
+    // this.authFacade.login;
     // this.store.dispatch(loginAction({request}))
-    this.store.dispatch(new LoginWithEmailAndPassword(request));
+    // this.store.dispatch(new LoginWithEmailAndPassword(request));
   }
 }

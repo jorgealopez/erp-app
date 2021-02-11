@@ -11,6 +11,7 @@ import {
 import { logoutAction } from '../auth/store/actions/signup.actions';
 import { SidenavService } from '../services/sidenav.service';
 import { CurrentUserInterface } from '../shared/types/currentUser.interface';
+import { AuthFacade } from '../store/auth/auth.facade';
 import { AuthSelectors } from '../store/auth/auth.selectors';
 import { SidenavItemInterface } from '../types/ui/sidenav-item.interface';
 import { ThemeInterface } from '../types/ui/theme.interface';
@@ -27,7 +28,7 @@ export class MenuComponent implements OnInit {
   linkText = false;
   onSideNavChange: boolean;
   sidenavItems: Observable<SidenavItemInterface[]>;
-  @Select(AuthSelectors.loggedInUser)
+  // @Select(AuthSelectors.loggedInUser)
   isLoggedIn$: Observable<CurrentUserInterface>;
 
   cTheme: string;
@@ -48,6 +49,7 @@ export class MenuComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private sidenavService: SidenavService,
     private store: Store,
+    private authFacade: AuthFacade
   ) {
     this.sidenavService.sideNavState$.subscribe(( res ) => {
       console.log(res);
@@ -55,7 +57,7 @@ export class MenuComponent implements OnInit {
     });
 
     // this.isLoggedIn$ = this.store.pipe(select(isLoggedInSelector));
-
+    this.isLoggedIn$ = this.authFacade.isLoggedIn$;
 
     breakpointObserver
       .observe([
