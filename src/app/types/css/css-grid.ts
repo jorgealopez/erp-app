@@ -1,6 +1,6 @@
 import { style } from './style';
 
-export interface cssGrid extends style {
+export interface cssGrid {
   display?: style;
   gridTemplateRows?: style;
   gridTemplateColumns?: style;

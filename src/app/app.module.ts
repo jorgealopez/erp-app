@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
+import { AngularFireAuthGuardModule } from '@angular/fire/auth-guard';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { AngularFireStorageModule } from '@angular/fire/storage';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -36,14 +37,12 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //   faUserAstronaut,
 //   faUserCog,
 // } from '@fortawesome/free-solid-svg-icons';
-import { EffectsModule } from '@ngrx/effects';
-
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
 import { NgxsEmitPluginModule } from '@ngxs-labs/emitter';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
+import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
+import { NgxsStoragePluginModule } from '@ngxs/storage-plugin';
 import { NgxsModule } from '@ngxs/store';
 import { environment } from '../environments/environment';
 
@@ -84,35 +83,35 @@ const appearance: MatFormFieldDefaultOptions = {
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
-    NgxsModule.forRoot([AuthState],{
+    AngularFireAuthGuardModule,
+    NgxsModule.forRoot([ AuthState ], {
       developmentMode: !environment.production,
       selectorOptions: {
         suppressErrors: false,
-        injectContainerState: false
-      }
+        injectContainerState: false,
+      },
     }),
+    NgxsStoragePluginModule.forRoot({
+      key: AuthState
+    }),
+    NgxsRouterPluginModule.forRoot(),
     NgxsDispatchPluginModule.forRoot(),
     NgxsEmitPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
-    StoreModule.forRoot({}),
-    StoreDevtoolsModule.instrument({
-      maxAge: 25,
-      logOnly: environment.production,
-    }),
-    EffectsModule.forRoot([]),
     AppRoutingModule,
   ],
-  providers: [ SidenavService, {
+  providers: [
+    SidenavService, {
     provide: MAT_FORM_FIELD_DEFAULT_OPTIONS,
     useValue: appearance,
-  } ],
+  }],
   bootstrap: [ AppComponent ],
 })
 export class AppModule {
   // constructor( fasIconLibrary: FaIconLibrary, faConfig: FaConfig ) {
-    // Añade un icono a la lberería para que otros componentes
-    // tengan acceso
+  // Añade un icono a la librería para que otros componentes
+  // tengan acceso
   //   fasIconLibrary.addIcons(
   //     faCoffee,
   //     faAddressBook,

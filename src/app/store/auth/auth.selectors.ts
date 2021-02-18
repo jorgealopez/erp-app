@@ -2,6 +2,7 @@ import { Selector } from '@ngxs/store';
 import { AuthState, AuthStateModel } from './auth.state';
 
 export class AuthSelectors {
+
   @Selector([ AuthState ])
   static loggedInUser( state: AuthStateModel ) {
     return state.loggedInUser;

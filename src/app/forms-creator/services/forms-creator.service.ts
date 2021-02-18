@@ -63,6 +63,8 @@ export class FormsCreatorService {
 
 
   saveCssGridProperties( value: any ) {
-    this.db.collection('dynamic-forms/tenis/css').doc('cssGrid').update(value);
+    this.db.collection('dynamic-forms/tenis/css').doc('cssGrid').update(value).then(
+      a => alert('guardado')
+    );
   }
 }

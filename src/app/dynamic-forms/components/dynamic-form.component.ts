@@ -1,14 +1,18 @@
 import {
   AfterViewInit,
-  Component,
+  Component, OnChanges, OnDestroy,
   OnInit,
-  Renderer2,
+  Renderer2, SimpleChanges,
   ViewEncapsulation,
 } from '@angular/core';
 
 import { AngularFirestore } from '@angular/fire/firestore';
 import { FormGroup } from '@angular/forms';
-import { ActivatedRoute, Router } from '@angular/router';
+import {
+  ActivatedRoute,
+  ActivatedRouteSnapshot,
+  Router,
+} from '@angular/router';
 
 import {
   FormlyField,
@@ -17,10 +21,11 @@ import {
 } from '@ngx-formly/core';
 
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { first, last, map, shareReplay, take } from 'rxjs/operators';
 import { getUrlPathWithOutFirstSlash } from '../../helpers/getUrlPath';
 import { cssGrid } from '../../types/css/css-grid';
 import { style } from '../../types/css/style';
+import { FieldConfig } from '../../types/forms/field.interface';
 
 interface data2 extends FormlyFieldConfig, style {
   controlName: string;
@@ -35,7 +40,7 @@ interface data2 extends FormlyFieldConfig, style {
   templateUrl: './dynamic-form.component.html',
 })
 
-export class DynamicFormComponent implements OnInit, AfterViewInit {
+export class DynamicFormComponent implements OnInit, AfterViewInit, OnDestroy {
   form = new FormGroup({});
   path: string;
 
@@ -51,6 +56,9 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   grid: Observable<cssGrid[]>;
   help: string;
 
+  f: Observable<FieldConfig[]>;
+  private sub: any;
+
   constructor(
     private afs: AngularFirestore,
     private renderer: Renderer2,
@@ -58,12 +66,15 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
     private router: Router ) {}
 
   ngOnInit() {
-    this.getDbFormPaths();
-    this.getFieldsConfig();
-    this.getFields();
-    this.getCssGridConfig();
-    this.setInvoiceNumber();
-    this.getHelp();
+    this.sub = this.route.params.subscribe(params => {
+      console.log(params);
+      this.getDbFormPaths();
+      this.getFieldsConfig();
+      this.getFields();
+      this.getCssGridConfig();
+      this.setInvoiceNumber();
+      this.getHelp();
+    })
   }
 
   ngAfterViewInit() {
@@ -72,6 +83,7 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   }
 
   getDbFormPaths() {
+    console.log(`params`);
     const collectionPath = getUrlPathWithOutFirstSlash(this.router);
     this.dbFormFieldsPath = `${ collectionPath }/fields`;
     this.dbInvoicePath = `${ collectionPath }/invoice`;
@@ -84,10 +96,13 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
       .snapshotChanges()
       .pipe(
         map(actions => actions.map(a => {
+          console.log('carga información');
           const data = a.payload.doc.data() as any;
           const id = a.payload.doc.id;
           return { id, ...data.fieldConfig, css: { ...data.css } };
         })),
+        // first()
+        // shareReplay()
         // tap(console.log),
       );
   }
@@ -158,6 +173,11 @@ export class DynamicFormComponent implements OnInit, AfterViewInit {
   onSubmit() {
     console.log('onsubmit');
     console.log(this.model);
+  }
+
+  ngOnDestroy(): void {
+    console.log('Destroy');
+    this.sub.unsubscribe();
   }
 
 }

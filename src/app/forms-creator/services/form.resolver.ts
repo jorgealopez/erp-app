@@ -12,9 +12,7 @@ import { FormsCreatorService } from './forms-creator.service';
 @Injectable()
 export class FormResolver implements Resolve<FormInterface> {
 
-  constructor( private formsCreatorService: FormsCreatorService ) {
-
-  }
+  constructor( private formsCreatorService: FormsCreatorService ) {}
 
   resolve(
     route: ActivatedRouteSnapshot,

@@ -1,7 +1,16 @@
 import { NgModule } from '@angular/core';
+import {
+  AngularFireAuthGuard, redirectLoggedInTo,
+  redirectUnauthorizedTo,
+} from '@angular/fire/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
+import { FormsCreatorShellComponent } from './forms-creator/components/forms-creator-shell/forms-creator-shell.component';
+import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+
+
+// const redirectLoggedInToItems = () => redirectLoggedInTo([ 'forms-creator' ]);
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
@@ -14,12 +23,18 @@ const routes: Routes = [
   {
     path: 'forms-creator',
     loadChildren: () =>
-      import('./forms-creator/forms-creator.module').then((m) => m.FormsCreatorModule),
+      import('./forms-creator/forms-creator.module').then(
+        ( m ) => m.FormsCreatorModule),
+    canLoad: [AuthGuard],
+
+    // canActivate: [ AngularFireAuthGuard ],
+    // data: { authGuardPipe: redirectLoggedInToItems },
   },
   {
     path: 'dynamic-forms',
     loadChildren: () =>
-      import('./dynamic-forms/dynamic-forms.module').then(( m ) => m.DynamicFormsModule),
+      import('./dynamic-forms/dynamic-forms.module').then(
+        ( m ) => m.DynamicFormsModule),
   },
   {
     path: 'employee',
@@ -30,7 +45,11 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [ RouterModule.forRoot(routes, { enableTracing: false, relativeLinkResolution: 'legacy' }) ],
+  imports: [ RouterModule.forRoot(routes,
+    {
+      enableTracing: false,
+      relativeLinkResolution: 'legacy',
+    }) ],
   exports: [ RouterModule ],
 })
 export class AppRoutingModule {}

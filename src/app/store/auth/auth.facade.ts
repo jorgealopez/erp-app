@@ -32,6 +32,18 @@ export class AuthFacade {
   public signup(authData: SignupRequestInterface) {
     return new Auth.Signup(authData);
   }
+  //
+  // login$ = this.eventBus.on(Events.Login,
+  //   (a => {
+  //       console.log(`evento ${JSON.stringify(a)  }`);
+  //       this.login(a);
+  //     })
+  //     )
+
+
+        // return this.login(a);
+
+    // ;
 
 }
 

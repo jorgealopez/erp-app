@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { Form } from '../../../@menu-item-list/signup-form';
 import { FormsService } from '../../../services/forms.firestore';
 import { AuthFacade } from '../../../store/auth/auth.facade';
-import { signupAction } from '../../store/actions/signup.actions';
 import { SignupRequestInterface } from '../../types/signupRequest.interface';
 
 @Component({
@@ -22,10 +20,17 @@ export class SignupComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private store: Store,
     private ffs: FormsService<Form>,
-    private authFacade: AuthFacade
+    private authFacade: AuthFacade,
   ) {}
+
+  get email() {
+    return this.form.get('email');
+  }
+
+  get password() {
+    return this.form.get('password');
+  }
 
   ngOnInit(): void {
     this.initializeForm();
@@ -51,12 +56,6 @@ export class SignupComponent implements OnInit {
     // this.store.dispatch(signupAction({ request }));
   }
 
-  get email()  {
-    return this.form.get('email');
-  }
-  get password() {
-    return this.form.get('password');
-  }
   getErrorMessage() {
     if (this.password.hasError('required')) {
       return 'You must enter a value';

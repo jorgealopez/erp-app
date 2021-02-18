@@ -36,9 +36,10 @@ export class MenuListItemComponent {
     if (!item.children || !item.children.length) {
       this.parentRoute = item.parent;
       // this.Active = !this.Active;
-      // console.log(item.parent);
+      console.log(item);
+      this.router.navigateByUrl(item.routerLink).then(a => console.log(a));
       // console.log(this.parentRoute);
-      console.log('navegación realizada')
+      // console.log('navegación realizada')
     }
   }
 

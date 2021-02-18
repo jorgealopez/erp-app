@@ -8,7 +8,7 @@ import {
   onMainContentChange,
   onSideNavChange,
 } from '../animations/animations';
-import { logoutAction } from '../auth/store/actions/signup.actions';
+
 import { SidenavService } from '../services/sidenav.service';
 import { CurrentUserInterface } from '../shared/types/currentUser.interface';
 import { AuthFacade } from '../store/auth/auth.facade';
@@ -30,6 +30,8 @@ export class MenuComponent implements OnInit {
   sidenavItems: Observable<SidenavItemInterface[]>;
   // @Select(AuthSelectors.loggedInUser)
   isLoggedIn$: Observable<CurrentUserInterface>;
+  user: any;
+  userName: string;
 
   cTheme: string;
   @Output() theme: EventEmitter<string> = new EventEmitter<string>();
@@ -58,6 +60,8 @@ export class MenuComponent implements OnInit {
 
     // this.isLoggedIn$ = this.store.pipe(select(isLoggedInSelector));
     this.isLoggedIn$ = this.authFacade.isLoggedIn$;
+    this.user = this.isLoggedIn$.subscribe(a => {this.userName = a?.email});
+
 
     breakpointObserver
       .observe([
@@ -95,7 +99,7 @@ export class MenuComponent implements OnInit {
       email: null,
       uid: null,
     };
-    this.store.dispatch(logoutAction());
+    this.authFacade.logout();
     // this.authService.logout();
   }
 
