@@ -1,9 +1,11 @@
-import { NgModule } from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import {
   AngularFireAuthGuard, redirectLoggedInTo,
   redirectUnauthorizedTo,
 } from '@angular/fire/auth-guard';
 import { RouterModule, Routes } from '@angular/router';
+import { LoginComponent } from './auth/components/login/login.component';
+import { SignupComponent } from './auth/components/signup/signup.component';
 import { FormsCreatorShellComponent } from './forms-creator/components/forms-creator-shell/forms-creator-shell.component';
 import { AuthGuard } from './guards/auth.guard';
 import { HomeComponent } from './home/home.component';
@@ -15,11 +17,13 @@ import { NotFoundComponent } from './not-found/not-found.component';
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent },
-  {
-    path: 'auth',
-    loadChildren: () =>
-      import('./auth/auth.module').then(( m ) => m.AuthModule),
-  },
+  { path: 'auth/signup', component: SignupComponent},
+  { path: 'auth/login', component: LoginComponent},
+  // {
+  //   path: 'auth',
+  //   loadChildren: () =>
+  //     import('./auth/auth.module').then(( m ) => m.AuthModule),
+  // },
   {
     path: 'forms-creator',
     loadChildren: () =>

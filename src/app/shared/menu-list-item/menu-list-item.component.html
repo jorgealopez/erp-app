@@ -1,7 +1,7 @@
 <!-- TODO Corregir animaciones del botón de expandir -->
 <!-- TODO Agregar a la interfaz Page el ícono de expandir -->
 
-<a
+<a *ngIf="isLoggedIn$ | async"
   mat-list-item
   (click)="onItemSelected(item)"
   [matTooltip]="item?.tooltip"

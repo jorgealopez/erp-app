@@ -56,15 +56,34 @@
         style="visibility:hidden;width: 0"
     >
       <mat-option
-          *ngFor="let theme of themes"
           (click)="changeTheme(select.value)"
+          *ngFor="let theme of themes"
           value="{{theme.name}}">{{theme.name}}
       </mat-option>
     </mat-select>
     <span>{{userName}}</span>
 
     <button
-        (click)="logout()"
+        (click)="login()"
+        *ngIf="!(isLoggedIn$ | async)"
+        aria-label="Logout"
+        color="primary"
+        mat-stroked-button
+        type="button"
+    >
+      Login
+    </button>
+    <button
+        (click)="signup()"
+        *ngIf="!(isLoggedIn$ | async)"
+        aria-label="Logout"
+        color="accent"
+        mat-stroked-button
+        type="button"
+    >
+      Signup
+    </button>
+    <button
         *ngIf="isLoggedIn$ | async"
         aria-label="Logout"
         mat-icon-button
@@ -78,20 +97,20 @@
       </mat-icon>
     </button>
 
-    <button
-        (click)="logout()"
-        *ngIf="!(isLoggedIn$ | async)"
-        aria-label="Logout"
-        mat-icon-button
-        type="button"
-    >
-      <mat-icon
-          aria-hidden="search"
-          aria-label="Example heart icon"
-          class="toolbar-icon"
-      >login
-      </mat-icon>
-    </button>
+    <!--    <button-->
+    <!--        (click)="logout()"-->
+    <!--        *ngIf="!(isLoggedIn$ | async)"-->
+    <!--        aria-label="Logout"-->
+    <!--        mat-icon-button-->
+    <!--        type="button"-->
+    <!--    >-->
+    <!--      <mat-icon-->
+    <!--          aria-hidden="search"-->
+    <!--          aria-label="Example heart icon"-->
+    <!--          class="toolbar-icon"-->
+    <!--      >login-->
+    <!--      </mat-icon>-->
+    <!--    </button>-->
 
     <!-- <mat-icon class="material-icons-outlined">settings</mat-icon> -->
     <!-- <fa-icon class="header-toolbar-icon" [icon]="['fas', 'search']"></fa-icon>
@@ -121,19 +140,18 @@
       fixedTopGap="53"
   >
     <mat-nav-list>
-<!--      <a-->
-<!--          mat-list-item-->
-<!--          routerLink="/login"-->
-<!--      >LOGin</a> <a-->
-<!--          mat-list-item-->
-<!--          routerLink="/signup"-->
-<!--      >Signup</a>-->
+
       <app-menu-list-item
-          *ngFor="let sidenavItem of (sidenavItems | async)"
+          *ngFor="let sidenavItem of (sidenavItems$ | async)"
           [isHandset$]="isHandset$"
           [item]="sidenavItem"
           [linkText]="linkText"
       ></app-menu-list-item>
+      <a
+          (click)="logout()"
+          *ngIf="isLoggedIn$ | async"
+          mat-list-item
+      >Cerrar Sesión</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content

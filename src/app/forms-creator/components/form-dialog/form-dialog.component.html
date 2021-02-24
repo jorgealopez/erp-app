@@ -40,7 +40,7 @@
            matInput
            placeholder="Modificó">
   </mat-form-field>
-<mat-form-field formGroupName="documentedInformationControl">
+  <mat-form-field formGroupName="documentedInformationControl">
     <input formControlName="version"
            matInput
            placeholder="Versión">
@@ -84,11 +84,11 @@
     Close
   </button>
 
-  <button *ngIf="form?.description" (click)="save()"
+  <button (click)="save()" *ngIf="form?.id"
           class="mat-raised-button mat-primary">
     Save
   </button>
-<button (click)="newForm()"
+  <button (click)="newForm()" *ngIf="!form?.id"
           class="mat-raised-button mat-primary">
     New
   </button>

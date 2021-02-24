@@ -26,16 +26,17 @@ export class SidenavService {
     return this.sidenav.toggle();
   }
 
-  getSidenavItems(): Observable<SidenavItemInterface[]> {
-    return this.afs.collection<SidenavItemInterface>(
-      'UI-configuration/sidenav/menu-items')
+  getSidenavItems(collection: string): Observable<SidenavItemInterface[]> {
+    return this.afs.collection<SidenavItemInterface>(collection)
       .valueChanges()
       .pipe(
-        map(data =>
-          Object.keys(data).map(k => data[k])
-            .sort(( a, b ) => a.order - b.order),
+        map(data => {
+          // console.log(data);
+          return Object.keys(data).map(k => data[k])
+            .sort(( a, b ) => a.order - b.order)
+          }
         ),
-        tap(console.log),
+        // tap(console.log),
         shareReplay(1),
       );
   }

@@ -38,7 +38,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 //   faUserCog,
 // } from '@fortawesome/free-solid-svg-icons';
 import { NgxsDispatchPluginModule } from '@ngxs-labs/dispatch-decorator';
-import { NgxsEmitPluginModule } from '@ngxs-labs/emitter';
+// import { NgxsEmitPluginModule } from '@ngxs-labs/emitter';
 import { NgxsReduxDevtoolsPluginModule } from '@ngxs/devtools-plugin';
 import { NgxsLoggerPluginModule } from '@ngxs/logger-plugin';
 import { NgxsRouterPluginModule } from '@ngxs/router-plugin';
@@ -58,6 +58,7 @@ import { NotFoundComponent } from './not-found/not-found.component';
 import { SidenavService } from './services/sidenav.service';
 import { SharedModule } from './shared/shared.module';
 import { AuthState } from './store/auth/auth.state';
+import { SidenavState } from './store/sidenav/sidenav.state';
 
 const appearance: MatFormFieldDefaultOptions = {
   appearance: 'legacy',
@@ -79,12 +80,11 @@ const appearance: MatFormFieldDefaultOptions = {
     SharedModule,
     MaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFirestoreModule.enablePersistence(),
     AngularFirestoreModule,
     AngularFireAuthModule,
     AngularFireStorageModule,
     AngularFireAuthGuardModule,
-    NgxsModule.forRoot([ AuthState ], {
+    NgxsModule.forRoot([ AuthState, SidenavState ], {
       developmentMode: !environment.production,
       selectorOptions: {
         suppressErrors: false,
@@ -92,11 +92,11 @@ const appearance: MatFormFieldDefaultOptions = {
       },
     }),
     NgxsStoragePluginModule.forRoot({
-      key: AuthState
+      key: [AuthState, SidenavState]
     }),
     NgxsRouterPluginModule.forRoot(),
     NgxsDispatchPluginModule.forRoot(),
-    NgxsEmitPluginModule.forRoot(),
+    // NgxsEmitPluginModule.forRoot(),
     NgxsLoggerPluginModule.forRoot(),
     NgxsReduxDevtoolsPluginModule.forRoot(),
     AppRoutingModule,

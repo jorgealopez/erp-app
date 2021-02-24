@@ -1,15 +1,27 @@
 import { Injectable } from '@angular/core';
-import { attachAction } from '@ngxs-labs/attach-action';
+import { Router } from '@angular/router';
+// import { attachAction } from '@ngxs-labs/attach-action';
 import { Action, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
 import { AuthService } from '../../services/auth.service';
+import {
+  EmitEvent,
+  EventBusService,
+  Events,
+} from '../../services/event-bus.service';
 import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
+import { Sidenav } from '../sidenav/sidenav.actions';
+// import { Sidenav } from '../sidenav/sidenav.actions';
+import { SidenavFacade } from '../sidenav/sidenav.facade';
 import { Auth } from './auth.actions';
-import { signup } from './auth.commands';
-import Signup = Auth.Signup;
 import LoginSuccess = Auth.LoginSuccess;
 import LoginWithEmailAndPassword = Auth.LoginWithEmailAndPassword;
 import Logout = Auth.Logout;
+// import { signup } from './auth.commands';
+import Signup = Auth.Signup;
+import GetSidenavItems = Sidenav.GetSidenavItems;
+
+// import GetSidenavItems = Sidenav.GetSidenavItems;
 
 export class AuthStateModel {
   loggedInUser: CurrentUserInterface;
@@ -30,7 +42,11 @@ export class AuthStateModel {
 @Injectable()
 export class AuthState {
 
-  constructor( private authService: AuthService ) {
+  constructor(
+    private authService: AuthService,
+    private sidenavFacade: SidenavFacade,
+    private router: Router,
+    private eventBusService: EventBusService) {
     // attachAction(AuthState, Auth.Signup, signup(authService));
   }
 
@@ -42,7 +58,7 @@ export class AuthState {
     const state = getState();
     return this.authService.signup(action.newUser)
       .pipe(
-        tap(( result ) => {
+        tap(result => {
           console.log(`Ngxs signup ${ result }`);
           setState({
             ...state,
@@ -62,12 +78,15 @@ export class AuthState {
       .login(action.authUser).pipe(
         tap(( result ) => {
           ctx.dispatch(new LoginSuccess(result));
+          // ctx.dispatch(
+          //   new GetSidenavItems('UI-configuration/sidenav/menu-items'));
+          this.eventBusService.emit(new EmitEvent(Events.Login, 'LoginSuccess'));
         }),
       );
   }
 
   @Action(Logout)
-  logout( { getState, setState }: StateContext<AuthStateModel> ) {
+  logout( { getState, setState, dispatch }: StateContext<AuthStateModel> ) {
     return this.authService.logout()
       .pipe(
         tap(( result ) => {
@@ -78,12 +97,13 @@ export class AuthState {
             loggedInUser: undefined,
             userName: undefined,
           });
+          this.router.navigate(['/home']);
           // dispatch(new Navigate([ routingConstants.welcome ]));
         }),
       );
   }
 
-  EVENTS
+  //EVENTS
 
   @Action(LoginSuccess)
   onLoginSuccess( ctx: StateContext<AuthStateModel>, event: LoginSuccess ) {
@@ -94,8 +114,8 @@ export class AuthState {
       loggedInUser: event.user,
       userName: 'Usuario prueba',
     });
-
-    // this.router.navigateByUrl('/forms-creator');
+    // this.sidenavFacade.getSidenavItems('UI-configuration/sidenav/menu-items');
+    this.router.navigateByUrl('/home');
   }
 
 

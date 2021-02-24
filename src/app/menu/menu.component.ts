@@ -1,5 +1,6 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Router } from '@angular/router';
 import {Select, Store} from '@ngxs/store';
 import { Observable } from 'rxjs';
 import { map, shareReplay } from 'rxjs/operators';
@@ -13,6 +14,7 @@ import { SidenavService } from '../services/sidenav.service';
 import { CurrentUserInterface } from '../shared/types/currentUser.interface';
 import { AuthFacade } from '../store/auth/auth.facade';
 import { AuthSelectors } from '../store/auth/auth.selectors';
+import { SidenavFacade } from '../store/sidenav/sidenav.facade';
 import { SidenavItemInterface } from '../types/ui/sidenav-item.interface';
 import { ThemeInterface } from '../types/ui/theme.interface';
 
@@ -27,7 +29,7 @@ export class MenuComponent implements OnInit {
   sideNavState = false;
   linkText = false;
   onSideNavChange: boolean;
-  sidenavItems: Observable<SidenavItemInterface[]>;
+  sidenavItems$: Observable<SidenavItemInterface[]>;
   // @Select(AuthSelectors.loggedInUser)
   isLoggedIn$: Observable<CurrentUserInterface>;
   user: any;
@@ -51,7 +53,9 @@ export class MenuComponent implements OnInit {
     private breakpointObserver: BreakpointObserver,
     private sidenavService: SidenavService,
     private store: Store,
-    private authFacade: AuthFacade
+    private authFacade: AuthFacade,
+    private sidenavFacade: SidenavFacade,
+    private router: Router
   ) {
     this.sidenavService.sideNavState$.subscribe(( res ) => {
       console.log(res);
@@ -60,6 +64,7 @@ export class MenuComponent implements OnInit {
 
     // this.isLoggedIn$ = this.store.pipe(select(isLoggedInSelector));
     this.isLoggedIn$ = this.authFacade.isLoggedIn$;
+    this.sidenavItems$ = this.sidenavFacade.sidenavItems$;
     this.user = this.isLoggedIn$.subscribe(a => {this.userName = a?.email});
 
 
@@ -94,6 +99,8 @@ export class MenuComponent implements OnInit {
     this.linkText = this.sideNavState;
   }
 
+
+
   logout() {
     const currentUser: CurrentUserInterface = {
       email: null,
@@ -109,6 +116,15 @@ export class MenuComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.sidenavItems = this.sidenavService.getSidenavItems();
+    // this.sidenavItems = this.sidenavService.getSidenavItems();
+    console.log(this.sidenavItems$);
+  }
+
+  login() {
+    this.router.navigate(['/auth/login']);
+  }
+
+  signup() {
+    this.router.navigate(['/auth/signup']);
   }
 }
