@@ -55,6 +55,7 @@ import { MaterialModule } from './material.module';
 
 import { MenuComponent } from './menu/menu.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { AuthDiModule } from './processors/auth/auth-di.module';
 import { SidenavService } from './services/sidenav.service';
 import { SharedModule } from './shared/shared.module';
 import { AuthState } from './store/auth/auth.state';
@@ -79,6 +80,7 @@ const appearance: MatFormFieldDefaultOptions = {
     BrowserAnimationsModule,
     SharedModule,
     MaterialModule,
+    AuthDiModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,

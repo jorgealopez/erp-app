@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 // import { attachAction } from '@ngxs-labs/attach-action';
 import { Action, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
-import { AuthService } from '../../services/auth.service';
+import { AuthFacadeService } from '../../services/auth/auth-facade.service';
 import {
   EmitEvent,
   EventBusService,
@@ -43,7 +43,7 @@ export class AuthStateModel {
 export class AuthState {
 
   constructor(
-    private authService: AuthService,
+    private authFacadeService: AuthFacadeService,
     private sidenavFacade: SidenavFacade,
     private router: Router,
     private eventBusService: EventBusService) {
@@ -56,7 +56,7 @@ export class AuthState {
     action: Signup ) {
 
     const state = getState();
-    return this.authService.signup(action.newUser)
+    return this.authFacadeService.signup(action.newUser)
       .pipe(
         tap(result => {
           console.log(`Ngxs signup ${ result }`);
@@ -74,7 +74,7 @@ export class AuthState {
     ctx: StateContext<AuthStateModel>,
     action: LoginWithEmailAndPassword ) {
 
-    return this.authService
+    return this.authFacadeService
       .login(action.authUser).pipe(
         tap(( result ) => {
           ctx.dispatch(new LoginSuccess(result));
@@ -87,7 +87,7 @@ export class AuthState {
 
   @Action(Logout)
   logout( { getState, setState, dispatch }: StateContext<AuthStateModel> ) {
-    return this.authService.logout()
+    return this.authFacadeService.logout()
       .pipe(
         tap(( result ) => {
           console.log(result);

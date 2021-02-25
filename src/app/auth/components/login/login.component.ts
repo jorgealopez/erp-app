@@ -26,8 +26,7 @@ export class LoginComponent implements OnInit {
 
   form: FormGroup;
 
-  constructor( private fb: FormBuilder, private authFacade: AuthFacade ) {
-  }
+  constructor( private fb: FormBuilder, private authFacade: AuthFacade ) {}
 
   ngOnInit(): void {
     this.initializeForm();
@@ -67,8 +66,5 @@ export class LoginComponent implements OnInit {
     };
 
     this.authFacade.logInWithEmailAndPassword(request);
-    // this.authFacade.login;
-    // this.store.dispatch(loginAction({request}))
-    // this.store.dispatch(new LoginWithEmailAndPassword(request));
   }
 }
