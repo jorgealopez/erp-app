@@ -5,7 +5,7 @@ import { FormGroup } from '@angular/forms';
 import { FormlyFieldConfig, FormlyFormOptions } from '@ngx-formly/core';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { onMainContentChange } from './animations/animations';
+import { onMainContentChange } from './ui/animations/animations';
 
 @Component({
   selector: 'app-root',

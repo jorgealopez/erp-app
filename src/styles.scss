@@ -4,8 +4,8 @@
 @import '../node_modules/@angular/material/theming';
 
 @include mat-core();
-@import './app/@themes/space-cadet-dark/space-cadet-dark-theme';
-@import './app/@themes/theme2/theme2-theme';
+@import 'app/ui/@themes/space-cadet-dark/space-cadet-dark-theme';
+@import 'app/ui/@themes/theme2/theme2-theme';
 
 html,
 body {

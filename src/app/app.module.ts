@@ -48,16 +48,16 @@ import { environment } from '../environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { AuthModule } from './auth/auth.module';
-import { HomeComponent } from './home/home.component';
+import { AuthModule } from './ui/auth/auth.module';
+import { HomeComponent } from './ui/home/home.component';
 
 import { MaterialModule } from './material.module';
 
-import { MenuComponent } from './menu/menu.component';
-import { NotFoundComponent } from './not-found/not-found.component';
-import { AuthDiModule } from './processors/auth/auth-di.module';
-import { SidenavService } from './services/sidenav.service';
-import { SharedModule } from './shared/shared.module';
+import { MenuComponent } from './ui/menu/menu.component';
+import { NotFoundComponent } from './ui/not-found/not-found.component';
+import { AuthDiModule } from './core/auth/auth-di.module';
+import { SidenavService } from './core/services/sidenav.service';
+import { SharedModule } from './shared.module';
 import { AuthState } from './store/auth/auth.state';
 import { SidenavState } from './store/sidenav/sidenav.state';
 
@@ -94,7 +94,7 @@ const appearance: MatFormFieldDefaultOptions = {
       },
     }),
     NgxsStoragePluginModule.forRoot({
-      key: [AuthState, SidenavState]
+      key: [ AuthState, SidenavState]
     }),
     NgxsRouterPluginModule.forRoot(),
     NgxsDispatchPluginModule.forRoot(),

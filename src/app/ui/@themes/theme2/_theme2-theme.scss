@@ -1,0 +1,101 @@
+// 1. Importa la paleta de colores
+@import 'palette';
+@import 'class-color-maps';
+
+// Fuentes: Se utiliza https://fonts.google.com/
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;1,300;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,400italic&amp;subset=latin-ext');
+@import url('https://fonts.googleapis.com/css2?family=MuseoModerno:wght@200;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Mallanna&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,600;0,700;1,600;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Carter+One&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Paaji+2:wght@500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nova+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Kurale&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Overlock:ital,wght@0,400;0,700;0,900;1,400;1,700;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Source+Code+Pro:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;1,100;1,200;1,300;1,400;1,500;1,600;1,700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
+
+// Fuentes: Adobe
+@import url('https://use.typekit.net/jnq3uxd.css'); // fuente sofia-pro
+
+// @import "assets/scss/modules/_fonts.scss";
+// Fuentes en archivo
+// @font-face {
+//   font-family: "Mistral";
+//   src: url("assets/fonts/MISTRAL.woff") format("woff");
+//   font-style: normal;
+//   font-weight: normal;
+// }
+
+// @font-face {
+//   font-family: "BlackJack";
+//   src: url("assets/fonts/black_jack.woff") format("woff");
+//   font-style: normal;
+//   font-weight: normal;
+// }
+
+// Angular Material Components customizados
+@import '../custom-components/custom-component-themes';
+
+html,
+body {
+  // Estilos del scrollbar
+  /* width */
+  ::-webkit-scrollbar {
+    width: 6.2px;
+  }
+  /* Track */
+  ::-webkit-scrollbar-track {
+    background: #1a2138;
+    border-radius: 50px;
+  }
+  /* Handle */
+  ::-webkit-scrollbar-thumb {
+    background: #0e111c;
+    border-radius: 50px;
+  }
+  /* Handle on hover */
+  ::-webkit-scrollbar-thumb:hover {
+    background: map_get($space-cadet, 400);
+  }
+}
+
+// Fuente principal del tema y fallbacks
+$theme-font-family: "Rubik, Ubuntu, Poppins, Source Code Pro, Carter One, Open Sans, Roboto";
+
+// TODO Cambiar nombres de variables para hacerlas más genéricas
+$custom-theme-typography: mat-typography-config(
+  $font-family: $theme-font-family,
+);
+
+@function custom-theme-palette($primary, $accent, $warn) {
+  @return (
+    primary: $primary,
+    accent: $accent,
+    warn: $warn,
+    is-dark: false,
+    background: $theme-background,
+    foreground: $theme-foreground,
+    sidenav: $sidenav,
+    toolbar: $toolbar
+  );
+}
+
+$custom-theme: custom-theme-palette(
+  mat-palette($space-green, 800),
+  mat-palette($malachite, 700),
+  mat-palette($red-salsa, 700)
+);
+
+.theme2-theme {
+  @include angular-material-theme($custom-theme);
+  @include angular-material-typography($custom-theme-typography);
+  @include custom-components-theme($custom-theme);
+}

@@ -1,17 +1,22 @@
-import { LoginRequestInterface } from '../../auth/types/loginRequest.interface';
-import { SignupRequestInterface } from '../../auth/types/signupRequest.interface';
-import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
+import { AuthName } from '../../core/auth/auth-processor.interface';
+import { CurrentUserInterface } from '../../core/types/currentUser.interface';
+import { LoginRequestInterface } from '../../ui/auth/types/loginRequest.interface';
+import { SignupRequestInterface } from '../../ui/auth/types/signupRequest.interface';
 
 export namespace Auth {
 
   export class Signup {
     static readonly type = '[Auth] Signup';
-    constructor( public newUser: SignupRequestInterface) {}
+
+    constructor( public newUser: SignupRequestInterface ) {}
   }
 
-  export class LoginWithEmailAndPassword {
+  export class Login {
     static readonly type = '[Auth] LoginWithEmailAndPassword';
-    constructor( public authUser: LoginRequestInterface ) {}
+
+    constructor(
+      public authUser: LoginRequestInterface,
+      public authName: AuthName ) {}
   }
 
   export class Logout {
@@ -20,11 +25,13 @@ export namespace Auth {
 
   export class GetRole {
     static readonly type = '[Auth] GetRole';
-    constructor(public id: string) {}
+
+    constructor( public id: string ) {}
   }
 
-    export class LoginSuccess {
+  export class LoginSuccess {
     static readonly type = '[Auth] Login Success';
-    constructor(public user: CurrentUserInterface) {}
-    }
+
+    constructor( public user: CurrentUserInterface ) {}
+  }
 }

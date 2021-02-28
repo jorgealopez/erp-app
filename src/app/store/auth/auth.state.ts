@@ -1,27 +1,20 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-// import { attachAction } from '@ngxs-labs/attach-action';
 import { Action, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
-import { AuthFacadeService } from '../../services/auth/auth-facade.service';
+import { AuthProcessorFacade } from '../../core/auth/services/auth-processor.facade';
 import {
   EmitEvent,
   EventBusService,
   Events,
-} from '../../services/event-bus.service';
-import { CurrentUserInterface } from '../../shared/types/currentUser.interface';
-import { Sidenav } from '../sidenav/sidenav.actions';
-// import { Sidenav } from '../sidenav/sidenav.actions';
-import { SidenavFacade } from '../sidenav/sidenav.facade';
+} from '../../core/services/event-bus.service';
+import { CurrentUserInterface } from '../../core/types/currentUser.interface';
+import { SidenavFacadeService } from '../sidenav/sidenav.facade.service';
 import { Auth } from './auth.actions';
+import Login = Auth.Login;
 import LoginSuccess = Auth.LoginSuccess;
-import LoginWithEmailAndPassword = Auth.LoginWithEmailAndPassword;
 import Logout = Auth.Logout;
-// import { signup } from './auth.commands';
 import Signup = Auth.Signup;
-import GetSidenavItems = Sidenav.GetSidenavItems;
-
-// import GetSidenavItems = Sidenav.GetSidenavItems;
 
 export class AuthStateModel {
   loggedInUser: CurrentUserInterface;
@@ -43,10 +36,10 @@ export class AuthStateModel {
 export class AuthState {
 
   constructor(
-    private authFacadeService: AuthFacadeService,
-    private sidenavFacade: SidenavFacade,
+    private authProcessorFacade: AuthProcessorFacade,
+    private sidenavFacade: SidenavFacadeService,
     private router: Router,
-    private eventBusService: EventBusService) {
+    private eventBusService: EventBusService ) {
     // attachAction(AuthState, Auth.Signup, signup(authService));
   }
 
@@ -56,7 +49,7 @@ export class AuthState {
     action: Signup ) {
 
     const state = getState();
-    return this.authFacadeService.signup(action.newUser)
+    return this.authProcessorFacade.signup(action.newUser)
       .pipe(
         tap(result => {
           console.log(`Ngxs signup ${ result }`);
@@ -69,25 +62,21 @@ export class AuthState {
       );
   }
 
-  @Action(LoginWithEmailAndPassword)
-  loginWithEmailAndPassword(
-    ctx: StateContext<AuthStateModel>,
-    action: LoginWithEmailAndPassword ) {
-
-    return this.authFacadeService
-      .login(action.authUser).pipe(
+  @Action(Login)
+  login( ctx: StateContext<AuthStateModel>, action: Login ) {
+    return this.authProcessorFacade
+      .login(action.authUser, action.authName).pipe(
         tap(( result ) => {
           ctx.dispatch(new LoginSuccess(result));
-          // ctx.dispatch(
-          //   new GetSidenavItems('UI-configuration/sidenav/menu-items'));
-          this.eventBusService.emit(new EmitEvent(Events.Login, 'LoginSuccess'));
+          this.eventBusService.emit(
+            new EmitEvent(Events.Login, 'LoginSuccess'));
         }),
       );
   }
 
   @Action(Logout)
-  logout( { getState, setState, dispatch }: StateContext<AuthStateModel> ) {
-    return this.authFacadeService.logout()
+  logout( { getState, setState }: StateContext<AuthStateModel> ) {
+    return this.authProcessorFacade.logout()
       .pipe(
         tap(( result ) => {
           console.log(result);
@@ -97,7 +86,7 @@ export class AuthState {
             loggedInUser: undefined,
             userName: undefined,
           });
-          this.router.navigate(['/home']);
+          this.router.navigate([ '/home' ]);
           // dispatch(new Navigate([ routingConstants.welcome ]));
         }),
       );

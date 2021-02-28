@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { Action, State, StateContext } from '@ngxs/store';
 import { tap } from 'rxjs/operators';
-import { SidenavService } from '../../services/sidenav.service';
-import { SidenavItemInterface } from '../../types/ui/sidenav-item.interface';
+import { SidenavService } from '../../core/services/sidenav.service';
+import { SidenavItemInterface } from '../../core/types/ui/sidenav-item.interface';
 import { Sidenav } from './sidenav.actions';
 import GetSidenavItems = Sidenav.GetSidenavItems;
 
